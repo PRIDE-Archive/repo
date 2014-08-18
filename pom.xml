@@ -10,7 +10,7 @@
 
     <groupId>uk.ac.ebi.pride.archive</groupId>
     <artifactId>archive-repo</artifactId>
-    <version>0.1.19-SNAPSHOT</version>
+    <version>0.1.18</version>
     <packaging>jar</packaging>
     <name>archive-repo</name>
 
@@ -176,9 +176,9 @@
     </repositories>
 
     <scm>
-        <connection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/branches/service-refactoring</connection>
-        <developerConnection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/branches/service-refactoring</developerConnection>
-        <url>https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/branches/service-refactoring</url>
+        <connection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/tags/archive-repo-0.1.18</connection>
+        <developerConnection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/tags/archive-repo-0.1.18</developerConnection>
+        <url>https://svn.ebi.ac.uk/pride-repo/pride_r/archive-repo/tags/archive-repo-0.1.18</url>
     </scm>
 
 </project>

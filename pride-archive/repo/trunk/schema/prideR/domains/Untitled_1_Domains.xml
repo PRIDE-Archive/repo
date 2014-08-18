@@ -1,0 +1,145 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="Untitled_1_Domains">
+   <domains>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_16" id="041E0AFF-D21D-024A-C0FB-0B8BDDA7029E">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>16</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_100" id="3AAF8116-41DC-81E4-F6F5-DCBF24ACD6DF">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>100</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Date_0_0_0" id="3E3B794E-E82E-B3D9-2188-7D86E3AC19B2">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT007</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_128" id="42BFA58F-D63D-03DA-7841-CBAAF31FB0B9">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>128</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_500" id="5BF77A90-D441-E131-F2E6-E0C534740ED2">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>500</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_10_0_0" id="7736FE45-725B-7ED1-AB91-1FCE868B0525">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>10</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_32" id="9A35FD61-9049-3529-18CE-4A31F312D659">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>32</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_1_0_0" id="A1BE45C1-2DA0-AD41-9CEF-D51D3B839033">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>1</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_2000" id="B00D360E-E424-F18E-AA42-F156FDD506ED">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>2000</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_50" id="CD9829E3-80A4-8FF1-480B-E1A7F98B8642">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>50</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_64" id="EDB6A4F0-2E76-47C5-3DA3-0605CA564F1B">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>64</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_5" id="FA6D1368-02DA-85AB-CE50-0E824A2E1CEF">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>5</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_255" id="FEC3FD19-3D8D-F7E2-81BA-FBE2C5078ED7">
+         <createdBy>rcote</createdBy>
+         <createdTime>2012-12-11 16:40:12 UTC</createdTime>
+         <ownerDesignName>prideR</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>255</dataTypeSize>
+         <fileName>Untitled_1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+   </domains>
+</DomainFile>

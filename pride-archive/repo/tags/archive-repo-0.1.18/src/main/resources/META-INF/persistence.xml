@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+
+	<persistence-unit name="application" transaction-type="RESOURCE_LOCAL">
+
+        <class>uk.ac.ebi.pride.archive.repo.param.CvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.Project</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectPTM</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.Reference</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectTag</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.LabHead</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectSampleCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectGroupUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectGroupCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectQuantificationMethodCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectInstrumentCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectSoftwareCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.project.ProjectExperimentType</class>
+        <class>uk.ac.ebi.pride.archive.repo.file.ProjectFile</class>
+        <class>uk.ac.ebi.pride.archive.repo.user.User</class>
+        <class>uk.ac.ebi.pride.archive.repo.user.Authority</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.Assay</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayGroupUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayGroupCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssaySampleCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.Contact</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayQuantificationMethodCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.AssayPTM</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.Instrument</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponent</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.SourceInstrumentComponent</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.AnalyzerInstrumentComponent</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.DetectorInstrumentComponent</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponent</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentCvParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.software.Software</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam</class>
+        <class>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+	</persistence-unit>
+
+</persistence>

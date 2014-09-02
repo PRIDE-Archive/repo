@@ -12,6 +12,9 @@ public interface AssayRepository extends CrudRepository<Assay, Long> {
 
     List<Assay> findAllByProjectId(Long projectId);
 
+    Long countByProjectId(Long projectId);
+
     Assay findByAccession(String accession);
+
 
 }

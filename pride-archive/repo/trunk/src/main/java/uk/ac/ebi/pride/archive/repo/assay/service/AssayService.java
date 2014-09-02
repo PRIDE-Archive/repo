@@ -14,4 +14,6 @@ public interface AssayService {
     AssaySummary findByAccession(String assayAccession) throws AssayAccessException;
 
     Collection<AssaySummary> findAllByProjectAccession(String projectAccession) throws AssayAccessException;
+
+    Long countByProjectAccession(String projectAccession);
 }

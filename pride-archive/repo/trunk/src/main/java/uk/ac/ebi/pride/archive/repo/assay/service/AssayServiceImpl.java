@@ -91,4 +91,26 @@ public class AssayServiceImpl implements AssayService {
             throw new AssayAccessException(msg, ex, projectAccession, null);
         }
     }
+
+    @Override
+    public Long countByProjectAccession(String projectAccession) {
+        Assert.notNull(projectAccession, "Project accession cannot be null");
+        Long assayCount = 0L;
+
+        // get the project
+        // TODO: in the future we will need a DAO method directly in the assay DAO to get all the experiments by Project accession
+        try {
+            Project project = projectRepository.findByAccession(projectAccession);
+            if (project != null) {
+                assayCount = assayRepository.countByProjectId(project.getId());
+            }
+        } catch (Exception ex) {
+            String msg = "Failed to find assays by project accession: " + projectAccession;
+            logger.error(msg, ex);
+            throw new AssayAccessException(msg, ex, projectAccession, null);
+        }
+
+
+        return assayCount;
+    }
 }

@@ -2,8 +2,12 @@ package uk.ac.ebi.pride.archive.repo.util;
 
 import org.dozer.DozerBeanMapperSingletonWrapper;
 import org.dozer.Mapper;
+import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.repo.assay.Assay;
+import uk.ac.ebi.pride.archive.repo.assay.AssayCvParam;
+import uk.ac.ebi.pride.archive.repo.assay.AssaySampleCvParam;
+import uk.ac.ebi.pride.archive.repo.assay.Contact;
 import uk.ac.ebi.pride.archive.repo.assay.instrument.Instrument;
 import uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponent;
 import uk.ac.ebi.pride.archive.repo.assay.software.Software;
@@ -112,7 +116,37 @@ public final class ObjectMapper {
     }
 
     public static AssaySummary mapAssayToAssaySummary(Assay assay) {
-        return mapper.map(assay, AssaySummary.class);
+        if (assay == null) {
+            return null;
+        }
+
+        final AssaySummary assaySummary = new AssaySummary();
+
+        assaySummary.setId(assay.getId());
+        assaySummary.setProjectId(assay.getProjectId());
+        assaySummary.setAccession(assay.getAccession());
+        assaySummary.setTitle(assay.getTitle());
+        assaySummary.setShortLabel(assay.getShortLabel());
+        assaySummary.setExperimentalFactor(assay.getExperimentalFactor());
+        assaySummary.setProteinCount(assay.getProteinCount());
+        assaySummary.setPeptideCount(assay.getPeptideCount());
+        assaySummary.setUniquePeptideCount(assay.getUniquePeptideCount());
+        assaySummary.setIdentifiedSpectrumCount(assay.getIdentifiedSpectrumCount());
+        assaySummary.setTotalSpectrumCount(assay.getTotalSpectrumCount());
+        assaySummary.setMs2Annotation(assay.hasMs2Annotation());
+        assaySummary.setChromatogram(assay.hasChromatogram());
+        final Collection<AssaySampleCvParam> samples = assay.getSamples();
+        assaySummary.setSamples(mapAssayCvParamsToCvParamSummaries(samples));
+        final Collection<Instrument> instruments = assay.getInstruments();
+        assaySummary.setInstruments(mapInstrumentsToInstrumentSummaries(instruments));
+        final Collection<Software> softwares = assay.getSoftwares();
+        assaySummary.setSoftwares(mapSoftwaresToSoftwareSummaries(softwares));
+        assaySummary.setPtms(mapCvParamProvidersToCvParamSummaries(assay.getPtms()));
+        assaySummary.setQuantificationMethods(mapAssayCvParamsToCvParamSummaries(assay.getQuantificationMethods()));
+        assaySummary.setContacts(mapContactsToContactSummaries(assay.getContacts()));
+        assaySummary.setParams(mapParamProvidersToParamSummaries(assay.getParams()));
+
+        return assaySummary;
     }
 
     public static Collection<FileSummary> mapProjectFileToFileSummaries(List<ProjectFile> projectFiles) {
@@ -135,16 +169,77 @@ public final class ObjectMapper {
         return mapper.map(user, User.class);
     }
 
+    public static Collection<SoftwareSummary> mapSoftwaresToSoftwareSummaries(Collection<Software> softwares) {
+        final ArrayList<SoftwareSummary> softwareSummaries = new ArrayList<SoftwareSummary>();
+
+        if (softwares != null) {
+            for (Software software : softwares) {
+                softwareSummaries.add(mapSoftwareToSoftwareSummary(software));
+            }
+        }
+
+        return softwareSummaries;
+    }
+
     public static SoftwareSummary mapSoftwareToSoftwareSummary(Software software) {
-        return mapper.map(software, SoftwareSummary.class);
+        final SoftwareSummary softwareSummary = new SoftwareSummary();
+
+        softwareSummary.setId(software.getId());
+        softwareSummary.setOrder(software.getOrder());
+        softwareSummary.setCustomization(software.getCustomization());
+        softwareSummary.setName(software.getName());
+        softwareSummary.setVersion(software.getVersion());
+        softwareSummary.setParams(mapParamProvidersToParamSummaries(software.getParams()));
+
+        return softwareSummary;
+    }
+
+    public static Collection<InstrumentSummary> mapInstrumentsToInstrumentSummaries(Collection<Instrument> instruments) {
+        final ArrayList<InstrumentSummary> instrumentSummaries = new ArrayList<InstrumentSummary>();
+
+        if (instruments != null) {
+            for (Instrument instrument : instruments) {
+                instrumentSummaries.add(mapInstrumentToInstrumentSummary(instrument));
+            }
+        }
+
+        return instrumentSummaries;
     }
 
     public static InstrumentSummary mapInstrumentToInstrumentSummary(Instrument instrument) {
-        return mapper.map(instrument, InstrumentSummary.class);
+        final InstrumentSummary instrumentSummary = new InstrumentSummary();
+
+        instrumentSummary.setId(instrument.getId());
+        final CvParamSummary model = mapper.map(instrument.getCvParam(), CvParamSummary.class);
+        model.setValue(instrument.getValue());
+        instrumentSummary.setModel(model);
+        instrumentSummary.setSources(mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getSources()));
+        instrumentSummary.setAnalyzers(mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getAnalyzers()));
+        instrumentSummary.setDetectors(mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getDetectors()));
+
+        return instrumentSummary;
+    }
+
+    public static Collection<InstrumentComponentSummary> mapInstrumentComponentsToInstrumentComponentSummaries(Collection<? extends InstrumentComponent> instrumentComponents) {
+        final ArrayList<InstrumentComponentSummary> instrumentComponentSummaries = new ArrayList<InstrumentComponentSummary>();
+
+        if (instrumentComponents != null) {
+            for (InstrumentComponent instrumentComponent : instrumentComponents) {
+                instrumentComponentSummaries.add(mapInstrumentComponentToInstrumentComponentSummary(instrumentComponent));
+            }
+        }
+
+        return instrumentComponentSummaries;
     }
 
     public static InstrumentComponentSummary mapInstrumentComponentToInstrumentComponentSummary(InstrumentComponent instrumentComponent) {
-        return mapper.map(instrumentComponent, InstrumentComponentSummary.class);
+        final InstrumentComponentSummary instrumentComponentSummary = new InstrumentComponentSummary();
+
+        instrumentComponentSummary.setId(instrumentComponent.getId());
+        instrumentComponentSummary.setOrder(instrumentComponent.getOrder());
+        instrumentComponentSummary.setParams(mapParamProvidersToParamSummaries(instrumentComponent.getParams()));
+
+        return instrumentComponentSummary;
     }
 
     public static Collection<ReferenceSummary> mapReferencesToReferenceSummaries(Collection<Reference> references) {
@@ -191,8 +286,40 @@ public final class ObjectMapper {
         return cvParamSummaries;
     }
 
+    public static Collection<ContactSummary> mapContactsToContactSummaries(Collection<Contact> contacts) {
+        final ArrayList<ContactSummary> contactSummaries = new ArrayList<ContactSummary>();
+
+        if (contacts != null) {
+            for (Contact contact : contacts) {
+                contactSummaries.add(mapContactToContactSummary(contact));
+            }
+        }
+
+        return contactSummaries;
+    }
+
+    public static ContactSummary mapContactToContactSummary(Contact contact) {
+        return contact == null ? null : mapper.map(contact, ContactSummary.class);
+    }
+
     public static CvParamSummary mapProjectCvParamToCvParamSummary(ProjectCvParam projectCvParam) {
         return projectCvParam == null ? null : mapper.map(projectCvParam, CvParamSummary.class);
+    }
+
+    public static Collection<CvParamSummary> mapAssayCvParamsToCvParamSummaries(Collection<? extends AssayCvParam> assayCvParams) {
+        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+
+        if (assayCvParams != null) {
+            for (AssayCvParam assayCvParam : assayCvParams) {
+                cvParamSummaries.add(mapAssayCvParamToCvParamSummary(assayCvParam));
+            }
+        }
+
+        return cvParamSummaries;
+    }
+
+    public static CvParamSummary mapAssayCvParamToCvParamSummary(AssayCvParam assayCvParam) {
+        return assayCvParam == null ? null : mapper.map(assayCvParam, CvParamSummary.class);
     }
 
     public static Collection<CvParamSummary> mapProjectPTMsToCvParamSummaries(Collection<ProjectPTM> projectPTMs) {
@@ -209,6 +336,22 @@ public final class ObjectMapper {
 
     public static CvParamSummary mapProjectPTMToCvParamSummary(ProjectPTM ptm) {
         return ptm == null ? null : mapper.map(ptm, CvParamSummary.class);
+    }
+
+    public static Collection<CvParamSummary> mapCvParamProvidersToCvParamSummaries(Collection<? extends CvParamProvider> cvParamProviders) {
+        final ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+
+        if (cvParamProviders !=  null) {
+            for (CvParamProvider cvParamProvider : cvParamProviders) {
+                cvParamSummaries.add(mapCvParamProviderToCvParamSummary(cvParamProvider));
+            }
+        }
+
+        return cvParamSummaries;
+    }
+
+    public static CvParamSummary mapCvParamProviderToCvParamSummary(CvParamProvider cvParamProvider) {
+        return cvParamProvider == null ? null : mapper.map(cvParamProvider, CvParamSummary.class);
     }
 
     public static Collection<ParamSummary> mapParamProvidersToParamSummaries(Collection<? extends ParamProvider> params) {

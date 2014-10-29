@@ -3,6 +3,9 @@ package uk.ac.ebi.pride.archive.repo.assay.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -14,6 +17,7 @@ import uk.ac.ebi.pride.archive.repo.util.ObjectMapper;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Rui Wang
@@ -85,6 +89,43 @@ public class AssayServiceImpl implements AssayService {
             }
 
             return assaySummaries;
+        } catch (Exception ex) {
+            String msg = "Failed to find assays by project accession: " + projectAccession;
+            logger.error(msg, ex);
+            throw new AssayAccessException(msg, ex, projectAccession, null);
+        }
+    }
+
+    public Page<AssaySummary> findAllByProjectAccession(String projectAccession, Pageable pageable) throws AssayAccessException{
+        Assert.notNull(projectAccession, "Project accession cannot be null");
+
+
+        // get the project
+        // TODO: in the future we will need a DAO method directly in the assay DAO to get all the experiments by Project accession
+        try {
+            List<AssaySummary> assaySummaries = new LinkedList<AssaySummary>();
+
+            Project project = projectRepository.findByAccession(projectAccession);
+            Page<Assay> assays = null;
+            Page<AssaySummary> page = null;
+
+            if (project != null) {
+                assays = assayRepository.findAllByProjectId(project.getId(), pageable);
+                for (Assay assay : assays) {
+                    AssaySummary assaySummary = ObjectMapper.mapAssayToAssaySummary(assay);
+                    assaySummaries.add(assaySummary);
+                }
+            }
+
+            if(assays != null){
+                page = new PageImpl<AssaySummary>(assaySummaries, pageable, assays.getTotalElements());
+            }
+            else {
+                page = new PageImpl<AssaySummary>(assaySummaries);
+            }
+
+            return page;
+
         } catch (Exception ex) {
             String msg = "Failed to find assays by project accession: " + projectAccession;
             logger.error(msg, ex);

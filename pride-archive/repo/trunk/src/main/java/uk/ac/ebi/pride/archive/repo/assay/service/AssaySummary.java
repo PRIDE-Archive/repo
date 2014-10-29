@@ -9,6 +9,8 @@ import uk.ac.ebi.pride.archive.utils.cv.Ontology;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author Rui Wang
@@ -210,6 +212,15 @@ public class AssaySummary implements AssayProvider{
     }
 
     public Collection<ParamSummary> getParams() {
+
+        Comparator<ParamSummary> comparator = new Comparator<ParamSummary>() {
+            @Override
+            public int compare(ParamSummary o1, ParamSummary o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
+            }
+        };
+        Collections.sort((java.util.List<ParamSummary>) params, comparator);
+
         return params;
     }
 

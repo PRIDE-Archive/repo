@@ -4,17 +4,19 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
+import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
+import uk.ac.ebi.pride.archive.dataprovider.person.Title;
 import uk.ac.ebi.pride.archive.repo.assay.instrument.*;
 import uk.ac.ebi.pride.archive.repo.assay.software.Software;
 import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam;
 import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam;
 import uk.ac.ebi.pride.archive.repo.param.CvParam;
-import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
-import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
 import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
 
 import java.util.*;
@@ -185,6 +187,23 @@ public class AssayPersistenceTest {
 
         assertNotNull(assays);
         assertThat(assays.size(), is(NUM_ASSAY_PROJECT_1));
+
+        for (Assay assay: assays) {
+            if (assay.getId() == ASSAY_1_ID)
+                checkIsAssay1InDb(assay);
+            else
+                checkIsAssay2InDb(assay);
+        }
+
+    }
+
+    @Test
+    @Transactional
+    public void testGetByProjectIdPage() throws Exception {
+        Page<Assay> assays = assayRepository.findAllByProjectId(PROJECT_1_ID, new PageRequest(0,1));
+
+        assertNotNull(assays);
+        assertThat((int) assays.getTotalElements(), is(NUM_ASSAY_PROJECT_1));
 
         for (Assay assay: assays) {
             if (assay.getId() == ASSAY_1_ID)

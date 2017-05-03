@@ -14,7 +14,6 @@
     <packaging>jar</packaging>
     <name>archive-repo</name>
 
-
     <properties>
         <java.version>1.7</java.version>
         <dozer.version>5.4.0</dozer.version>
@@ -169,9 +168,10 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride-archive/repo/trunk</connection>
-        <developerConnection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride-archive/repo/trunk</developerConnection>
-        <url>https://svn.ebi.ac.uk/pride-repo/pride-archive/repo/trunk</url>
+        <connection>scm:git:https://github.com/PRIDE-Archive/repo.git</connection>
+        <developerConnection>scm:git:https://github.com/PRIDE-Archive/repo.git</developerConnection>
+        <url>https://github.com/PRIDE-Archive/repo.git</url>
+        <tag>HEAD</tag>
     </scm>
 
 </project>

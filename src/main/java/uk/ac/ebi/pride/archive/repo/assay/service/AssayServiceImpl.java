@@ -134,7 +134,7 @@ public class AssayServiceImpl implements AssayService {
     }
 
     @Override
-    public Long countByProjectAccession(String projectAccession) {
+    public Long countByProjectAccession(String projectAccession) throws AssayAccessException{
         Assert.notNull(projectAccession, "Project accession cannot be null");
         Long assayCount = 0L;
 

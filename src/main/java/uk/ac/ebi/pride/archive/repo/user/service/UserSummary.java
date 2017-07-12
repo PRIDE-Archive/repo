@@ -25,6 +25,7 @@ public class UserSummary implements UserProvider{
     private final Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
     private Date createAt;
     private Date updateAt;
+    private String country;
 
     public UserSummary() {
     }
@@ -40,6 +41,7 @@ public class UserSummary implements UserProvider{
         this.setCreateAt(user.getCreateAt());
         this.setUpdateAt(user.getUpdateAt());
         this.setUserAuthorities(new HashSet<UserAuthority>(user.getUserAuthorities()));
+        this.setCountry(user.getCountry());
     }
 
     public Long getId() {
@@ -122,6 +124,14 @@ public class UserSummary implements UserProvider{
         this.updateAt = updateAt;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,6 +148,7 @@ public class UserSummary implements UserProvider{
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (title != that.title) return false;
         if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
+        if (country != null ? !country.equals(that.country) : that.country != null) return false;
 
         return true;
     }
@@ -153,6 +164,7 @@ public class UserSummary implements UserProvider{
         result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
         result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
         return result;
     }
 }

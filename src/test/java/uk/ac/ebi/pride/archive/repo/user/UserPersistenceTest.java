@@ -26,7 +26,6 @@ public class UserPersistenceTest {
 
 
     private static final long USER_1_ID = 11111;
-    private static final long USER_2_ID = 11112;
     private static final String ANOTHER_USER_PASSWORD = "password";
     private static final String ANOTHER_USER_EMAIL = "another.user@test.ebi.ac.uk";
     private static final Title ANOTHER_USER_TITLE = Title.Dr;
@@ -41,7 +40,7 @@ public class UserPersistenceTest {
     private static final String USER_1_AFFILIATION = "EBI";
     private static final String USER_1_CREATE_AT = "2010-04-29";
     private static final String USER_1_UPDATE_AT = "2010-04-30";
-    private static final long AUTH_1_ID = 1;
+    private static final String USER_1_COUNTRY = "UK";
     private static final UserAuthority AUTH_1_AUTHORITY = UserAuthority.SUBMITTER;
     private static final String PROJECT_1_ACCESSION = "PXD00001";
 
@@ -65,6 +64,7 @@ public class UserPersistenceTest {
         user.setCreateAt(creationDate);
         Date updateDate = Calendar.getInstance().getTime();
         user.setUpdateAt(updateDate);
+        user.setCountry(USER_1_COUNTRY);
 
         Set<UserAuthority> auths = new HashSet<UserAuthority>();
         auths.add(AUTH_1_AUTHORITY);
@@ -99,7 +99,6 @@ public class UserPersistenceTest {
     public void testGetById() throws Exception {
         User user = userRepository.findOne(USER_1_ID);
         assertNotNull(user);
-
         checkUser1InDb(user);
     }
 
@@ -114,8 +113,7 @@ public class UserPersistenceTest {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         assertThat(df.format(user.getCreateAt()), is(USER_1_CREATE_AT));
         assertThat(df.format(user.getUpdateAt()), is(USER_1_UPDATE_AT));
-
-        // check authorities
+        assertThat(user.getCountry(), is(USER_1_COUNTRY));
         UserAuthority auth = user.getUserAuthorities().iterator().next();
         assertNotNull(auth);
         assertThat(auth, is(AUTH_1_AUTHORITY));

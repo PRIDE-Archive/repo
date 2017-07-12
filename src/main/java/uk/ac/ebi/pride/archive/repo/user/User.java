@@ -58,6 +58,9 @@ public class User implements UserProvider{
     @Column( name = "update_date" )
     private Date updateAt;
 
+    @Column( name = "country" )
+    private String country;
+
     @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Authority> authorities;
@@ -138,6 +141,14 @@ public class User implements UserProvider{
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override

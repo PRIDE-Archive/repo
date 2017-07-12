@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
         prideUser.setFirstName(userSummary.getFirstName());
         prideUser.setLastName(userSummary.getLastName());
         prideUser.setAffiliation(userSummary.getAffiliation());
+        prideUser.setCountry(userSummary.getCountry());
 
         // can only create submitter
         Set<UserAuthority> authorities = new HashSet<UserAuthority>();
@@ -214,6 +215,10 @@ public class UserServiceImpl implements UserService {
 
         if (user.getAffiliation() != null) {
             prideUser.setAffiliation(user.getAffiliation());
+        }
+
+        if (user.getCountry() != null) {
+            prideUser.setCountry(user.getCountry());
         }
     }
 

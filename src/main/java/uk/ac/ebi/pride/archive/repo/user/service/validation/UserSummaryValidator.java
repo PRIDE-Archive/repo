@@ -33,6 +33,7 @@ public class UserSummaryValidator implements Validator {
     public static final String FIRST_NAME_ERROR_MESSAGE = "First name cannot be empty";
     public static final String LAST_NAME_ERROR_MESSAGE = "Last name cannot be empty";
     public static final String AFFILIATION_ERROR_MESSAGE = "Affiliation cannot be empty";
+    public static final String COUNTRY_ERROR_MESSAGE = "Country cannot be empty";
 
     public static final Pattern EMAIL_REGEX_PATTERN = Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
 
@@ -65,6 +66,7 @@ public class UserSummaryValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "required", FIRST_NAME_ERROR_MESSAGE);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "required", LAST_NAME_ERROR_MESSAGE);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "affiliation", "required", AFFILIATION_ERROR_MESSAGE);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", "required", COUNTRY_ERROR_MESSAGE);
     }
 
     public void validatePassword(Object target, Errors errors) {

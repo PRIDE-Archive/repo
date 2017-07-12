@@ -629,7 +629,8 @@ CREATE TABLE pride_users
   last_name VARCHAR2 (255)  NOT NULL ,
   affiliation VARCHAR2 (500)  NOT NULL ,
   creation_date DATE  NOT NULL ,
-  update_date DATE  NOT NULL
+  update_date DATE  NOT NULL ,
+  country VARCHAR2 (100)
 )
 ;
 

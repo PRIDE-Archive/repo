@@ -196,29 +196,26 @@ public class UserServiceImpl implements UserService {
         if (user.getEmail() != null) {
             prideUser.setEmail(user.getEmail());
         }
-
         if (user.getPassword() != null) {
             prideUser.setPassword(user.getPassword());
         }
-
         if (user.getTitle() != null) {
             prideUser.setTitle(user.getTitle());
         }
-
         if (user.getFirstName() != null) {
             prideUser.setFirstName(user.getFirstName());
         }
-
         if (user.getLastName() != null) {
             prideUser.setLastName(user.getLastName());
         }
-
         if (user.getAffiliation() != null) {
             prideUser.setAffiliation(user.getAffiliation());
         }
-
         if (user.getCountry() != null) {
             prideUser.setCountry(user.getCountry());
+        }
+        if (user.getOrcid() != null) {
+            prideUser.setOrcid(user.getOrcid());
         }
     }
 
@@ -230,18 +227,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<ProjectSummary> findAllProjectsById(Long userId) throws UserAccessException {
         List<ProjectSummary> projectSummaries = new ArrayList<ProjectSummary>();
-
-        // find the projects owned by the user
-        List<Project> ownedProjects = projectRepository.findAllBySubmitterId(userId);
+        List<Project> ownedProjects = projectRepository.findAllBySubmitterId(userId); // find the projects owned by the user
         for (Project ownedProject : ownedProjects) {
             projectSummaries.add(ObjectMapper.mapProjectToProjectSummary(ownedProject));
         }
-
         List<Project> accessibleProjects = userRepository.findAllProjectsById(userId);
         for (Project accessibleProject : accessibleProjects) {
             projectSummaries.add(ObjectMapper.mapProjectToProjectSummary(accessibleProject));
         }
-
         return projectSummaries;
     }
 }

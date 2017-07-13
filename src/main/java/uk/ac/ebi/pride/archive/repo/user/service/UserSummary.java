@@ -26,6 +26,7 @@ public class UserSummary implements UserProvider{
     private Date createAt;
     private Date updateAt;
     private String country;
+    private String orcid;
 
     public UserSummary() {
     }
@@ -42,6 +43,7 @@ public class UserSummary implements UserProvider{
         this.setUpdateAt(user.getUpdateAt());
         this.setUserAuthorities(new HashSet<UserAuthority>(user.getUserAuthorities()));
         this.setCountry(user.getCountry());
+        this.setOrcid(user.getOrcid());
     }
 
     public Long getId() {
@@ -132,13 +134,19 @@ public class UserSummary implements UserProvider{
         this.country = country;
     }
 
+    public String getOrcid() {
+        return orcid;
+    }
+
+    public void setOrcid(String orcid) {
+        this.orcid = orcid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserSummary)) return false;
-
         UserSummary that = (UserSummary) o;
-
         if (affiliation != null ? !affiliation.equals(that.affiliation) : that.affiliation != null) return false;
         if (createAt != null ? !createAt.equals(that.createAt) : that.createAt != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -149,7 +157,7 @@ public class UserSummary implements UserProvider{
         if (title != that.title) return false;
         if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;
-
+        if (orcid != null ? !orcid.equals(that.orcid) : that.orcid != null) return false;
         return true;
     }
 
@@ -165,6 +173,7 @@ public class UserSummary implements UserProvider{
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
         result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
         return result;
     }
 }

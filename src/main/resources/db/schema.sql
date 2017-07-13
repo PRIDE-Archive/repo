@@ -630,7 +630,8 @@ CREATE TABLE pride_users
   affiliation VARCHAR2 (500)  NOT NULL ,
   creation_date DATE  NOT NULL ,
   update_date DATE  NOT NULL ,
-  country VARCHAR2 (100)
+  country VARCHAR2 (100),
+  orcid VARCHAR2 (50),
 )
 ;
 

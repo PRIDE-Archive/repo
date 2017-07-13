@@ -61,6 +61,9 @@ public class User implements UserProvider{
     @Column( name = "country" )
     private String country;
 
+    @Column( name = "orcid" )
+    private String orcid;
+
     @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "user")
     @LazyCollection(LazyCollectionOption.FALSE)
     private Collection<Authority> authorities;
@@ -151,6 +154,14 @@ public class User implements UserProvider{
         this.country = country;
     }
 
+    public String getOrcid() {
+        return orcid;
+    }
+
+    public void setOrcid(String orcid) {
+        this.orcid = orcid;
+    }
+
     @Override
     public Set<UserAuthority> getUserAuthorities() {
         Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
@@ -188,14 +199,13 @@ public class User implements UserProvider{
         User user = (User) o;
 
         if (affiliation != null ? !affiliation.equals(user.affiliation) : user.affiliation != null) return false;
-//        if (createAt != null ? !createAt.equals(user.createAt) : user.createAt != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (title != user.title) return false;
-//        if (updateAt != null ? !updateAt.equals(user.updateAt) : user.updateAt != null) return false;
-
+        if (country != null ? !country.equals(user.country) : user.country != null) return false;
+        if (orcid != null ? !orcid.equals(user.orcid) : user.orcid != null) return false;
         return true;
     }
 
@@ -207,8 +217,8 @@ public class User implements UserProvider{
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-//        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
-//        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
         return result;
     }
 }

@@ -37,11 +37,11 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
     public UserSummary signUp(UserSummary userSummary) throws UserModificationException{
         try {
             return restTemplate.postForObject(userWebServiceUrl.getSignUpUrl(), userSummary, UserSummary.class);
-        } catch (Exception ex) {
+        } catch (Exception e) {
             String email = userSummary.getEmail();
             String msg = "Failed to query web service to create a new user: " + email;
-            logger.error(msg, ex);
-            throw new UserModificationException(msg, ex, email);
+            logger.error(msg, e);
+            throw new UserModificationException(msg, e, email);
         }
     }
 
@@ -52,10 +52,10 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
 
         try {
             return restTemplate.postForObject(userWebServiceUrl.getPasswordResetUrl(), userSummary, UserSummary.class);
-        } catch (Exception ex) {
+        } catch (Exception e) {
             String msg = "Failed to query web service to reset password for user: " + userSummary.getEmail();
-            logger.error(msg, ex);
-            throw new UserModificationException(msg, ex, email);
+            logger.error(msg, e);
+            throw new UserModificationException(msg, e, email);
         }
     }
 
@@ -69,10 +69,10 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
         try {
             RestTemplate newRestTemplate = SecureRestTemplateFactory.getTemplate(originalUserEmail, originalUser.getPassword());
             newRestTemplate.put(updateUserRestfulUrl, new UserSummary(updatedUser), originalUser.getId());
-        } catch (Exception ex) {
+        } catch (Exception e) {
             String msg = "Failed to query web service to update details for user: " + originalUserEmail;
-            logger.error(msg, ex);
-            throw new UserModificationException(msg, ex, originalUserEmail);
+            logger.error(msg, e);
+            throw new UserModificationException(msg, e, originalUserEmail);
         }
     }
 

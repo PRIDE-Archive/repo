@@ -41,11 +41,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = false)
     public UserSummary signUp(UserSummary userSummary) throws UserModificationException {
         Assert.notNull(userSummary, "New user cannot be empty");
-
         try {
             User user = mapToPersistableUser(userSummary);
             setCreationAndUpdateDate(user);
-
             userRepository.save(user);
             return userSummary;
         } catch (Exception ex) {
@@ -58,7 +56,6 @@ public class UserServiceImpl implements UserService {
 
     private User mapToPersistableUser(UserSummary userSummary) {
         User prideUser = new User();
-
         prideUser.setEmail(userSummary.getEmail());
         prideUser.setPassword(userSummary.getPassword());
         prideUser.setTitle(userSummary.getTitle());
@@ -66,12 +63,10 @@ public class UserServiceImpl implements UserService {
         prideUser.setLastName(userSummary.getLastName());
         prideUser.setAffiliation(userSummary.getAffiliation());
         prideUser.setCountry(userSummary.getCountry());
-
-        // can only create submitter
+        prideUser.setOrcid(userSummary.getOrcid());
         Set<UserAuthority> authorities = new HashSet<UserAuthority>();
-        authorities.add(UserAuthority.SUBMITTER);
+        authorities.add(UserAuthority.SUBMITTER);  // can only create submitter
         prideUser.setUserAuthorities(authorities);
-
         return prideUser;
     }
 
@@ -84,7 +79,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isEmailedInUse(String email) throws UserAccessException {
         Assert.notNull(email, "Email cannot be empty");
-
         try {
             return userRepository.findByEmail(email) != null;
         } catch (Exception ex) {
@@ -98,15 +92,11 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = false)
     public UserSummary resetPassword(String email) throws UserModificationException {
         Assert.notNull(email, "Email cannot be empty");
-
         try {
             User user = userRepository.findByEmail(email);
-
-            // reset password
-            String newPassword = PasswordUtilities.generatePassword();
+            String newPassword = PasswordUtilities.generatePassword(); // reset passwor
             user.setPassword(newPassword);
             userRepository.save(user);
-
             return hideUserDetailsForPasswordReset(user, newPassword);
         } catch (Exception ex) {
             String msg = "Failed to reset password for user: " + email;
@@ -116,10 +106,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserSummary hideUserDetailsForPasswordReset(User user, String newPassword) {
-
         UserSummary userSummary = ObjectMapper.mapUserToUserSummary(user);
         userSummary.setPassword(newPassword);
-
         return userSummary;
     }
 
@@ -127,10 +115,8 @@ public class UserServiceImpl implements UserService {
     public UserSummary login(String email, String passwordPlainText) throws UserAccessException {
         Assert.notNull(email, "Email cannot be empty");
         Assert.notNull(passwordPlainText, "Password cannot be empty");
-
         try {
             User user = userRepository.findByEmail(email);
-
             if (PasswordUtilities.matches(passwordPlainText, user.getPassword())) {
                 return ObjectMapper.mapUserToUserSummary(user);
             } else {
@@ -148,7 +134,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserSummary findById(Long userId) throws UserAccessException {
         Assert.notNull(userId, "User id cannot be null");
-
         try {
             User user = userRepository.findOne(userId);
             return ObjectMapper.mapUserToUserSummary(user);
@@ -162,7 +147,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserSummary findByEmail(String email) throws UserAccessException {
         Assert.notNull(email, "Email cannot be null");
-
         try {
             User user = userRepository.findByEmail(email);
             return ObjectMapper.mapUserToUserSummary(user);
@@ -178,11 +162,9 @@ public class UserServiceImpl implements UserService {
     public void update(UserSummary originalUser, UserSummary updatedUser) throws UserModificationException {
         Assert.notNull(originalUser, "User to update cannot be null");
         Assert.notNull(updatedUser, "User to update cannot be null");
-
         try {
             updateUser(originalUser, updatedUser);
             changeUpdateDate(originalUser);
-
             User user = ObjectMapper.mapUserSummaryToUser(originalUser);
             userRepository.save(user);
         } catch (Exception ex) {

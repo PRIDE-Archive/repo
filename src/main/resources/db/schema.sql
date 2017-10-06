@@ -631,7 +631,7 @@ CREATE TABLE pride_users
   creation_date DATE  NOT NULL ,
   update_date DATE  NOT NULL ,
   country VARCHAR2 (100),
-  orcid VARCHAR2 (50),
+  orcid VARCHAR2 (50)
 )
 ;
 

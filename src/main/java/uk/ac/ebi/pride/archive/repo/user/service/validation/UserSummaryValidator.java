@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.user.service.validation;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -34,8 +35,11 @@ public class UserSummaryValidator implements Validator {
     public static final String LAST_NAME_ERROR_MESSAGE = "Last name cannot be empty";
     public static final String AFFILIATION_ERROR_MESSAGE = "Affiliation cannot be empty";
     public static final String COUNTRY_ERROR_MESSAGE = "Country cannot be empty";
+    public static final String ORCID_ERROR_MESSAGE = "Invalid ORCID";
 
     public static final Pattern EMAIL_REGEX_PATTERN = Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
+    public static final Pattern ORCID_REGEX_PATTERN = Pattern.compile("\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]");
+
 
     protected UserService userServiceImpl;
 
@@ -67,6 +71,15 @@ public class UserSummaryValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "required", LAST_NAME_ERROR_MESSAGE);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "affiliation", "required", AFFILIATION_ERROR_MESSAGE);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", "required", COUNTRY_ERROR_MESSAGE);
+        Object orcidValue = errors.getFieldValue("orcid");
+        if (orcidValue != null) { // validate ORCID
+            if (!StringUtils.isEmpty(orcidValue.toString())) {
+                Matcher m = ORCID_REGEX_PATTERN.matcher(orcidValue.toString());
+                if (!m.matches()) {
+                    errors.rejectValue("orcid", "required", null, ORCID_ERROR_MESSAGE);
+                } // else OK
+            } // else no ORCID, OK
+        } // else no ORCID, OK
     }
 
     public void validatePassword(Object target, Errors errors) {

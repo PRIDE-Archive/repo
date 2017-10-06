@@ -4,7 +4,7 @@
 
     <groupId>uk.ac.ebi.pride.archive</groupId>
     <artifactId>archive-repo</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>archive-repo</name>
 
@@ -171,7 +171,7 @@
         <connection>scm:git:https://github.com/PRIDE-Archive/repo.git</connection>
         <developerConnection>scm:git:https://github.com/PRIDE-Archive/repo.git</developerConnection>
         <url>https://github.com/PRIDE-Archive/repo.git</url>
-        <tag>HEAD</tag>
+        <tag>archive-repo-1.0.1</tag>
     </scm>
 
 </project>

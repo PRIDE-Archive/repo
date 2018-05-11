@@ -2,6 +2,7 @@ package uk.ac.ebi.pride.archive.repo.statistics.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.repo.assay.AssayRepository;
 import uk.ac.ebi.pride.archive.repo.project.ProjectRepository;
@@ -12,7 +13,7 @@ import uk.ac.ebi.pride.archive.repo.project.ProjectRepository;
  *
  * todo: update to retrieve additional statistics
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class StatisticsServiceImpl implements StatisticsService{
 

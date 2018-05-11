@@ -50,7 +50,7 @@ public class FilePersistenceTest {
         //id will be set on file save
         long newId = projectFile.getId();
 
-        ProjectFile other = projectFileRepository.findOne(newId);
+        ProjectFile other = projectFileRepository.findById(newId).get();
         assertEquals(other.getId(), projectFile.getId());
         assertEquals(other.getProjectId(), projectFile.getProjectId());
         assertEquals(other.getAssayId(), projectFile.getAssayId());

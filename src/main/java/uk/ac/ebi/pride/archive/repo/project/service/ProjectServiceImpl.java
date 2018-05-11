@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import uk.ac.ebi.pride.archive.repo.project.Project;
@@ -12,6 +13,7 @@ import uk.ac.ebi.pride.archive.repo.util.ObjectMapper;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Optional;
 
 /**
  * @author Rui Wang
@@ -19,7 +21,7 @@ import java.util.LinkedList;
  * @version $Id$
  *          <p/>
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class ProjectServiceImpl implements ProjectService {
     private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
@@ -56,9 +58,9 @@ public class ProjectServiceImpl implements ProjectService {
         Assert.notNull(projectId, "Project id cannot be null");
 
         try {
-            Project project = projectRepository.findOne(projectId);
+            Optional<Project> project = projectRepository.findById(projectId);
 
-            return ObjectMapper.mapProjectToProjectSummary(project);
+            return ObjectMapper.mapProjectToProjectSummary(project.get());
         } catch (Exception ex) {
             String msg = "Failed to find project using project id: " + projectId;
             logger.error(msg, ex);

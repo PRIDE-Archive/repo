@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.pride.archive.repo.project.ProjectRepository;
@@ -15,7 +16,7 @@ import uk.ac.ebi.pride.web.util.template.SecureRestTemplateFactory;
  * @author Rui Wang
  * @version $Id$
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class UserServiceWebServiceImpl extends UserServiceImpl {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceWebServiceImpl.class);

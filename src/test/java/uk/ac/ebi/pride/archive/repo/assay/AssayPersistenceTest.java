@@ -165,9 +165,9 @@ public class AssayPersistenceTest {
     @Test
     @Transactional
     public void testGetById() throws Exception {
-        Assay assay = assayRepository.findOne(ASSAY_1_ID);
+        Optional<Assay> assay = assayRepository.findById(ASSAY_1_ID);
 
-        checkIsAssay1InDb(assay);
+        checkIsAssay1InDb(assay.get());
 
     }
 
@@ -234,7 +234,7 @@ public class AssayPersistenceTest {
         // add PTM
         AssayPTM assayPtm = new AssayPTM();
         assayPtm.setAssay(assay);
-        assayPtm.setCvParam(cvParamRepository.findOne(CV_PARAM_1_ID));
+        assayPtm.setCvParam(cvParamRepository.findById(CV_PARAM_1_ID).get());
         LinkedList<AssayPTM> assayPtms = new LinkedList<AssayPTM>();
         assayPtms.add(assayPtm);
         assay.setPtms(assayPtms);
@@ -242,7 +242,7 @@ public class AssayPersistenceTest {
         // add group params
         AssayGroupCvParam assayGroupCvParam = new AssayGroupCvParam();
         assayGroupCvParam.setAssay(assay);
-        assayGroupCvParam.setCvParam(cvParamRepository.findOne(CV_PARAM_3_ID));
+        assayGroupCvParam.setCvParam(cvParamRepository.findById(CV_PARAM_3_ID).get());
         LinkedList<AssayGroupCvParam> assayGroupCvParams = new LinkedList<AssayGroupCvParam>();
         assayGroupCvParams.add(assayGroupCvParam);
         assay.setAssayGroupCvParams(assayGroupCvParams);
@@ -262,7 +262,7 @@ public class AssayPersistenceTest {
         // add quantification methods
         AssayQuantificationMethodCvParam assayQuantificationMethod = new AssayQuantificationMethodCvParam();
         assayQuantificationMethod.setAssay(assay);
-        assayQuantificationMethod.setCvParam(cvParamRepository.findOne(CV_PARAM_3_ID));
+        assayQuantificationMethod.setCvParam(cvParamRepository.findById(CV_PARAM_3_ID).get());
         LinkedList<AssayQuantificationMethodCvParam> assayQuantificationMethods = new LinkedList<AssayQuantificationMethodCvParam>();
         assayQuantificationMethods.add(assayQuantificationMethod);
         assay.setQuantificationMethods(assayQuantificationMethods);
@@ -270,7 +270,7 @@ public class AssayPersistenceTest {
         // add quantification methods
         AssaySampleCvParam assaySample = new AssaySampleCvParam();
         assaySample.setAssay(assay);
-        assaySample.setCvParam(cvParamRepository.findOne(CV_PARAM_3_ID));
+        assaySample.setCvParam(cvParamRepository.findById(CV_PARAM_3_ID).get());
         LinkedList<AssaySampleCvParam> assaySamples = new LinkedList<AssaySampleCvParam>();
         assaySamples.add(assaySample);
         assay.setSamples(assaySamples);
@@ -282,7 +282,7 @@ public class AssayPersistenceTest {
         Instrument newInstrument = new Instrument();
         newInstrument.setAssay(assay);
 
-        CvParam instrParam = cvParamRepository.findOne(13l);
+        CvParam instrParam = cvParamRepository.findById(13l).get();
         newInstrument.setCvParam(instrParam);
         newInstrument.setValue("icr");
         //source
@@ -291,7 +291,7 @@ public class AssayPersistenceTest {
         source.setOrder(1);
         Collection<InstrumentComponentCvParam> sourceParams = new ArrayList<InstrumentComponentCvParam>();
         InstrumentComponentCvParam cv1 = new InstrumentComponentCvParam();
-        cv1.setCvParam(cvParamRepository.findOne(14l));
+        cv1.setCvParam(cvParamRepository.findById(14l).get());
         cv1.setInstrumentComponent(source);
         sourceParams.add(cv1);
         source.setInstrumentComponentCvParams(sourceParams);
@@ -303,10 +303,10 @@ public class AssayPersistenceTest {
         analyzer1.setOrder(2);
         Collection<InstrumentComponentCvParam> analyzerParams = new ArrayList<InstrumentComponentCvParam>();
         InstrumentComponentCvParam cv2 = new InstrumentComponentCvParam();
-        cv2.setCvParam(cvParamRepository.findOne(15l));
+        cv2.setCvParam(cvParamRepository.findById(15l).get());
         cv2.setInstrumentComponent(analyzer1);
         InstrumentComponentCvParam cv3 = new InstrumentComponentCvParam();
-        cv3.setCvParam(cvParamRepository.findOne(151l));
+        cv3.setCvParam(cvParamRepository.findById(151l).get());
         cv3.setInstrumentComponent(analyzer1);
         analyzerParams.add(cv2);
         analyzerParams.add(cv3);
@@ -319,7 +319,7 @@ public class AssayPersistenceTest {
         detector.setOrder(3);
         Collection<InstrumentComponentCvParam> detectorParams = new ArrayList<InstrumentComponentCvParam>();
         InstrumentComponentCvParam cv4 = new InstrumentComponentCvParam();
-        cv4.setCvParam(cvParamRepository.findOne(16l));
+        cv4.setCvParam(cvParamRepository.findById(16l).get());
         cv4.setInstrumentComponent(detector);
         detectorParams.add(cv4);
         detector.setInstrumentComponentCvParams(detectorParams);
@@ -336,7 +336,7 @@ public class AssayPersistenceTest {
         //update instrumentID
         newInstrumentId = newInstrument.getId();
 
-        Assay other = assayRepository.findOne(newId);
+        Assay other = assayRepository.findById(newId).get();
         checkIsAnotherAssayInDb(other);
 
         // delete the assay

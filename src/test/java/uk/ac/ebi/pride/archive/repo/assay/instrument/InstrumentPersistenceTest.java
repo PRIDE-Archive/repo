@@ -89,7 +89,7 @@ public class InstrumentPersistenceTest {
     @Transactional
     public void testGetById() throws Exception {
 
-        Instrument instrument = instrumentRepository.findOne(INSTRUMENT_1_ID);
+        Instrument instrument = instrumentRepository.findById(INSTRUMENT_1_ID).get();
 
         checkIsInstrument1InDb(instrument);
 
@@ -191,7 +191,7 @@ public class InstrumentPersistenceTest {
         detectorInstrumentComponents.add(detectorInstrumentComponent);
         instrument.setDetectors(detectorInstrumentComponents);
 
-        Assay assay = assayRepository.findOne(ASSAY_1_ID);
+        Assay assay = assayRepository.findById(ASSAY_1_ID).get();
         instrument.setAssay(assay);
 
         instrumentRepository.save(instrument);
@@ -199,7 +199,7 @@ public class InstrumentPersistenceTest {
         //instrument id set on save
         long newId = instrument.getId();
 
-        instrument = instrumentRepository.findOne(newId);
+        instrument = instrumentRepository.findById(newId).get();
 
         checkIsAnotherInstrumentInDb(instrument);
 

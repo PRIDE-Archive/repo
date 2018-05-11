@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
@@ -23,7 +24,7 @@ import java.util.*;
  * @version $Id$
  *
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -135,8 +136,8 @@ public class UserServiceImpl implements UserService {
     public UserSummary findById(Long userId) throws UserAccessException {
         Assert.notNull(userId, "User id cannot be null");
         try {
-            User user = userRepository.findOne(userId);
-            return ObjectMapper.mapUserToUserSummary(user);
+            Optional<User> user = userRepository.findById(userId);
+            return ObjectMapper.mapUserToUserSummary(user.get());
         } catch (Exception ex) {
             String msg = "Failed to find user by user id: " + userId;
             logger.error(msg, ex);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import uk.ac.ebi.pride.archive.repo.assay.Assay;
@@ -18,6 +19,7 @@ import uk.ac.ebi.pride.archive.repo.util.ObjectMapper;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Rui Wang
@@ -25,7 +27,7 @@ import java.util.List;
  * @version $Id$
  *          <p/>
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class FileServiceImpl implements FileService {
     private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
@@ -50,9 +52,9 @@ public class FileServiceImpl implements FileService {
         Assert.notNull(fileId, "File id cannot be empty");
 
         try {
-            ProjectFile projectFile = projectFileRepository.findOne(fileId);
+            Optional<ProjectFile> projectFile = projectFileRepository.findById(fileId);
 
-            return ObjectMapper.mapProjectFileToFileSummary(projectFile);
+            return ObjectMapper.mapProjectFileToFileSummary(projectFile.get());
         } catch (Exception ex) {
             String msg = "Failed to find file by id: " + fileId;
             logger.error(msg, ex);

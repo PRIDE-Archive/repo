@@ -4,9 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.param.CvParam;
 import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
 import uk.ac.ebi.pride.archive.repo.user.User;
@@ -28,8 +31,9 @@ import static org.junit.Assert.assertNotNull;
  * @author Jose A. Dianes
  * @version $Id$
  */
-@ContextConfiguration(locations = {"/test-context.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {ArchiveOracleConfig.class})
 public class ProjectPersistenceTest {
 
     public static final long NUM_PROJECTS = 1;
@@ -121,7 +125,7 @@ public class ProjectPersistenceTest {
         Collection<ProjectInstrumentCvParam> instruments = new ArrayList<ProjectInstrumentCvParam>();
         ProjectInstrumentCvParam picvParam = new ProjectInstrumentCvParam();
         picvParam.setProject(project);
-        picvParam.setCvParam(cvParamRepository.findOne(13l));
+        picvParam.setCvParam(cvParamRepository.findById(13l).get());
         picvParam.setValue("icr");
         instruments.add(picvParam);
         project.setInstruments(instruments);
@@ -130,7 +134,7 @@ public class ProjectPersistenceTest {
 
         //id will be set on save
         long newId = project.getId();
-        Project other = projectRepository.findOne(newId);
+        Project other = projectRepository.findById(newId).get();
 
         assertEquals(other.getId(), project.getId());
         assertEquals(other.getAccession(), project.getAccession());
@@ -218,7 +222,7 @@ public class ProjectPersistenceTest {
 
     @Test
     public void testGetUsers() throws Exception {
-        Project project = projectRepository.findOne(PROJECT_1_ID);
+        Project project = projectRepository.findById(PROJECT_1_ID).get();
         testUsers(project);
     }
 
@@ -231,25 +235,25 @@ public class ProjectPersistenceTest {
 
     @Test
     public void testGetPTMs() throws Exception {
-        Project project = projectRepository.findOne(PROJECT_1_ID);
+        Project project = projectRepository.findById(PROJECT_1_ID).get();
         testPTMs(project);
     }
 
     @Test
     public void testGetReferences() throws Exception {
-        Project project = projectRepository.findOne(PROJECT_1_ID);
+        Project project = projectRepository.findById(PROJECT_1_ID).get();
         testReferences(project);
     }
 
     @Test
     public void testGetProjectSampleParams() throws Exception {
-        Project project = projectRepository.findOne(PROJECT_1_ID);
+        Project project = projectRepository.findById(PROJECT_1_ID).get();
         testSampleParams(project);
     }
 
     @Test
     public void testGetExperimentTypes() throws Exception {
-        Project project = projectRepository.findOne(PROJECT_1_ID);
+        Project project = projectRepository.findById(PROJECT_1_ID).get();
         testExperimentTypes(project);
     }
 

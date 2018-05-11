@@ -3,11 +3,11 @@ package uk.ac.ebi.pride.archive.repo.file.service;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+//import java.io.IOException;
 
 /**
  * @author Daniel Rios
@@ -15,27 +15,26 @@ import java.io.IOException;
  * @version $Id$
  */
 @Deprecated
-@Service
 public class FileUtils {
 
-    /**
-     * Stream a given file to HttpServletResponse
-     */
-    public void streamFile(HttpServletResponse response, File fileToStream) throws IOException {
-        FileInputStream fis = new FileInputStream(fileToStream);
-
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileToStream.getName() + "\"");
-
-        if (fileToStream.getName().endsWith(".gz")) {
-            response.setContentType("application/x-gzip");
-        } else {
-            response.setContentType("text/plain; charset=utf-8");
-        }
-
-        IOUtils.copy(fis, response.getOutputStream());
-
-        response.flushBuffer();
-    }
+//    /**
+//     * Stream a given file to HttpServletResponse
+//     */
+//    public void streamFile(HttpServletResponse response, File fileToStream) throws IOException {
+//        FileInputStream fis = new FileInputStream(fileToStream);
+//
+//        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileToStream.getName() + "\"");
+//
+//        if (fileToStream.getName().endsWith(".gz")) {
+//            response.setContentType("application/x-gzip");
+//        } else {
+//            response.setContentType("text/plain; charset=utf-8");
+//        }
+//
+//        IOUtils.copy(fis, response.getOutputStream());
+//
+//        response.flushBuffer();
+//    }
 
 
     /**

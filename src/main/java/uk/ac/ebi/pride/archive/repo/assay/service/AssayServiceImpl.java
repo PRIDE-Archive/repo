@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import uk.ac.ebi.pride.archive.repo.assay.Assay;
@@ -18,6 +19,7 @@ import uk.ac.ebi.pride.archive.repo.util.ObjectMapper;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Rui Wang
@@ -25,7 +27,7 @@ import java.util.List;
  * @version $Id$
  *          <p/>
  */
-@Repository
+@Service
 @Transactional(readOnly = true)
 public class AssayServiceImpl implements AssayService {
     private static final Logger logger = LoggerFactory.getLogger(AssayServiceImpl.class);
@@ -45,8 +47,8 @@ public class AssayServiceImpl implements AssayService {
         Assert.notNull(assayId, "Assay id cannot be empty");
 
         try {
-            Assay assay = assayRepository.findOne(assayId);
-            return ObjectMapper.mapAssayToAssaySummary(assay);
+            Optional<Assay> assay = assayRepository.findById(assayId);
+            return ObjectMapper.mapAssayToAssaySummary(assay.get());
         } catch (Exception ex) {
             String msg = "Failed to find assay by id: " + assayId;
             logger.error(msg, ex);

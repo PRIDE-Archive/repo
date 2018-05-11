@@ -3,10 +3,13 @@ package uk.ac.ebi.pride.archive.repo.user;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import uk.ac.ebi.pride.archive.dataprovider.person.Title;
 import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
+import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.project.Project;
 
 import java.text.DateFormat;
@@ -20,8 +23,8 @@ import static org.junit.Assert.*;
  * @author Jose A. Dianes
  * @version $Id$
  */
-@ContextConfiguration(locations = {"/test-context.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {ArchiveOracleConfig.class})
 public class UserPersistenceTest {
 
   private static final long USER_1_ID = 11111;

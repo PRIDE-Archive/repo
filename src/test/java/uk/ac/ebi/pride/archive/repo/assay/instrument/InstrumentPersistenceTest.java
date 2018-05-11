@@ -3,9 +3,12 @@ package uk.ac.ebi.pride.archive.repo.assay.instrument;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.param.CvParam;
 import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
@@ -26,8 +29,8 @@ import static org.hamcrest.Matchers.is;
  * @author Jose A. Dianes
  * @version $Id$
  */
-@ContextConfiguration(locations = {"/test-context.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {ArchiveOracleConfig.class})
 public class InstrumentPersistenceTest {
 
     private static final long INSTRUMENT_1_ID = 1111;

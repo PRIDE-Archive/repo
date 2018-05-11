@@ -4,10 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
@@ -16,6 +18,7 @@ import uk.ac.ebi.pride.archive.repo.assay.instrument.*;
 import uk.ac.ebi.pride.archive.repo.assay.software.Software;
 import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam;
 import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam;
+import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.param.CvParam;
 import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
 
@@ -30,8 +33,8 @@ import static org.junit.Assert.assertEquals;
  * @author Jose A. Dianes
  * @version $Id$
  */
-@ContextConfiguration(locations = {"/test-context.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {ArchiveOracleConfig.class})
 public class AssayPersistenceTest {
 
     private static final long ASSAY_1_ID = 44444;

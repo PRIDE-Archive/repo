@@ -88,7 +88,7 @@ public final class ObjectMapper {
     }
 
     private static Collection<ProjectTagSummary> mapProjectTagsToProjectTagSummaries(Collection<ProjectTag> projectTags) {
-        ArrayList<ProjectTagSummary> projectTagSummaries = new ArrayList<ProjectTagSummary>();
+        ArrayList<ProjectTagSummary> projectTagSummaries = new ArrayList<>();
 
         if (projectTags != null) {
             for (ProjectTag projectTag : projectTags) {
@@ -100,7 +100,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<UserSummary> mapUsersToUserSummaries(Collection<User> users) {
-        ArrayList<UserSummary> userSummaries = new ArrayList<UserSummary>();
+        ArrayList<UserSummary> userSummaries = new ArrayList<>();
 
         if (users != null) {
             for (User user : users) {
@@ -150,7 +150,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<FileSummary> mapProjectFileToFileSummaries(List<ProjectFile> projectFiles) {
-        Collection<FileSummary> fileSummaries = new ArrayList<FileSummary>();
+        Collection<FileSummary> fileSummaries = new ArrayList<>();
 
         if (projectFiles != null) {
             for (ProjectFile projectFile : projectFiles) {
@@ -170,7 +170,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<SoftwareSummary> mapSoftwaresToSoftwareSummaries(Collection<Software> softwares) {
-        final ArrayList<SoftwareSummary> softwareSummaries = new ArrayList<SoftwareSummary>();
+        final ArrayList<SoftwareSummary> softwareSummaries = new ArrayList<>();
 
         if (softwares != null) {
             for (Software software : softwares) {
@@ -195,7 +195,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<InstrumentSummary> mapInstrumentsToInstrumentSummaries(Collection<Instrument> instruments) {
-        final ArrayList<InstrumentSummary> instrumentSummaries = new ArrayList<InstrumentSummary>();
+        final ArrayList<InstrumentSummary> instrumentSummaries = new ArrayList<>();
 
         if (instruments != null) {
             for (Instrument instrument : instruments) {
@@ -221,7 +221,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<InstrumentComponentSummary> mapInstrumentComponentsToInstrumentComponentSummaries(Collection<? extends InstrumentComponent> instrumentComponents) {
-        final ArrayList<InstrumentComponentSummary> instrumentComponentSummaries = new ArrayList<InstrumentComponentSummary>();
+        final ArrayList<InstrumentComponentSummary> instrumentComponentSummaries = new ArrayList<>();
 
         if (instrumentComponents != null) {
             for (InstrumentComponent instrumentComponent : instrumentComponents) {
@@ -243,7 +243,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<ReferenceSummary> mapReferencesToReferenceSummaries(Collection<Reference> references) {
-        ArrayList<ReferenceSummary> referenceSummaries = new ArrayList<ReferenceSummary>();
+        ArrayList<ReferenceSummary> referenceSummaries = new ArrayList<>();
 
         if (references != null) {
             for (Reference reference : references) {
@@ -259,7 +259,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<ContactSummary> mapLabHeadsToContactSummaries(Collection<LabHead> labHeads) {
-        ArrayList<ContactSummary> contactSummaries = new ArrayList<ContactSummary>();
+        ArrayList<ContactSummary> contactSummaries = new ArrayList<>();
 
         if (labHeads != null) {
             for (LabHead labHead : labHeads) {
@@ -275,7 +275,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<CvParamSummary> mapProjectCvParamsToCvParamSummaries(Collection<? extends ProjectCvParam> projectCvParams) {
-        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
 
         if (projectCvParams != null) {
             for (ProjectCvParam projectCvParam : projectCvParams) {
@@ -287,7 +287,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<ContactSummary> mapContactsToContactSummaries(Collection<Contact> contacts) {
-        final ArrayList<ContactSummary> contactSummaries = new ArrayList<ContactSummary>();
+        final ArrayList<ContactSummary> contactSummaries = new ArrayList<>();
 
         if (contacts != null) {
             for (Contact contact : contacts) {
@@ -307,7 +307,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<CvParamSummary> mapAssayCvParamsToCvParamSummaries(Collection<? extends AssayCvParam> assayCvParams) {
-        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
 
         if (assayCvParams != null) {
             for (AssayCvParam assayCvParam : assayCvParams) {
@@ -323,7 +323,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<CvParamSummary> mapProjectPTMsToCvParamSummaries(Collection<ProjectPTM> projectPTMs) {
-        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+        ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
 
         if (projectPTMs != null) {
             for (ProjectPTM projectPTM : projectPTMs) {
@@ -339,7 +339,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<CvParamSummary> mapCvParamProvidersToCvParamSummaries(Collection<? extends CvParamProvider> cvParamProviders) {
-        final ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
+        final ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
 
         if (cvParamProviders !=  null) {
             for (CvParamProvider cvParamProvider : cvParamProviders) {
@@ -355,7 +355,7 @@ public final class ObjectMapper {
     }
 
     public static Collection<ParamSummary> mapParamProvidersToParamSummaries(Collection<? extends ParamProvider> params) {
-        ArrayList<ParamSummary> paramSummaries = new ArrayList<ParamSummary>();
+        ArrayList<ParamSummary> paramSummaries = new ArrayList<>();
 
         if (params != null) {
             for (ParamProvider param : params) {

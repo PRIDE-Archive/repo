@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
@@ -145,10 +143,10 @@ public class InstrumentPersistenceTest {
         sourceInstrumentComponentCvParam.setCvParam(sourceInstrumentComponentCvParamCvParam);
         cvParamRepository.save(sourceInstrumentComponentCvParamCvParam);
 
-        LinkedList<InstrumentComponentCvParam> sourceInstrumentComponentCvParams = new LinkedList<InstrumentComponentCvParam>();
+        LinkedList<InstrumentComponentCvParam> sourceInstrumentComponentCvParams = new LinkedList<>();
         sourceInstrumentComponentCvParams.add(sourceInstrumentComponentCvParam);
         sourceInstrumentComponent.setInstrumentComponentCvParams(sourceInstrumentComponentCvParams);
-        LinkedList<SourceInstrumentComponent> sourceInstrumentComponents = new LinkedList<SourceInstrumentComponent>();
+        LinkedList<SourceInstrumentComponent> sourceInstrumentComponents = new LinkedList<>();
         sourceInstrumentComponents.add(sourceInstrumentComponent);
         instrument.setSources(sourceInstrumentComponents);
 
@@ -166,10 +164,10 @@ public class InstrumentPersistenceTest {
         analyzerInstrumentComponentCvParam.setCvParam(analyzerInstrumentComponentCvParamCvParam);
         cvParamRepository.save(analyzerInstrumentComponentCvParamCvParam);
 
-        LinkedList<InstrumentComponentCvParam> analyzerInstrumentComponentCvParams = new LinkedList<InstrumentComponentCvParam>();
+        LinkedList<InstrumentComponentCvParam> analyzerInstrumentComponentCvParams = new LinkedList<>();
         analyzerInstrumentComponentCvParams.add(analyzerInstrumentComponentCvParam);
         analyzerInstrumentComponent.setInstrumentComponentCvParams(analyzerInstrumentComponentCvParams);
-        LinkedList<AnalyzerInstrumentComponent> analyzerInstrumentComponents = new LinkedList<AnalyzerInstrumentComponent>();
+        LinkedList<AnalyzerInstrumentComponent> analyzerInstrumentComponents = new LinkedList<>();
         analyzerInstrumentComponents.add(analyzerInstrumentComponent);
         instrument.setAnalyzers(analyzerInstrumentComponents);
 
@@ -187,10 +185,10 @@ public class InstrumentPersistenceTest {
         detectorInstrumentComponentCvParam.setCvParam(detectorInstrumentComponentCvParamCvParam);
         cvParamRepository.save(detectorInstrumentComponentCvParamCvParam);
 
-        LinkedList<InstrumentComponentCvParam> detectorInstrumentComponentCvParams = new LinkedList<InstrumentComponentCvParam>();
+        LinkedList<InstrumentComponentCvParam> detectorInstrumentComponentCvParams = new LinkedList<>();
         detectorInstrumentComponentCvParams.add(detectorInstrumentComponentCvParam);
         detectorInstrumentComponent.setInstrumentComponentCvParams(detectorInstrumentComponentCvParams);
-        LinkedList<DetectorInstrumentComponent> detectorInstrumentComponents = new LinkedList<DetectorInstrumentComponent>();
+        LinkedList<DetectorInstrumentComponent> detectorInstrumentComponents = new LinkedList<>();
         detectorInstrumentComponents.add(detectorInstrumentComponent);
         instrument.setDetectors(detectorInstrumentComponents);
 

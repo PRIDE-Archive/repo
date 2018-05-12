@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.File;
 import java.net.URISyntaxException;
 
 /**

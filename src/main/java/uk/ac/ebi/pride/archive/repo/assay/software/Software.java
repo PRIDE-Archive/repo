@@ -96,7 +96,7 @@ public class Software implements SoftwareProvider {
     }
 
     public Collection<ParamProvider> getParams() {
-        Collection<ParamProvider> params = new LinkedList<ParamProvider>();
+        Collection<ParamProvider> params = new LinkedList<>();
 
         if (this.softwareCvParams != null) params.addAll(this.softwareCvParams);
         if (this.softwareUserParams != null) params.addAll(this.softwareUserParams);
@@ -135,9 +135,7 @@ public class Software implements SoftwareProvider {
             return false;
         if (softwareUserParams != null ? !softwareUserParams.equals(software.softwareUserParams) : software.softwareUserParams != null)
             return false;
-        if (version != null ? !version.equals(software.version) : software.version != null) return false;
-
-        return true;
+        return version != null ? version.equals(software.version) : software.version == null;
     }
 
     @Override

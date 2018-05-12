@@ -61,9 +61,7 @@ public class Authority {
         Authority authority1 = (Authority) o;
 
         if (authority != authority1.authority) return false;
-        if (user != null ? !user.equals(authority1.user) : authority1.user != null) return false;
-
-        return true;
+        return user != null ? user.equals(authority1.user) : authority1.user == null;
     }
 
     @Override

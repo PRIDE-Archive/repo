@@ -90,9 +90,7 @@ public abstract class ProjectCvParam implements CvParamProvider {
         ProjectCvParam that = (ProjectCvParam) o;
 
         if (cvParam != null ? !cvParam.equals(that.cvParam) : that.cvParam != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

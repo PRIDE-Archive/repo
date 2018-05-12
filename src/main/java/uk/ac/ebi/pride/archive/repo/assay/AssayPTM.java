@@ -81,9 +81,7 @@ public class AssayPTM implements CvParamProvider {
         AssayPTM assayPTM = (AssayPTM) o;
 
         if (cvParam != null ? !cvParam.equals(assayPTM.cvParam) : assayPTM.cvParam != null) return false;
-        if (value != null ? !value.equals(assayPTM.value) : assayPTM.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(assayPTM.value) : assayPTM.value == null;
     }
 
     @Override

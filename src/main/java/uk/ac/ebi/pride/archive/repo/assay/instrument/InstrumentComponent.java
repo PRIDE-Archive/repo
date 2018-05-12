@@ -87,7 +87,7 @@ public abstract class InstrumentComponent implements InstrumentComponentProvider
     }
 
     public Collection<ParamProvider> getParams() {
-        Collection<ParamProvider> params = new LinkedList<ParamProvider>();
+        Collection<ParamProvider> params = new LinkedList<>();
 
         if (this.instrumentComponentCvParams != null) params.addAll(this.instrumentComponentCvParams);
         if (this.instrumentComponentUserParams != null) params.addAll(this.instrumentComponentUserParams);
@@ -105,10 +105,7 @@ public abstract class InstrumentComponent implements InstrumentComponentProvider
         if (order != that.order) return false;
         if (instrumentComponentCvParams != null ? !instrumentComponentCvParams.equals(that.instrumentComponentCvParams) : that.instrumentComponentCvParams != null)
             return false;
-        if (instrumentComponentUserParams != null ? !instrumentComponentUserParams.equals(that.instrumentComponentUserParams) : that.instrumentComponentUserParams != null)
-            return false;
-
-        return true;
+        return instrumentComponentUserParams != null ? instrumentComponentUserParams.equals(that.instrumentComponentUserParams) : that.instrumentComponentUserParams == null;
     }
 
     @Override

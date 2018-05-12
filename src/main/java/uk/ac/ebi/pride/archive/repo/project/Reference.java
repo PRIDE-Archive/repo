@@ -81,10 +81,7 @@ public class Reference implements ReferenceProvider {
 
         if (pubmedId != reference.pubmedId) return false;
         if (doi != null ? !doi.equals(reference.doi) : reference.doi != null) return false;
-        if (referenceLine != null ? !referenceLine.equals(reference.referenceLine) : reference.referenceLine != null)
-            return false;
-
-        return true;
+        return referenceLine != null ? referenceLine.equals(reference.referenceLine) : reference.referenceLine == null;
     }
 
     @Override

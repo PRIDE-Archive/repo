@@ -71,9 +71,7 @@ public class SoftwareUserParam implements ParamProvider {
         SoftwareUserParam that = (SoftwareUserParam) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

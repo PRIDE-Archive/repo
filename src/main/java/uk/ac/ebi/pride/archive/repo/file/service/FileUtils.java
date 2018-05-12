@@ -1,8 +1,5 @@
 package uk.ac.ebi.pride.archive.repo.file.service;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.stereotype.Service;
-
 //import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 //import java.io.FileInputStream;

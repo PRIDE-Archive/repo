@@ -13,7 +13,7 @@ public final class CollectionUtils {
     }
 
     public static <T> List<T> createListFromList(Collection<T> collection) {
-        List<T> newList = new ArrayList<T>();
+        List<T> newList = new ArrayList<>();
 
         if (collection != null) {
             newList.addAll(collection);

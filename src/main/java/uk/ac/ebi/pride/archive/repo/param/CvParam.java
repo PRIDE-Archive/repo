@@ -77,9 +77,7 @@ public class CvParam implements CvParamProvider {
 
         if (accession != null ? !accession.equals(cvParam.accession) : cvParam.accession != null) return false;
         if (cvLabel != null ? !cvLabel.equals(cvParam.cvLabel) : cvParam.cvLabel != null) return false;
-        if (name != null ? !name.equals(cvParam.name) : cvParam.name != null) return false;
-
-        return true;
+        return name != null ? name.equals(cvParam.name) : cvParam.name == null;
     }
 
     @Override

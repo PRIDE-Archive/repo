@@ -74,9 +74,7 @@ public abstract class AssayUserParam implements ParamProvider {
         AssayUserParam that = (AssayUserParam) o;
 
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

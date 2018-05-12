@@ -20,9 +20,9 @@ public class InstrumentSummary implements InstrumentProvider {
     private Long id;
 
     public InstrumentSummary() {
-        this.sources = new ArrayList<InstrumentComponentSummary>();
-        this.analyzers= new ArrayList<InstrumentComponentSummary>();
-        this.detectors = new ArrayList<InstrumentComponentSummary>();
+        this.sources = new ArrayList<>();
+        this.analyzers= new ArrayList<>();
+        this.detectors = new ArrayList<>();
     }
 
     public CvParamSummary getModel() {

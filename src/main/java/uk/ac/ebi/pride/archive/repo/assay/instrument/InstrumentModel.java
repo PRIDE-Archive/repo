@@ -69,9 +69,7 @@ public class InstrumentModel implements CvParamProvider {
         if (accession != null ? !accession.equals(that.accession) : that.accession != null) return false;
         if (cvLabel != null ? !cvLabel.equals(that.cvLabel) : that.cvLabel != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

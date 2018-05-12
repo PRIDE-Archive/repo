@@ -152,9 +152,7 @@ public class ProjectFile implements ProjectFileProvider {
         if (filePath != null ? !filePath.equals(that.filePath) : that.filePath != null) return false;
         if (fileSource != that.fileSource) return false;
         if (fileType != that.fileType) return false;
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
-
-        return true;
+        return projectId != null ? projectId.equals(that.projectId) : that.projectId == null;
     }
 
     @Override

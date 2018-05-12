@@ -311,7 +311,7 @@ public class Project implements ProjectProvider {
     }
 
     public Collection<ParamProvider> getParams() {
-        Collection<ParamProvider> params = new LinkedList<ParamProvider>();
+        Collection<ParamProvider> params = new LinkedList<>();
 
         if (this.projectGroupCvParams != null) params.addAll(this.projectGroupCvParams);
         if (this.projectGroupUserParams != null) params.addAll(this.projectGroupUserParams);
@@ -403,9 +403,7 @@ public class Project implements ProjectProvider {
 
         Project project = (Project) o;
 
-        if (!accession.equals(project.accession)) return false;
-
-        return true;
+        return accession.equals(project.accession);
     }
 
     @Override

@@ -272,7 +272,7 @@ public class Assay implements AssayProvider {
     }
 
     public Collection<ParamProvider> getParams() {
-        Collection<ParamProvider> params = new LinkedList<ParamProvider>();
+        Collection<ParamProvider> params = new LinkedList<>();
 
         if (this.assayGroupCvParams != null) params.addAll(this.assayGroupCvParams);
         if (this.assayGroupUserParams != null) params.addAll(this.assayGroupUserParams);
@@ -309,9 +309,7 @@ public class Assay implements AssayProvider {
         if (samples != null ? !samples.equals(assay.samples) : assay.samples != null) return false;
         if (shortLabel != null ? !shortLabel.equals(assay.shortLabel) : assay.shortLabel != null) return false;
         if (softwares != null ? !softwares.equals(assay.softwares) : assay.softwares != null) return false;
-        if (title != null ? !title.equals(assay.title) : assay.title != null) return false;
-
-        return true;
+        return title != null ? title.equals(assay.title) : assay.title == null;
     }
 
     @Override

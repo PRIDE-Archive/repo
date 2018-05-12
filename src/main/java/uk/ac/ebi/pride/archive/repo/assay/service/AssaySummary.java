@@ -45,18 +45,18 @@ public class AssaySummary implements AssayProvider{
     private final Collection<CvParamSummary> goTerms;
 
     public AssaySummary() {
-        this.samples = new ArrayList<CvParamSummary>();
-        this.instruments= new ArrayList<InstrumentSummary>();
-        this.softwares = new ArrayList<SoftwareSummary>();
-        this.ptms = new ArrayList<CvParamSummary>();
-        this.quantificationMethods = new ArrayList<CvParamSummary>();
-        this.contacts = new ArrayList<ContactSummary>();
-        this.params = new ArrayList<ParamSummary>();
-        this.species = new ArrayList<CvParamSummary>();
-        this.tissues = new ArrayList<CvParamSummary>();
-        this.cellTypes = new ArrayList<CvParamSummary>();
-        this.diseases = new ArrayList<CvParamSummary>();
-        this.goTerms = new ArrayList<CvParamSummary>();
+        this.samples = new ArrayList<>();
+        this.instruments= new ArrayList<>();
+        this.softwares = new ArrayList<>();
+        this.ptms = new ArrayList<>();
+        this.quantificationMethods = new ArrayList<>();
+        this.contacts = new ArrayList<>();
+        this.params = new ArrayList<>();
+        this.species = new ArrayList<>();
+        this.tissues = new ArrayList<>();
+        this.cellTypes = new ArrayList<>();
+        this.diseases = new ArrayList<>();
+        this.goTerms = new ArrayList<>();
     }
 
     public Long getProjectId() {
@@ -213,13 +213,8 @@ public class AssaySummary implements AssayProvider{
 
     public Collection<ParamSummary> getParams() {
 
-        Comparator<ParamSummary> comparator = new Comparator<ParamSummary>() {
-            @Override
-            public int compare(ParamSummary o1, ParamSummary o2) {
-                return o1.getName().compareToIgnoreCase(o2.getName());
-            }
-        };
-        Collections.sort((java.util.List<ParamSummary>) params, comparator);
+        Comparator<ParamSummary> comparator = (o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName());
+        ((java.util.List<ParamSummary>) params).sort(comparator);
 
         return params;
     }

@@ -3,7 +3,6 @@ package uk.ac.ebi.pride.archive.repo.user.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -65,7 +64,7 @@ public class UserServiceImpl implements UserService {
         prideUser.setAffiliation(userSummary.getAffiliation());
         prideUser.setCountry(userSummary.getCountry());
         prideUser.setOrcid(userSummary.getOrcid());
-        Set<UserAuthority> authorities = new HashSet<UserAuthority>();
+        Set<UserAuthority> authorities = new HashSet<>();
         authorities.add(UserAuthority.SUBMITTER);  // can only create submitter
         prideUser.setUserAuthorities(authorities);
         return prideUser;
@@ -209,7 +208,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<ProjectSummary> findAllProjectsById(Long userId) throws UserAccessException {
-        List<ProjectSummary> projectSummaries = new ArrayList<ProjectSummary>();
+        List<ProjectSummary> projectSummaries = new ArrayList<>();
         List<Project> ownedProjects = projectRepository.findAllBySubmitterId(userId); // find the projects owned by the user
         for (Project ownedProject : ownedProjects) {
             projectSummaries.add(ObjectMapper.mapProjectToProjectSummary(ownedProject));

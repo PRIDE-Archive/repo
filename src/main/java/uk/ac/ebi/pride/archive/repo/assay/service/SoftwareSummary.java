@@ -21,7 +21,7 @@ public class SoftwareSummary implements SoftwareProvider {
     private Collection<ParamSummary> params;
 
     public SoftwareSummary() {
-        this.params = new ArrayList<ParamSummary>();
+        this.params = new ArrayList<>();
     }
 
     public int getOrder() {

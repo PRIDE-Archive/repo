@@ -111,9 +111,7 @@ public class Contact implements ContactProvider {
         if (email != null ? !email.equals(contact.email) : contact.email != null) return false;
         if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
         if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        if (title != contact.title) return false;
-
-        return true;
+        return title == contact.title;
     }
 
     @Override

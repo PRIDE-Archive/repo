@@ -60,9 +60,7 @@ public class ProjectTag implements ProjectTagProvider {
         ProjectTag that = (ProjectTag) o;
 
         if (project != null ? !project.equals(that.project) : that.project != null) return false;
-        if (!tag.equals(that.tag)) return false;
-
-        return true;
+        return tag.equals(that.tag);
     }
 
     @Override

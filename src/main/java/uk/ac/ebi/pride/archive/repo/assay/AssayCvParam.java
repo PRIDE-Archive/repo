@@ -88,9 +88,7 @@ public abstract class AssayCvParam implements CvParamProvider {
         AssayCvParam that = (AssayCvParam) o;
 
         if (cvParam != null ? !cvParam.equals(that.cvParam) : that.cvParam != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
-
-        return true;
+        return value != null ? value.equals(that.value) : that.value == null;
     }
 
     @Override

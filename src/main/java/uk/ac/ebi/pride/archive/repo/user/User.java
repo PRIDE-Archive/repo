@@ -164,7 +164,7 @@ public class User implements UserProvider{
 
     @Override
     public Set<UserAuthority> getUserAuthorities() {
-        Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
+        Set<UserAuthority> userAuthorities = new HashSet<>();
         if (authorities != null) {
             for (Authority authority : authorities) {
                 userAuthorities.add(authority.getAuthority());
@@ -174,7 +174,7 @@ public class User implements UserProvider{
     }
 
     public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
-        this.authorities = new HashSet<Authority>();
+        this.authorities = new HashSet<>();
         for (UserAuthority userAuthority : userAuthorities) {
             Authority authority = new Authority();
             authority.setAuthority(userAuthority);
@@ -205,8 +205,7 @@ public class User implements UserProvider{
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (title != user.title) return false;
         if (country != null ? !country.equals(user.country) : user.country != null) return false;
-        if (orcid != null ? !orcid.equals(user.orcid) : user.orcid != null) return false;
-        return true;
+        return orcid != null ? orcid.equals(user.orcid) : user.orcid == null;
     }
 
     @Override

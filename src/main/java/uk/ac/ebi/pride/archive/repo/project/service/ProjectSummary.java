@@ -61,26 +61,26 @@ public class ProjectSummary implements ProjectProvider {
 
 
     public ProjectSummary() {
-        this.users = new ArrayList<UserSummary>();
-        this.experimentTypes = new ArrayList<CvParamSummary>();
-        this.references = new ArrayList<ReferenceSummary>();
-        this.projectTags = new ArrayList<ProjectTagSummary>();
-        this.labHeads = new ArrayList<ContactSummary>();
-        this.ptms = new ArrayList<CvParamSummary>();
-        this.samples = new ArrayList<CvParamSummary>();
-        this.instruments = new ArrayList<CvParamSummary>();
-        this.software = new ArrayList<CvParamSummary>();
-        this.quantificationMethods = new ArrayList<CvParamSummary>();
+        this.users = new ArrayList<>();
+        this.experimentTypes = new ArrayList<>();
+        this.references = new ArrayList<>();
+        this.projectTags = new ArrayList<>();
+        this.labHeads = new ArrayList<>();
+        this.ptms = new ArrayList<>();
+        this.samples = new ArrayList<>();
+        this.instruments = new ArrayList<>();
+        this.software = new ArrayList<>();
+        this.quantificationMethods = new ArrayList<>();
         this.publicProject = false;
         this.changed = false;
-        this.params = new ArrayList<ParamSummary>();
-        this.species = new ArrayList<CvParamSummary>();
-        this.tissues = new ArrayList<CvParamSummary>();
-        this.cellTypes = new ArrayList<CvParamSummary>();
-        this.diseases = new ArrayList<CvParamSummary>();
-        this.goTerms = new ArrayList<CvParamSummary>();
-        this.internalTags = new ArrayList<ProjectTagSummary>();
-        this.parentProjectTags = new ArrayList<ProjectTagSummary>();
+        this.params = new ArrayList<>();
+        this.species = new ArrayList<>();
+        this.tissues = new ArrayList<>();
+        this.cellTypes = new ArrayList<>();
+        this.diseases = new ArrayList<>();
+        this.goTerms = new ArrayList<>();
+        this.internalTags = new ArrayList<>();
+        this.parentProjectTags = new ArrayList<>();
         this.highlighted = null;
     }
 
@@ -273,12 +273,12 @@ public class ProjectSummary implements ProjectProvider {
     @Override
     public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
         //TODO May be need to return null?
-        return new HashMap<String, Collection<ProteinIdentificationProvider>>();
+        return new HashMap<>();
     }
 
     @Override
     public Collection<PeptideSequenceProvider> getPeptideSequences() {
-        return new LinkedList<PeptideSequenceProvider>();
+        return new LinkedList<>();
     }
 
     public void setQuantificationMethods(Collection<CvParamSummary> quantificationMethods) {

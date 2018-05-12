@@ -22,7 +22,7 @@ public class UserSummary implements UserProvider{
     private String firstName;
     private String lastName;
     private String affiliation;
-    private final Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
+    private final Set<UserAuthority> userAuthorities = new HashSet<>();
     private Date createAt;
     private Date updateAt;
     private String country;
@@ -41,7 +41,7 @@ public class UserSummary implements UserProvider{
         this.setAffiliation(user.getAffiliation());
         this.setCreateAt(user.getCreateAt());
         this.setUpdateAt(user.getUpdateAt());
-        this.setUserAuthorities(new HashSet<UserAuthority>(user.getUserAuthorities()));
+        this.setUserAuthorities(new HashSet<>(user.getUserAuthorities()));
         this.setCountry(user.getCountry());
         this.setOrcid(user.getOrcid());
     }
@@ -157,8 +157,7 @@ public class UserSummary implements UserProvider{
         if (title != that.title) return false;
         if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
         if (country != null ? !country.equals(that.country) : that.country != null) return false;
-        if (orcid != null ? !orcid.equals(that.orcid) : that.orcid != null) return false;
-        return true;
+        return orcid != null ? orcid.equals(that.orcid) : that.orcid == null;
     }
 
     @Override

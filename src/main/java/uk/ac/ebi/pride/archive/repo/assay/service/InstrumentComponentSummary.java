@@ -18,7 +18,7 @@ public class InstrumentComponentSummary implements InstrumentComponentProvider {
     private Collection<ParamSummary> params;
 
     public InstrumentComponentSummary() {
-        this.params = new ArrayList<ParamSummary>();
+        this.params = new ArrayList<>();
     }
 
     public int getOrder() {

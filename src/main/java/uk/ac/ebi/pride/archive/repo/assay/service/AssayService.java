@@ -20,5 +20,5 @@ public interface AssayService {
 
     Page<AssaySummary> findAllByProjectAccession(String projectAccession, Pageable pageable) throws AssayAccessException;
 
-    Long countByProjectAccession(String projectAccession) throws AssayAccessException;;
+    Long countByProjectAccession(String projectAccession) throws AssayAccessException;
 }

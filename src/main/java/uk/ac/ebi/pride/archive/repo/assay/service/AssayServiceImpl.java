@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -78,7 +77,7 @@ public class AssayServiceImpl implements AssayService {
         // get the project
         // TODO: in the future we will need a DAO method directly in the assay DAO to get all the experiments by Project accession
         try {
-            Collection<AssaySummary> assaySummaries = new LinkedList<AssaySummary>();
+            Collection<AssaySummary> assaySummaries = new LinkedList<>();
 
             Project project = projectRepository.findByAccession(projectAccession);
 
@@ -105,11 +104,11 @@ public class AssayServiceImpl implements AssayService {
         // get the project
         // TODO: in the future we will need a DAO method directly in the assay DAO to get all the experiments by Project accession
         try {
-            List<AssaySummary> assaySummaries = new LinkedList<AssaySummary>();
+            List<AssaySummary> assaySummaries = new LinkedList<>();
 
             Project project = projectRepository.findByAccession(projectAccession);
             Page<Assay> assays = null;
-            Page<AssaySummary> page = null;
+            Page<AssaySummary> page;
 
             if (project != null) {
                 assays = assayRepository.findAllByProjectId(project.getId(), pageable);
@@ -120,10 +119,10 @@ public class AssayServiceImpl implements AssayService {
             }
 
             if(assays != null){
-                page = new PageImpl<AssaySummary>(assaySummaries, pageable, assays.getTotalElements());
+                page = new PageImpl<>(assaySummaries, pageable, assays.getTotalElements());
             }
             else {
-                page = new PageImpl<AssaySummary>(assaySummaries);
+                page = new PageImpl<>(assaySummaries);
             }
 
             return page;

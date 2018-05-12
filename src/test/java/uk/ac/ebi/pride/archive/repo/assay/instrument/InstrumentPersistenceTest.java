@@ -7,12 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
-import uk.ac.ebi.pride.archive.repo.param.CvParam;
-import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
+import uk.ac.ebi.pride.archive.repo.repos.assay.instrument.*;
+import uk.ac.ebi.pride.archive.repo.repos.param.CvParam;
+import uk.ac.ebi.pride.archive.repo.repos.param.CvParamRepository;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
-import uk.ac.ebi.pride.archive.repo.assay.Assay;
-import uk.ac.ebi.pride.archive.repo.assay.AssayRepository;
+import uk.ac.ebi.pride.archive.repo.repos.assay.Assay;
+import uk.ac.ebi.pride.archive.repo.repos.assay.AssayRepository;
 
 import java.util.Iterator;
 import java.util.LinkedList;

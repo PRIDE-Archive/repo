@@ -12,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.person.Title;
-import uk.ac.ebi.pride.archive.repo.assay.instrument.*;
-import uk.ac.ebi.pride.archive.repo.assay.software.Software;
-import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam;
-import uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam;
+import uk.ac.ebi.pride.archive.repo.repos.assay.*;
+import uk.ac.ebi.pride.archive.repo.repos.assay.instrument.*;
+import uk.ac.ebi.pride.archive.repo.repos.assay.software.Software;
+import uk.ac.ebi.pride.archive.repo.repos.assay.software.SoftwareCvParam;
+import uk.ac.ebi.pride.archive.repo.repos.assay.software.SoftwareUserParam;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
-import uk.ac.ebi.pride.archive.repo.param.CvParam;
-import uk.ac.ebi.pride.archive.repo.param.CvParamRepository;
+import uk.ac.ebi.pride.archive.repo.repos.param.CvParam;
+import uk.ac.ebi.pride.archive.repo.repos.param.CvParamRepository;
 
 import java.util.*;
 
@@ -160,14 +161,10 @@ public class AssayPersistenceTest {
     @Autowired
     private CvParamRepository cvParamRepository;
 
-    @Autowired
-    private InstrumentRepository instrumentRepository;
-
     @Test
     @Transactional
     public void testGetById() throws Exception {
         Optional<Assay> assay = assayRepository.findById(ASSAY_1_ID);
-
         assay.ifPresent(this::checkIsAssay1InDb);
 
     }
@@ -176,7 +173,6 @@ public class AssayPersistenceTest {
     @Transactional
     public void testGetByAccession() throws Exception {
         Assay assay = assayRepository.findByAccession(ASSAY_1_ACCESSION);
-
         checkIsAssay1InDb(assay);
 
     }

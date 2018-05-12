@@ -27,8 +27,8 @@ import java.net.URISyntaxException;
  * @author ypriverol
  */
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"uk.ac.ebi.pride.archive.repo"})
-@ComponentScan(basePackages = "uk.ac.ebi.pride.archive.repo")
+@EnableJpaRepositories(basePackages = {"uk.ac.ebi.pride.archive.repo.repos"})
+@ComponentScan(basePackages = "uk.ac.ebi.pride.archive.repo.services")
 @TestPropertySource(locations = "classpath:application.properties")
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
@@ -54,6 +54,8 @@ public class ArchiveOracleConfig {
         LocalContainerEntityManagerFactoryBean container = new LocalContainerEntityManagerFactoryBean();
         container.setDataSource(dataSource);
         container.setJpaVendorAdapter(hpaVendorAdapter);
+        container.setPackagesToScan("uk.ac.ebi.pride.archive.repo.repos", "uk.ac.ebi.pride.archive.repo.services");
+
         return  container;
     }
 

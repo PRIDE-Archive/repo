@@ -8,7 +8,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import uk.ac.ebi.pride.archive.dataprovider.person.Title;
 import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
-import uk.ac.ebi.pride.archive.repo.project.Project;
+import uk.ac.ebi.pride.archive.repo.repos.project.Project;
+import uk.ac.ebi.pride.archive.repo.repos.user.User;
+import uk.ac.ebi.pride.archive.repo.repos.user.UserRepository;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

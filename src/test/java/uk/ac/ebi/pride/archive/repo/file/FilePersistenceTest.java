@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.dataprovider.file.ProjectFileSource;
 import uk.ac.ebi.pride.archive.dataprovider.file.ProjectFileType;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
+import uk.ac.ebi.pride.archive.repo.repos.file.ProjectFile;
+import uk.ac.ebi.pride.archive.repo.repos.file.ProjectFileRepository;
 
 import java.util.Collection;
 

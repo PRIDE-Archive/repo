@@ -25,25 +25,25 @@
     <!-- reference mapping-->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.project.Reference</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.project.service.ReferenceSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.project.ReferenceSummary</class-b>
     </mapping>
 
     <!-- lab head mapping -->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.project.LabHead</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.user.service.ContactSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.user.ContactSummary</class-b>
     </mapping>
 
     <!-- user mapping-->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.user.User</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.user.service.UserSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.user.UserSummary</class-b>
     </mapping>
 
     <!-- project param mapping -->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.project.ProjectCvParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary</class-b>
         <field>
             <a>cvParam.cvLabel</a>
             <b>cvLabel</b>
@@ -60,13 +60,13 @@
 
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.project.ProjectUserParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</class-b>
     </mapping>
 
     <!-- project ptm mapping -->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.project.ProjectPTM</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary</class-b>
         <field>
             <a>cvParam.cvLabel</a>
             <b>cvLabel</b>
@@ -84,7 +84,7 @@
     <!-- project file mapping-->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.file.ProjectFile</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.file.service.FileSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.file.FileSummary</class-b>
     </mapping>
 
     <!-- assay mapping-->
@@ -95,20 +95,20 @@
             <a>assayGroupCvParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.AssayGroupCvParam, uk.ac.ebi.pride.archive.repo.assay.AssayGroupUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
         <field relationship-type="cumulative">
             <a>assayGroupUserParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.AssayGroupCvParam, uk.ac.ebi.pride.archive.repo.assay.AssayGroupUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
     </mapping>
 
     <!-- assay param mapping-->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.assay.AssayCvParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary</class-b>
         <field>
             <a>cvParam.cvLabel</a>
             <b>cvLabel</b>
@@ -125,7 +125,7 @@
 
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.assay.AssayUserParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</class-b>
     </mapping>
 
     <!-- software mapping -->
@@ -136,20 +136,20 @@
             <a>softwareCvParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam, uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
         <field relationship-type="cumulative">
             <a>softwareUserParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam, uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
     </mapping>
 
     <!-- software param mapping -->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareCvParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary</class-b>
         <field>
             <a>cvParam.cvLabel</a>
             <b>cvLabel</b>
@@ -166,7 +166,7 @@
 
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.assay.software.SoftwareUserParam</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</class-b>
     </mapping>
 
     <!-- instrument mapping-->
@@ -202,19 +202,19 @@
             <a>instrumentComponentCvParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentCvParam, uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
         <field relationship-type="cumulative">
             <a>instrumentComponentUserParams</a>
             <b>params</b>
             <a-hint>uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentCvParam, uk.ac.ebi.pride.archive.repo.assay.instrument.InstrumentComponentUserParam</a-hint>
-            <b-hint>uk.ac.ebi.pride.archive.repo.param.service.CvParamSummary,uk.ac.ebi.pride.archive.repo.param.service.ParamSummary</b-hint>
+            <b-hint>uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary,uk.ac.ebi.pride.archive.repo.services.param.ParamSummary</b-hint>
         </field>
     </mapping>
 
     <!-- contact mapping-->
     <mapping>
         <class-a>uk.ac.ebi.pride.archive.repo.assay.Contact</class-a>
-        <class-b>uk.ac.ebi.pride.archive.repo.user.service.ContactSummary</class-b>
+        <class-b>uk.ac.ebi.pride.archive.repo.services.user.ContactSummary</class-b>
     </mapping>
 </mappings>

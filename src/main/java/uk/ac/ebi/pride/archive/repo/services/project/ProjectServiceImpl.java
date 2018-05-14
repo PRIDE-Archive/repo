@@ -18,69 +18,68 @@ import java.util.Optional;
  * @author Rui Wang
  * @author Jose A. Dianes
  * @version $Id$
- *          <p/>
+ *     <p>
  */
 @Service
 @Transactional(readOnly = true)
 public class ProjectServiceImpl implements ProjectService {
-    private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
-    private ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
-    @Autowired
-    public ProjectServiceImpl(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
+  @Autowired
+  public ProjectServiceImpl(ProjectRepository projectRepository) {
+    this.projectRepository = projectRepository;
+  }
+
+  @Override
+  public Collection<ProjectSummary> findAllBySubmitterId(Long submitterId)
+      throws ProjectAccessException {
+    Assert.notNull(submitterId, "Submitter id cannot be null");
+
+    try {
+      Collection<ProjectSummary> projectSummaries = new LinkedList<>();
+
+      for (Project project : projectRepository.findAllBySubmitterId(submitterId)) {
+        ProjectSummary projectSummary = ObjectMapper.mapProjectToProjectSummary(project);
+        projectSummaries.add(projectSummary);
+      }
+
+      return projectSummaries;
+    } catch (Exception ex) {
+      String msg = "Failed to find projects by submitter id: " + submitterId;
+      logger.error(msg, ex);
+      throw new ProjectAccessException(msg, ex);
     }
+  }
 
-    @Override
-    public Collection<ProjectSummary> findAllBySubmitterId(Long submitterId) throws ProjectAccessException {
-        Assert.notNull(submitterId, "Submitter id cannot be null");
+  @Override
+  public ProjectSummary findById(Long projectId) throws ProjectAccessException {
+    Assert.notNull(projectId, "Project id cannot be null");
 
-        try {
-            Collection<ProjectSummary> projectSummaries = new LinkedList<>();
+    try {
+      Optional<Project> project = projectRepository.findById(projectId);
 
-            for (Project project : projectRepository.findAllBySubmitterId(submitterId)) {
-                ProjectSummary projectSummary = ObjectMapper.mapProjectToProjectSummary(project);
-                projectSummaries.add(projectSummary);
-            }
-
-            return projectSummaries;
-        } catch (Exception ex) {
-            String msg = "Failed to find projects by submitter id: " + submitterId;
-            logger.error(msg, ex);
-            throw new ProjectAccessException(msg, ex);
-        }
+      return ObjectMapper.mapProjectToProjectSummary(project.get());
+    } catch (Exception ex) {
+      String msg = "Failed to find project using project id: " + projectId;
+      logger.error(msg, ex);
+      throw new ProjectAccessException(msg, ex);
     }
+  }
 
-    @Override
-    public ProjectSummary findById(Long projectId) throws ProjectAccessException {
-        Assert.notNull(projectId, "Project id cannot be null");
+  @Override
+  public ProjectSummary findByAccession(String accession) throws ProjectAccessException {
+    Assert.notNull(accession, "Project accession cannot be null");
 
-        try {
-            Optional<Project> project = projectRepository.findById(projectId);
+    try {
+      Project project = projectRepository.findByAccession(accession);
 
-            return ObjectMapper.mapProjectToProjectSummary(project.get());
-        } catch (Exception ex) {
-            String msg = "Failed to find project using project id: " + projectId;
-            logger.error(msg, ex);
-            throw new ProjectAccessException(msg, ex);
-        }
+      return ObjectMapper.mapProjectToProjectSummary(project);
+    } catch (Exception ex) {
+      String msg = "Failed to find project using project accession: " + accession;
+      logger.error(msg, ex);
+      throw new ProjectAccessException(msg, ex, accession);
     }
-
-    @Override
-    public ProjectSummary findByAccession(String accession) throws ProjectAccessException {
-        Assert.notNull(accession, "Project accession cannot be null");
-
-        try {
-            Project project = projectRepository.findByAccession(accession);
-
-            return ObjectMapper.mapProjectToProjectSummary(project);
-        } catch (Exception ex) {
-            String msg = "Failed to find project using project accession: " + accession;
-            logger.error(msg, ex);
-            throw new ProjectAccessException(msg, ex, accession);
-        }
-    }
-
-
+  }
 }

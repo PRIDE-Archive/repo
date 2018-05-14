@@ -9,62 +9,62 @@ import uk.ac.ebi.pride.archive.dataprovider.person.Title;
  */
 public class ContactSummary implements ContactProvider {
 
-    private Title title;
-    private String firstName;
-    private String lastName;
-    private String affiliation;
-    private String email;
-    private Long id;
+  private Title title;
+  private String firstName;
+  private String lastName;
+  private String affiliation;
+  private String email;
+  private Long id;
 
-    public ContactSummary() {
-        this.title = Title.UNKNOWN;
-    }
+  public ContactSummary() {
+    this.title = Title.UNKNOWN;
+  }
 
-    public Title getTitle() {
-        return title;
-    }
+  public Title getTitle() {
+    return title;
+  }
 
-    public void setTitle(Title title) {
-        this.title = title;
-    }
+  public void setTitle(Title title) {
+    this.title = title;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getAffiliation() {
-        return affiliation;
-    }
+  public String getAffiliation() {
+    return affiliation;
+  }
 
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
+  public void setAffiliation(String affiliation) {
+    this.affiliation = affiliation;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

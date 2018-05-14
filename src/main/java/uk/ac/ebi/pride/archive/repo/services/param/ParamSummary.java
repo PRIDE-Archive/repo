@@ -6,36 +6,36 @@ import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
  * @author Rui Wang
  * @version $Id$
  */
-public class ParamSummary implements ParamProvider{
+public class ParamSummary implements ParamProvider {
 
-    private Long id;
-    private String name;
-    private String value;
+  private Long id;
+  private String name;
+  private String value;
 
-    @Override
-    public String getName() {
-        return name;
-    }
+  @Override
+  public String getName() {
+    return name;
+  }
 
-    @Override
-    public String getValue() {
-        return value;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
+  @Override
+  public String getValue() {
+    return value;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setValue(String value) {
+    this.value = value;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Override
+  public Long getId() {
+    return id;
+  }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

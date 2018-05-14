@@ -23,52 +23,59 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.net.URISyntaxException;
 
-/**
- * @author ypriverol
- */
+/** @author ypriverol */
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = {"uk.ac.ebi.pride.archive.repo.repos"})
 @ComponentScan(basePackages = "uk.ac.ebi.pride.archive.repo.services")
 @TestPropertySource(locations = "classpath:application.properties")
-@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
+@EnableAutoConfiguration(
+  exclude = {
+    DataSourceAutoConfiguration.class,
+    DataSourceTransactionManagerAutoConfiguration.class,
+    HibernateJpaAutoConfiguration.class
+  }
+)
 public class ArchiveOracleConfig {
 
-    @Bean(name = "dataSourceOracle")
-    public DataSource dataSource() throws URISyntaxException {
-        return new EmbeddedDatabaseBuilder().addScripts(
-                "db/hsqldb-config.sql","db/schema.sql", "db/test-data.sql")
-                .setType(EmbeddedDatabaseType.HSQL).build();
-    }
+  @Bean(name = "dataSourceOracle")
+  public DataSource dataSource() throws URISyntaxException {
+    return new EmbeddedDatabaseBuilder()
+        .addScripts("db/hsqldb-config.sql", "db/schema.sql", "db/test-data.sql")
+        .setType(EmbeddedDatabaseType.HSQL)
+        .build();
+  }
 
-    @Bean(name ="jpaVendorAdapter")
-    public HibernateJpaVendorAdapter hibernateJpaVendorAdapter(){
-        HibernateJpaVendorAdapter hibernateAdapter = new HibernateJpaVendorAdapter();
-        hibernateAdapter.setGenerateDdl(true);
-        hibernateAdapter.setDatabase(Database.HSQL);
-        return hibernateAdapter;
-    }
+  @Bean(name = "jpaVendorAdapter")
+  public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() {
+    HibernateJpaVendorAdapter hibernateAdapter = new HibernateJpaVendorAdapter();
+    hibernateAdapter.setGenerateDdl(true);
+    hibernateAdapter.setDatabase(Database.HSQL);
+    return hibernateAdapter;
+  }
 
-    @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSourceOracle") DataSource dataSource, @Qualifier("jpaVendorAdapter") HibernateJpaVendorAdapter hpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean container = new LocalContainerEntityManagerFactoryBean();
-        container.setDataSource(dataSource);
-        container.setJpaVendorAdapter(hpaVendorAdapter);
-        container.setPackagesToScan("uk.ac.ebi.pride.archive.repo.repos", "uk.ac.ebi.pride.archive.repo.services");
+  @Bean(name = "entityManagerFactory")
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+      @Qualifier("dataSourceOracle") DataSource dataSource,
+      @Qualifier("jpaVendorAdapter") HibernateJpaVendorAdapter hpaVendorAdapter) {
+    LocalContainerEntityManagerFactoryBean container = new LocalContainerEntityManagerFactoryBean();
+    container.setDataSource(dataSource);
+    container.setJpaVendorAdapter(hpaVendorAdapter);
+    container.setPackagesToScan(
+        "uk.ac.ebi.pride.archive.repo.repos", "uk.ac.ebi.pride.archive.repo.services");
 
-        return  container;
-    }
+    return container;
+  }
 
-    @Bean(name = "transactionManager")
-    public JpaTransactionManager jpaTransactionManager(
-            @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory);
-        transactionManager.setJpaDialect(new HibernateJpaDialect());
-        return transactionManager;
-    }
+  @Bean(name = "transactionManager")
+  public JpaTransactionManager jpaTransactionManager(
+      @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+    JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory);
+    transactionManager.setJpaDialect(new HibernateJpaDialect());
+    return transactionManager;
+  }
 
-    @Bean
-    public HibernateExceptionTranslator hibernateExceptionTranslator() {
-        return new HibernateExceptionTranslator();
-    }
+  @Bean
+  public HibernateExceptionTranslator hibernateExceptionTranslator() {
+    return new HibernateExceptionTranslator();
+  }
 }

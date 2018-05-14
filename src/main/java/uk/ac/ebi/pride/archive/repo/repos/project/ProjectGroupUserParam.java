@@ -9,5 +9,4 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("PROJECT")
-public class ProjectGroupUserParam extends ProjectUserParam{
-}
+public class ProjectGroupUserParam extends ProjectUserParam {}

@@ -12,8 +12,7 @@ import java.util.List;
 @Repository
 public interface ProjectFileRepository extends CrudRepository<ProjectFile, Long> {
 
-    List<ProjectFile> findAllByProjectId(Long projectId);
+  List<ProjectFile> findAllByProjectId(Long projectId);
 
-    List<ProjectFile> findAllByAssayId(Long assayId);
-
+  List<ProjectFile> findAllByAssayId(Long assayId);
 }

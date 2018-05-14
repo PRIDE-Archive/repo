@@ -13,35 +13,35 @@ import java.util.Collection;
  */
 public class InstrumentComponentSummary implements InstrumentComponentProvider {
 
-    private int order;
-    private Long id;
-    private Collection<ParamSummary> params;
+  private int order;
+  private Long id;
+  private Collection<ParamSummary> params;
 
-    public InstrumentComponentSummary() {
-        this.params = new ArrayList<>();
-    }
+  public InstrumentComponentSummary() {
+    this.params = new ArrayList<>();
+  }
 
-    public int getOrder() {
-        return order;
-    }
+  public int getOrder() {
+    return order;
+  }
 
-    public void setOrder(int order) {
-        this.order = order;
-    }
+  public void setOrder(int order) {
+    this.order = order;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Collection<ParamSummary> getParams() {
-        return params;
-    }
+  public Collection<ParamSummary> getParams() {
+    return params;
+  }
 
-    public void setParams(Collection<ParamSummary> params) {
-        CollectionUtils.replaceValuesInCollection(params, this.params);
-    }
+  public void setParams(Collection<ParamSummary> params) {
+    CollectionUtils.replaceValuesInCollection(params, this.params);
+  }
 }

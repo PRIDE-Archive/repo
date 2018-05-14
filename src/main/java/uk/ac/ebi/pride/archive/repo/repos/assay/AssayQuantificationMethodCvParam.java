@@ -9,5 +9,4 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("QUANTIFICATION_METHOD")
-public class AssayQuantificationMethodCvParam extends AssayCvParam {
-}
+public class AssayQuantificationMethodCvParam extends AssayCvParam {}

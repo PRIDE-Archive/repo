@@ -9,5 +9,4 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("EXPERIMENT_TYPE")
-public class ProjectExperimentType extends ProjectCvParam {
-}
+public class ProjectExperimentType extends ProjectCvParam {}

@@ -5,10 +5,10 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import uk.ac.ebi.pride.archive.dataprovider.identification.PeptideSequenceProvider;
 import uk.ac.ebi.pride.archive.dataprovider.identification.ProteinIdentificationProvider;
-import uk.ac.ebi.pride.archive.repo.repos.user.User;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.project.ProjectProvider;
 import uk.ac.ebi.pride.archive.dataprovider.project.SubmissionType;
+import uk.ac.ebi.pride.archive.repo.repos.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,397 +27,394 @@ import java.util.Map;
 @SequenceGenerator(name = "ProjectSequence", sequenceName = "projectSequence", allocationSize = 100)
 public class Project implements ProjectProvider {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProjectSequence")
-    @Column(name = "project_pk")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProjectSequence")
+  @Column(name = "project_pk")
+  private Long id;
 
-    @NotNull
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "submitter_fk")
-    private User submitter;
-
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "project_users",
-            joinColumns = @JoinColumn(name = "project_fk"),
-            inverseJoinColumns = @JoinColumn(name = "user_fk")
-    )
-    private Collection<User> users;
+  @NotNull
+  @ManyToOne(cascade = {CascadeType.MERGE})
+  @JoinColumn(name = "submitter_fk")
+  private User submitter;
 
-    @NotNull
-    private String accession;
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+  @JoinTable(
+    name = "project_users",
+    joinColumns = @JoinColumn(name = "project_fk"),
+    inverseJoinColumns = @JoinColumn(name = "user_fk")
+  )
+  private Collection<User> users;
 
-    private String doi;
-
-    @NotNull
-    private String title;
+  @NotNull private String accession;
 
-    @Column(name = "project_description")
-    private String projectDescription;
+  private String doi;
 
-    @Column(name = "data_proc_protocol_descr")
-    private String dataProcessingProtocol;
-
-    @Column(name = "sample_proc_protocol_descr")
-    private String sampleProcessingProtocol;
-
-    @NotNull
-    private String keywords;
+  @NotNull private String title;
 
-    @Column(name = "num_assays")
-    private int numAssays;
+  @Column(name = "project_description")
+  private String projectDescription;
 
-    private String reanalysis;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "submission_type")
-    private SubmissionType submissionType;
-
-    @NotNull
-    @Column(name = "submission_date")
-    private Date submissionDate;
-
-    @Column(name = "publication_date")
-    private Date publicationDate;
-
-    @NotNull
-    @Column(name = "update_date")
-    private Date updateDate;
-
-    @NotNull
-    @Column(name = "is_public")
-    private boolean publicProject;
-
-    @Column(name = "other_omics_link")
-    private String otherOmicsLink;
+  @Column(name = "data_proc_protocol_descr")
+  private String dataProcessingProtocol;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectPTM> ptms;
+  @Column(name = "sample_proc_protocol_descr")
+  private String sampleProcessingProtocol;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<Reference> references;
+  @NotNull private String keywords;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectTag> projectTags;
+  @Column(name = "num_assays")
+  private int numAssays;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<LabHead> labHeads;
+  private String reanalysis;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectSampleCvParam> samples;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectExperimentType> experimentTypes;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectQuantificationMethodCvParam> quantificationMethods;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "submission_type")
+  private SubmissionType submissionType;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectGroupUserParam> projectGroupUserParams;
+  @NotNull
+  @Column(name = "submission_date")
+  private Date submissionDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectGroupCvParam> projectGroupCvParams;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectInstrumentCvParam> instruments;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "project_fk", insertable = false, updatable = false)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<ProjectSoftwareCvParam> softwares;
+  @Column(name = "publication_date")
+  private Date publicationDate;
 
-    @NotNull
-    private boolean changed;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getSubmitter() {
-        return submitter;
-    }
-
-    public void setSubmitter(User submitter) {
-        this.submitter = submitter;
-    }
-
-    public String getAccession() {
-        return accession;
-    }
-
-    public void setAccession(String accession) {
-        this.accession = accession;
-    }
-
-    public String getDoi() {
-        return doi;
-    }
-
-    public void setDoi(String doi) {
-        this.doi = doi;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getProjectDescription() {
-        return projectDescription;
-    }
-
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
-    }
-
-    public void setDataProcessingProtocol(String dataProcessingProtocol) {
-        this.dataProcessingProtocol = dataProcessingProtocol;
-    }
-
-    public void setSampleProcessingProtocol(String sampleProcessingProtocol) {
-        this.sampleProcessingProtocol = sampleProcessingProtocol;
-    }
-
-    public String getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
-
-    public int getNumAssays() {
-        return numAssays;
-    }
+  @NotNull
+  @Column(name = "update_date")
+  private Date updateDate;
 
-    public void setNumAssays(int numAssays) {
-        this.numAssays = numAssays;
-    }
+  @NotNull
+  @Column(name = "is_public")
+  private boolean publicProject;
 
-    public String getReanalysis() {
-        return reanalysis;
-    }
+  @Column(name = "other_omics_link")
+  private String otherOmicsLink;
 
-    public Collection<ProjectExperimentType> getExperimentTypes() {
-        return this.experimentTypes;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectPTM> ptms;
 
-    public void setReanalysis(String reanalysis) {
-        this.reanalysis = reanalysis;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<Reference> references;
 
-    public SubmissionType getSubmissionType() {
-        return submissionType;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectTag> projectTags;
 
-    public void setSubmissionType(SubmissionType submissionType) {
-        this.submissionType = submissionType;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<LabHead> labHeads;
 
-    public Date getSubmissionDate() {
-        return submissionDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectSampleCvParam> samples;
 
-    public void setSubmissionDate(Date submissionDate) {
-        this.submissionDate = submissionDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectExperimentType> experimentTypes;
 
-    public Date getPublicationDate() {
-        return publicationDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectQuantificationMethodCvParam> quantificationMethods;
 
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectGroupUserParam> projectGroupUserParams;
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectGroupCvParam> projectGroupCvParams;
+
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectInstrumentCvParam> instruments;
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "project_fk", insertable = false, updatable = false)
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<ProjectSoftwareCvParam> softwares;
+
+  @NotNull private boolean changed;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public User getSubmitter() {
+    return submitter;
+  }
+
+  public void setSubmitter(User submitter) {
+    this.submitter = submitter;
+  }
+
+  public String getAccession() {
+    return accession;
+  }
+
+  public void setAccession(String accession) {
+    this.accession = accession;
+  }
+
+  public String getDoi() {
+    return doi;
+  }
+
+  public void setDoi(String doi) {
+    this.doi = doi;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getProjectDescription() {
+    return projectDescription;
+  }
+
+  public void setProjectDescription(String projectDescription) {
+    this.projectDescription = projectDescription;
+  }
+
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
+
+  public int getNumAssays() {
+    return numAssays;
+  }
+
+  public void setNumAssays(int numAssays) {
+    this.numAssays = numAssays;
+  }
 
-    public Collection<User> getUsers() {
-        return users;
-    }
+  public String getReanalysis() {
+    return reanalysis;
+  }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
+  public void setReanalysis(String reanalysis) {
+    this.reanalysis = reanalysis;
+  }
 
-    public Collection<ProjectPTM> getPtms() {
-        return ptms;
-    }
+  public Collection<ProjectExperimentType> getExperimentTypes() {
+    return this.experimentTypes;
+  }
 
-    public void setPtms(Collection<ProjectPTM> projectPTMs) {
-        this.ptms = projectPTMs;
-    }
+  public void setExperimentTypes(Collection<ProjectExperimentType> experimentTypes) {
+    this.experimentTypes = experimentTypes;
+  }
 
-    public Collection<Reference> getReferences() {
-        return references;
-    }
+  public SubmissionType getSubmissionType() {
+    return submissionType;
+  }
 
-    public void setReferences(Collection<Reference> references) {
-        this.references = references;
-    }
+  public void setSubmissionType(SubmissionType submissionType) {
+    this.submissionType = submissionType;
+  }
 
-    public Collection<ProjectTag> getProjectTags() {
-        return projectTags;
-    }
+  public Date getSubmissionDate() {
+    return submissionDate;
+  }
 
-    public void setProjectTags(Collection<ProjectTag> projectTags) {
-        this.projectTags = projectTags;
-    }
+  public void setSubmissionDate(Date submissionDate) {
+    this.submissionDate = submissionDate;
+  }
 
-    public Collection<LabHead> getLabHeads() {
-        return labHeads;
-    }
+  public Date getPublicationDate() {
+    return publicationDate;
+  }
 
-    public void setLabHeads(Collection<LabHead> labHeads) {
-        this.labHeads = labHeads;
-    }
+  public void setPublicationDate(Date publicationDate) {
+    this.publicationDate = publicationDate;
+  }
 
-    public Collection<ProjectSampleCvParam> getSamples() {
-        return samples;
-    }
+  public Date getUpdateDate() {
+    return updateDate;
+  }
 
-    public void setSamples(Collection<ProjectSampleCvParam> projectSamples) {
-        this.samples = projectSamples;
-    }
+  public void setUpdateDate(Date updateDate) {
+    this.updateDate = updateDate;
+  }
 
-    public Collection<ParamProvider> getParams() {
-        Collection<ParamProvider> params = new LinkedList<>();
+  public Collection<User> getUsers() {
+    return users;
+  }
 
-        if (this.projectGroupCvParams != null) params.addAll(this.projectGroupCvParams);
-        if (this.projectGroupUserParams != null) params.addAll(this.projectGroupUserParams);
+  public void setUsers(Collection<User> users) {
+    this.users = users;
+  }
 
-        return params;
-    }
+  public Collection<ProjectPTM> getPtms() {
+    return ptms;
+  }
 
-    public String getSampleProcessingProtocol() {
-        return this.sampleProcessingProtocol;
-    }
+  public void setPtms(Collection<ProjectPTM> projectPTMs) {
+    this.ptms = projectPTMs;
+  }
 
-    public String getDataProcessingProtocol() {
-        return this.dataProcessingProtocol;
-    }
+  public Collection<Reference> getReferences() {
+    return references;
+  }
 
-    public String getOtherOmicsLink() {
-        return this.otherOmicsLink;
-    }
+  public void setReferences(Collection<Reference> references) {
+    this.references = references;
+  }
 
-    public void setOtherOmicsLink(String otherOmicsLink) {
-        this.otherOmicsLink = otherOmicsLink;
-    }
+  public Collection<ProjectTag> getProjectTags() {
+    return projectTags;
+  }
 
-    public Collection<ProjectInstrumentCvParam> getInstruments() {
-        return instruments;
-    }
+  public void setProjectTags(Collection<ProjectTag> projectTags) {
+    this.projectTags = projectTags;
+  }
 
-    public void setInstruments(Collection<ProjectInstrumentCvParam> instruments) {
-        this.instruments = instruments;
-    }
+  public Collection<LabHead> getLabHeads() {
+    return labHeads;
+  }
 
-    public Collection<ProjectQuantificationMethodCvParam> getQuantificationMethods() {
-        return this.quantificationMethods;
-    }
+  public void setLabHeads(Collection<LabHead> labHeads) {
+    this.labHeads = labHeads;
+  }
 
-    public boolean isPublicProject() {
-        return this.publicProject;
-    }
+  public Collection<ProjectSampleCvParam> getSamples() {
+    return samples;
+  }
 
-    public void setPublicProject(boolean publicProject) {
-        this.publicProject = publicProject;
-    }
+  public void setSamples(Collection<ProjectSampleCvParam> projectSamples) {
+    this.samples = projectSamples;
+  }
 
-    public void setExperimentTypes(Collection<ProjectExperimentType> experimentTypes) {
-        this.experimentTypes = experimentTypes;
-    }
+  public Collection<ParamProvider> getParams() {
+    Collection<ParamProvider> params = new LinkedList<>();
 
-    public void setQuantificationMethods(Collection<ProjectQuantificationMethodCvParam> quantificationMethods) {
-        this.quantificationMethods = quantificationMethods;
-    }
+    if (this.projectGroupCvParams != null) params.addAll(this.projectGroupCvParams);
+    if (this.projectGroupUserParams != null) params.addAll(this.projectGroupUserParams);
 
+    return params;
+  }
 
-    public Collection<ProjectGroupUserParam> getProjectGroupUserParams() {
-        return projectGroupUserParams;
-    }
+  public String getSampleProcessingProtocol() {
+    return this.sampleProcessingProtocol;
+  }
 
-    public void setProjectGroupUserParams(Collection<ProjectGroupUserParam> projectGroupUserParams) {
-        this.projectGroupUserParams = projectGroupUserParams;
-    }
-
-    public Collection<ProjectGroupCvParam> getProjectGroupCvParams() {
-        return projectGroupCvParams;
-    }
-
-    public void setProjectGroupCvParams(Collection<ProjectGroupCvParam> projectGroupCvParams) {
-        this.projectGroupCvParams = projectGroupCvParams;
-    }
-
-    public Collection<ProjectSoftwareCvParam> getSoftware() {
-        return softwares;
-    }
-
-    public void setSoftware(Collection<ProjectSoftwareCvParam> softwares) {
-        this.softwares = softwares;
-    }
-
-    public boolean isChanged() {
-        return changed;
-    }
-
-    public void setChanged(boolean changed) {
-        this.changed = changed;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Project)) return false;
-
-        Project project = (Project) o;
-
-        return accession.equals(project.accession);
-    }
-
-    @Override
-    public int hashCode() {
-        return accession.hashCode();
-    }
-
-    @Override
-    public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
-        return null;
-    }
-
-    @Override
-    public Collection<? extends PeptideSequenceProvider> getPeptideSequences() {
-        return null;
-    }
+  public void setSampleProcessingProtocol(String sampleProcessingProtocol) {
+    this.sampleProcessingProtocol = sampleProcessingProtocol;
+  }
+
+  public String getDataProcessingProtocol() {
+    return this.dataProcessingProtocol;
+  }
+
+  public void setDataProcessingProtocol(String dataProcessingProtocol) {
+    this.dataProcessingProtocol = dataProcessingProtocol;
+  }
+
+  public String getOtherOmicsLink() {
+    return this.otherOmicsLink;
+  }
+
+  public void setOtherOmicsLink(String otherOmicsLink) {
+    this.otherOmicsLink = otherOmicsLink;
+  }
+
+  public Collection<ProjectInstrumentCvParam> getInstruments() {
+    return instruments;
+  }
+
+  public void setInstruments(Collection<ProjectInstrumentCvParam> instruments) {
+    this.instruments = instruments;
+  }
+
+  public Collection<ProjectQuantificationMethodCvParam> getQuantificationMethods() {
+    return this.quantificationMethods;
+  }
+
+  public void setQuantificationMethods(
+      Collection<ProjectQuantificationMethodCvParam> quantificationMethods) {
+    this.quantificationMethods = quantificationMethods;
+  }
+
+  public boolean isPublicProject() {
+    return this.publicProject;
+  }
+
+  public void setPublicProject(boolean publicProject) {
+    this.publicProject = publicProject;
+  }
+
+  public Collection<ProjectGroupUserParam> getProjectGroupUserParams() {
+    return projectGroupUserParams;
+  }
+
+  public void setProjectGroupUserParams(Collection<ProjectGroupUserParam> projectGroupUserParams) {
+    this.projectGroupUserParams = projectGroupUserParams;
+  }
+
+  public Collection<ProjectGroupCvParam> getProjectGroupCvParams() {
+    return projectGroupCvParams;
+  }
+
+  public void setProjectGroupCvParams(Collection<ProjectGroupCvParam> projectGroupCvParams) {
+    this.projectGroupCvParams = projectGroupCvParams;
+  }
+
+  public Collection<ProjectSoftwareCvParam> getSoftware() {
+    return softwares;
+  }
+
+  public void setSoftware(Collection<ProjectSoftwareCvParam> softwares) {
+    this.softwares = softwares;
+  }
+
+  public boolean isChanged() {
+    return changed;
+  }
+
+  public void setChanged(boolean changed) {
+    this.changed = changed;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Project)) return false;
+
+    Project project = (Project) o;
+
+    return accession.equals(project.accession);
+  }
+
+  @Override
+  public int hashCode() {
+    return accession.hashCode();
+  }
+
+  @Override
+  public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends PeptideSequenceProvider> getPeptideSequences() {
+    return null;
+  }
 }

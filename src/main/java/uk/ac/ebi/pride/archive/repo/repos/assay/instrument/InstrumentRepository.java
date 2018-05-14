@@ -12,6 +12,5 @@ import java.util.List;
 @Repository
 public interface InstrumentRepository extends CrudRepository<Instrument, Long> {
 
-    List<Instrument> findAllByAssayId(Long assayId);
-
+  List<Instrument> findAllByAssayId(Long assayId);
 }

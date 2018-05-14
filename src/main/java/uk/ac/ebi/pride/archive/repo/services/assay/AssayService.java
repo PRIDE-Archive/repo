@@ -12,13 +12,15 @@ import java.util.Collection;
  */
 public interface AssayService {
 
-   AssaySummary findById(Long assayId) throws AssayAccessException;
+  AssaySummary findById(Long assayId) throws AssayAccessException;
 
-   AssaySummary findByAccession(String assayAccession) throws AssayAccessException;
+  AssaySummary findByAccession(String assayAccession) throws AssayAccessException;
 
-    Collection<AssaySummary> findAllByProjectAccession(String projectAccession) throws AssayAccessException;
+  Collection<AssaySummary> findAllByProjectAccession(String projectAccession)
+      throws AssayAccessException;
 
-    Page<AssaySummary> findAllByProjectAccession(String projectAccession, Pageable pageable) throws AssayAccessException;
+  Page<AssaySummary> findAllByProjectAccession(String projectAccession, Pageable pageable)
+      throws AssayAccessException;
 
-    Long countByProjectAccession(String projectAccession) throws AssayAccessException;
+  Long countByProjectAccession(String projectAccession) throws AssayAccessException;
 }

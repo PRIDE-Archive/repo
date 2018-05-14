@@ -7,9 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * {@code PasswordUtilities} is a utility class which handles password related functions
  *
- * To encode password, it use an instance of {@code BCryptPasswordEncoder}, which offers strong hashing
+ * <p>To encode password, it use an instance of {@code BCryptPasswordEncoder}, which offers strong
+ * hashing
  *
- * To generate password, it use an instance of {@code RandomStringUtils} from Apache commons
+ * <p>To generate password, it use an instance of {@code RandomStringUtils} from Apache commons
  *
  * @author Rui Wang
  * @version $Id$
@@ -17,28 +18,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public final class PasswordUtilities {
 
-    /** default password encoder */
-    private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
+  /** default password encoder */
+  private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    /** default password length */
-    private static final int PASSWORD_LENGTH = 8;
+  /** default password length */
+  private static final int PASSWORD_LENGTH = 8;
 
-    private PasswordUtilities() {
-    }
+  private PasswordUtilities() {}
 
-    public static String encode(String passwordPlainText) {
-        return encoder.encode(passwordPlainText);
-    }
+  public static String encode(String passwordPlainText) {
+    return encoder.encode(passwordPlainText);
+  }
 
-    public static boolean matches(String passwordPlainText, String passwordEncoded) {
-        return encoder.matches(passwordPlainText, passwordEncoded);
-    }
+  public static boolean matches(String passwordPlainText, String passwordEncoded) {
+    return encoder.matches(passwordPlainText, passwordEncoded);
+  }
 
-    public static String generatePassword() {
-        return RandomStringUtils.random(PASSWORD_LENGTH, true, true);
-    }
+  public static String generatePassword() {
+    return RandomStringUtils.random(PASSWORD_LENGTH, true, true);
+  }
 
-    public static String generateEncodedPassword() {
-        return encode(generatePassword());
-    }
+  public static String generateEncodedPassword() {
+    return encode(generatePassword());
+  }
 }

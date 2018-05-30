@@ -1,8 +1,8 @@
 -- password is johnsmith
-INSERT INTO pride_users VALUES (11111,'john.smith@dummy.ebi.com', '$2a$10$Zf1AEQW1Blw7e4Dt.y3Bne5flAXs.R69AbBdCqcv0h8Cv7Y6Ycatq','Mr', 'john', 'smith', 'EBI', TO_DATE('2010-04-29', 'YYYY-MM-DD'), TO_DATE('2010-04-30', 'YYYY-MM-DD'), 'UK', '0000-1111-2222-3333');
+INSERT INTO pride_users VALUES (11111,'john.smith@dummy.ebi.com', '$2a$10$Zf1AEQW1Blw7e4Dt.y3Bne5flAXs.R69AbBdCqcv0h8Cv7Y6Ycatq','Mr', 'john', 'smith', 'EBI', TO_DATE('2010-04-29', 'YYYY-MM-DD'), TO_DATE('2010-04-30', 'YYYY-MM-DD'), 'UK', '0000-1111-2222-3333', 1, TO_DATE('2010-04-30', 'YYYY-MM-DD'));
 
 -- password is alicewonderland
-INSERT INTO pride_users VALUES (11112,'alice.wonderland@dummy.ebi.com', '$2a$10$uWjpexapABY/9bzr8OlFuO78vixvN..bsdHVscgIl/AxPEm18GVEy', 'Miss', 'alice', 'wonderland', 'wonderland', TO_DATE('2010-04-29', 'YYYY-MM-DD'), TO_DATE('2010-04-30', 'YYYY-MM-DD'), 'USA', '4444-1111-2222-3333');
+INSERT INTO pride_users VALUES (11112,'alice.wonderland@dummy.ebi.com', '$2a$10$uWjpexapABY/9bzr8OlFuO78vixvN..bsdHVscgIl/AxPEm18GVEy', 'Miss', 'alice', 'wonderland', 'wonderland', TO_DATE('2010-04-29', 'YYYY-MM-DD'), TO_DATE('2010-04-30', 'YYYY-MM-DD'), 'USA', '4444-1111-2222-3333', 1, TO_DATE('2010-04-30', 'YYYY-MM-DD'));
 
 INSERT INTO authorities VALUES (1111, 11111, 'SUBMITTER');
 INSERT INTO authorities VALUES (2111, 11112, 'REVIEWER');

@@ -20,205 +20,234 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pride_users")
-@SequenceGenerator(name="UserSequence", sequenceName="prideUserSequence", allocationSize=100)
-public class User implements UserProvider{
+@SequenceGenerator(name = "UserSequence", sequenceName = "prideUserSequence", allocationSize = 100)
+public class User implements UserProvider {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="UserSequence")
-    @Column(name = "user_pk")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserSequence")
+  @Column(name = "user_pk")
+  private Long id;
 
-    @NotNull
-    private String password;
+  @NotNull private String password;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Title title;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  private Title title;
 
-    @NotNull
-    @Column( name = "first_name" )
-    private String firstName;
+  @NotNull
+  @Column(name = "first_name")
+  private String firstName;
 
-    @NotNull
-    @Column( name = "last_name" )
-    private String lastName;
+  @NotNull
+  @Column(name = "last_name")
+  private String lastName;
 
-    @NotNull
-    private String affiliation;
+  @NotNull private String affiliation;
 
-    @NotNull
-    @Column(unique=true)
-    private String email;
+  @NotNull
+  @Column(unique = true)
+  private String email;
 
-    @NotNull
-    @Column( name = "creation_date" )
-    private Date createAt;
+  @NotNull
+  @Column(name = "creation_date")
+  private Date createAt;
 
-    @NotNull
-    @Column( name = "update_date" )
-    private Date updateAt;
+  @NotNull
+  @Column(name = "update_date")
+  private Date updateAt;
 
-    @Column( name = "country" )
-    private String country;
+  @Column(name = "country")
+  private String country;
 
-    @Column( name = "orcid" )
-    private String orcid;
+  @Column(name = "orcid")
+  private String orcid;
 
-    @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Collection<Authority> authorities;
+  @Column(name = "accepted_terms")
+  private Integer acceptedTermsOfUse;
 
-    @ManyToMany(
-            cascade = CascadeType.MERGE,
-            mappedBy = "users"
-    )
-    private Collection<Project> projects;
+  @Column(name = "accepted_terms_date")
+  private Date acceptedTermsOfUseAt;
 
-    public Long getId() {
-        return id;
+  @OneToMany(
+    cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    mappedBy = "user"
+  )
+  @LazyCollection(LazyCollectionOption.FALSE)
+  private Collection<Authority> authorities;
+
+  @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "users")
+  private Collection<Project> projects;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public Title getTitle() {
+    return title;
+  }
+
+  public void setTitle(Title title) {
+    this.title = title;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getAffiliation() {
+    return affiliation;
+  }
+
+  public void setAffiliation(String affiliation) {
+    this.affiliation = affiliation;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPassword(String password) {
+    this.password = PasswordUtilities.encode(password);
+  }
+
+  public Date getCreateAt() {
+    return createAt;
+  }
+
+  public void setCreateAt(Date createAt) {
+    this.createAt = createAt;
+  }
+
+  public Date getUpdateAt() {
+    return updateAt;
+  }
+
+  public void setUpdateAt(Date updateAt) {
+    this.updateAt = updateAt;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public String getOrcid() {
+    return orcid;
+  }
+
+  public void setOrcid(String orcid) {
+    this.orcid = orcid;
+  }
+
+  public Integer getAcceptedTermsOfUse() {
+    return acceptedTermsOfUse;
+  }
+
+  public void setAcceptedTermsOfUse(Integer acceptedTermsOfUse) {
+    this.acceptedTermsOfUse = acceptedTermsOfUse;
+  }
+
+  public Date getAcceptedTermsOfUseAt() {
+    return acceptedTermsOfUseAt;
+  }
+
+  public void setAcceptedTermsOfUseAt(Date acceptedTermsOfUseAt) {
+    this.acceptedTermsOfUseAt = acceptedTermsOfUseAt;
+  }
+
+  @Override
+  public Set<UserAuthority> getUserAuthorities() {
+    Set<UserAuthority> userAuthorities = new HashSet<>();
+    if (authorities != null) {
+      for (Authority authority : authorities) {
+        userAuthorities.add(authority.getAuthority());
+      }
     }
+    return userAuthorities;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
+  public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
+    this.authorities = new HashSet<>();
+    for (UserAuthority userAuthority : userAuthorities) {
+      Authority authority = new Authority();
+      authority.setAuthority(userAuthority);
+      authority.setUser(this);
+      authorities.add(authority);
     }
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  private Collection<Authority> getAuthorities() {
+    return authorities;
+  }
 
-    public Title getTitle() {
-        return title;
-    }
+  private void setAuthorities(Collection<Authority> authorities) {
+    this.authorities = authorities;
+  }
 
-    public void setTitle(Title title) {
-        this.title = title;
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    User user = (User) o;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    if (affiliation != null ? !affiliation.equals(user.affiliation) : user.affiliation != null)
+      return false;
+    if (email != null ? !email.equals(user.email) : user.email != null) return false;
+    if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
+      return false;
+    if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+    if (password != null ? !password.equals(user.password) : user.password != null) return false;
+    if (title != user.title) return false;
+    if (country != null ? !country.equals(user.country) : user.country != null) return false;
+    if (orcid != null ? !orcid.equals(user.orcid) : user.orcid != null) return false;
+    if (acceptedTermsOfUseAt != null
+        ? !acceptedTermsOfUseAt.equals(user.acceptedTermsOfUseAt)
+        : user.acceptedTermsOfUseAt != null) return false;
+    return acceptedTermsOfUse != null
+        ? acceptedTermsOfUse.equals(user.acceptedTermsOfUse)
+        : user.acceptedTermsOfUse == null;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAffiliation() {
-        return affiliation;
-    }
-
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = PasswordUtilities.encode(password);
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getOrcid() {
-        return orcid;
-    }
-
-    public void setOrcid(String orcid) {
-        this.orcid = orcid;
-    }
-
-    @Override
-    public Set<UserAuthority> getUserAuthorities() {
-        Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
-        if (authorities != null) {
-            for (Authority authority : authorities) {
-                userAuthorities.add(authority.getAuthority());
-            }
-        }
-        return userAuthorities;
-    }
-
-    public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
-        this.authorities = new HashSet<Authority>();
-        for (UserAuthority userAuthority : userAuthorities) {
-            Authority authority = new Authority();
-            authority.setAuthority(userAuthority);
-            authority.setUser(this);
-            authorities.add(authority);
-        }
-    }
-
-    private Collection<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    private void setAuthorities(Collection<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-
-        User user = (User) o;
-
-        if (affiliation != null ? !affiliation.equals(user.affiliation) : user.affiliation != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (title != user.title) return false;
-        if (country != null ? !country.equals(user.country) : user.country != null) return false;
-        if (orcid != null ? !orcid.equals(user.orcid) : user.orcid != null) return false;
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = password != null ? password.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = password != null ? password.hashCode() : 0;
+    result = 31 * result + (title != null ? title.hashCode() : 0);
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    result = 31 * result + (country != null ? country.hashCode() : 0);
+    result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
+    result = 31 * result + (acceptedTermsOfUse != null ? acceptedTermsOfUse : 0);
+    result = 31 * result + (acceptedTermsOfUseAt != null ? acceptedTermsOfUseAt.hashCode() : 0);
+    return result;
+  }
 }

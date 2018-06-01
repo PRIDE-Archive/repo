@@ -23,7 +23,7 @@ public class UserSummary implements UserProvider {
   private Date createAt;
   private Date updateAt;
   private String country;
-  private String orcid; // todo add accepted terms boolean
+  private String orcid;
   private Boolean acceptedTermsOfUse;
   private Date acceptedTermsOfUseAt;
 

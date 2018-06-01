@@ -116,7 +116,23 @@ public final class ObjectMapper {
   }
 
   public static UserSummary mapUserToUserSummary(User user) {
-    return user == null ? null : mapper.map(user, UserSummary.class);
+    UserSummary result = new UserSummary();
+    result.setId(user.getId());
+    result.setEmail(user.getEmail());
+    result.setPassword(user.getPassword());
+    result.setTitle(user.getTitle());
+    result.setFirstName(user.getFirstName());
+    result.setLastName(user.getLastName());
+    result.setAffiliation(user.getAffiliation());
+    result.setUserAuthorities(new HashSet<>(user.getUserAuthorities()));
+    result.setCreateAt(user.getCreateAt());
+    result.setUpdateAt(user.getUpdateAt());
+    result.setCountry(user.getCountry());
+    result.setOrcid(user.getOrcid());
+    result.setAcceptedTermsOfUse(
+        user.getAcceptedTermsOfUse() != null && (user.getAcceptedTermsOfUse() == 1));
+    result.setAcceptedTermsOfUseAt(user.getAcceptedTermsOfUseAt());
+    return result;
   }
 
   public static AssaySummary mapAssayToAssaySummary(Assay assay) {

@@ -34,7 +34,8 @@ public class UserPersistenceTest {
   private static final String ANOTHER_USER_FIRST_NAME = "Lucas";
   private static final String ANOTHER_USER_LAST_NAME = "Grijander";
   private static final String ANOTHER_USER_AFFILIATION = "EMBL-EBI";
-  private static final String USER_1_PASSWORD = "$2a$10$Zf1AEQW1Blw7e4Dt.y3Bne5flAXs.R69AbBdCqcv0h8Cv7Y6Ycatq";
+  private static final String USER_1_PASSWORD =
+      "$2a$10$Zf1AEQW1Blw7e4Dt.y3Bne5flAXs.R69AbBdCqcv0h8Cv7Y6Ycatq";
   private static final String USER_1_EMAIL = "john.smith@dummy.ebi.com";
   private static final Title USER_1_TITLE = Title.Mr;
   private static final String USER_1_FIRST_NAME = "john";
@@ -47,8 +48,7 @@ public class UserPersistenceTest {
   private static final UserAuthority AUTH_1_AUTHORITY = UserAuthority.SUBMITTER;
   private static final String PROJECT_1_ACCESSION = "PXD00001";
 
-  @Autowired
-  private UserRepository userRepository;
+  @Autowired private UserRepository userRepository;
 
   @Test
   public void testSaveAndGet() throws Exception {
@@ -112,7 +112,6 @@ public class UserPersistenceTest {
     assertNotNull(auth);
     assertThat(auth, is(AUTH_1_AUTHORITY));
   }
-
 
   @Test
   public void testGetAllProjectsById() throws Exception {

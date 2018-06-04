@@ -22,102 +22,105 @@ import java.util.Optional;
  * @author Rui Wang
  * @author Jose A. Dianes
  * @version $Id$
- *          <p/>
+ *     <p>
  */
 @Service
 @Transactional(readOnly = true)
 public class FileServiceImpl implements FileService {
-    private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
+  private static final Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
-    private ProjectFileRepository projectFileRepository;
+  private ProjectFileRepository projectFileRepository;
 
-    private ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
 
-    private AssayRepository assayRepository;
+  private AssayRepository assayRepository;
 
-    @Autowired
-    public FileServiceImpl(ProjectFileRepository projectFileRepository,
-                           ProjectRepository projectRepository,
-                           AssayRepository assayRepository) {
-        this.projectFileRepository = projectFileRepository;
-        this.projectRepository = projectRepository;
-        this.assayRepository = assayRepository;
+  @Autowired
+  public FileServiceImpl(
+      ProjectFileRepository projectFileRepository,
+      ProjectRepository projectRepository,
+      AssayRepository assayRepository) {
+    this.projectFileRepository = projectFileRepository;
+    this.projectRepository = projectRepository;
+    this.assayRepository = assayRepository;
+  }
+
+  @Override
+  public FileSummary findById(Long fileId) throws FileAccessException {
+    Assert.notNull(fileId, "File id cannot be empty");
+
+    try {
+      Optional<ProjectFile> projectFile = projectFileRepository.findById(fileId);
+
+      return ObjectMapper.mapProjectFileToFileSummary(projectFile.get());
+    } catch (Exception ex) {
+      String msg = "Failed to find file by id: " + fileId;
+      logger.error(msg, ex);
+      throw new FileAccessException(msg, ex);
     }
+  }
 
-    @Override
-    public FileSummary findById(Long fileId) throws FileAccessException {
-        Assert.notNull(fileId, "File id cannot be empty");
+  @Override
+  public Collection<FileSummary> findAllByProjectAccession(String projectAccession)
+      throws FileAccessException {
+    Assert.notNull(projectAccession, "Project accession cannot be null");
 
-        try {
-            Optional<ProjectFile> projectFile = projectFileRepository.findById(fileId);
+    try {
+      Project project = projectRepository.findByAccession(projectAccession);
+      List<ProjectFile> projectFiles = projectFileRepository.findAllByProjectId(project.getId());
 
-            return ObjectMapper.mapProjectFileToFileSummary(projectFile.get());
-        } catch (Exception ex) {
-            String msg = "Failed to find file by id: " + fileId;
-            logger.error(msg, ex);
-            throw new FileAccessException(msg, ex);
-        }
+      return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
+    } catch (Exception ex) {
+      String msg = "Failed to find files by project accession: " + projectAccession;
+      logger.error(msg, ex);
+      throw new FileAccessException(msg, ex, projectAccession, null);
     }
+  }
 
-    @Override
-    public Collection<FileSummary> findAllByProjectAccession(String projectAccession) throws FileAccessException{
-        Assert.notNull(projectAccession, "Project accession cannot be null");
+  @Override
+  public Collection<FileSummary> findAllByAssayAccession(String assayAccession)
+      throws FileAccessException {
+    Assert.notNull(assayAccession, "Assay accession cannot be null");
 
-        try {
-            Project project = projectRepository.findByAccession(projectAccession);
-            List<ProjectFile> projectFiles = projectFileRepository.findAllByProjectId(project.getId());
+    try {
+      Assay assay = assayRepository.findByAccession(assayAccession);
+      List<ProjectFile> projectFiles = projectFileRepository.findAllByAssayId(assay.getId());
 
-            return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
-        } catch (Exception ex) {
-            String msg = "Failed to find files by project accession: " + projectAccession;
-            logger.error(msg, ex);
-            throw new FileAccessException(msg, ex, projectAccession, null);
-        }
+      return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
+    } catch (Exception ex) {
+      String msg = "Failed to find files by assay accession: " + assayAccession;
+      logger.error(msg, ex);
+      throw new FileAccessException(msg, ex, null, assayAccession);
     }
+  }
 
-    @Override
-    public Collection<FileSummary> findAllByAssayAccession(String assayAccession) throws FileAccessException{
-        Assert.notNull(assayAccession, "Assay accession cannot be null");
+  @Override
+  public Collection<FileSummary> findAllByProjectId(Long projectId) throws FileAccessException {
+    Assert.notNull(projectId, "Project id cannot be empty");
 
-        try {
-            Assay assay = assayRepository.findByAccession(assayAccession);
-            List<ProjectFile> projectFiles = projectFileRepository.findAllByAssayId(assay.getId());
+    try {
+      List<ProjectFile> projectFiles = projectFileRepository.findAllByProjectId(projectId);
 
-            return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
-        } catch (Exception ex) {
-            String msg = "Failed to find files by assay accession: " + assayAccession;
-            logger.error(msg, ex);
-            throw new FileAccessException(msg, ex, null, assayAccession);
-        }
+      return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
+    } catch (Exception ex) {
+      String msg = "Failed to find files by project id: " + projectId;
+      logger.error(msg, ex);
+      throw new FileAccessException(msg, ex);
     }
+  }
 
-    @Override
-    public Collection<FileSummary> findAllByProjectId(Long projectId) throws FileAccessException{
-        Assert.notNull(projectId, "Project id cannot be empty");
+  @Override
+  public Collection<FileSummary> findAllByAssayId(Long assayId) throws FileAccessException {
+    Assert.notNull(assayId, "Assay id cannot be empty");
 
-        try {
-            List<ProjectFile> projectFiles = projectFileRepository.findAllByProjectId(projectId);
+    try {
+      List<ProjectFile> projectFiles = projectFileRepository.findAllByAssayId(assayId);
 
-            return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
-        } catch (Exception ex) {
-            String msg = "Failed to find files by project id: " + projectId;
-            logger.error(msg, ex);
-            throw new FileAccessException(msg, ex);
-        }
+      return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
+    } catch (Exception ex) {
+      String msg = "Failed to find files by assay id: " + assayId;
+      logger.error(msg, ex);
+      throw new FileAccessException(msg, ex);
     }
-
-    @Override
-    public Collection<FileSummary> findAllByAssayId(Long assayId) throws FileAccessException{
-        Assert.notNull(assayId, "Assay id cannot be empty");
-
-        try {
-            List<ProjectFile> projectFiles = projectFileRepository.findAllByAssayId(assayId);
-
-            return ObjectMapper.mapProjectFileToFileSummaries(projectFiles);
-        } catch (Exception ex) {
-            String msg = "Failed to find files by assay id: " + assayId;
-            logger.error(msg, ex);
-            throw new FileAccessException(msg, ex);
-        }
-    }
+  }
 }

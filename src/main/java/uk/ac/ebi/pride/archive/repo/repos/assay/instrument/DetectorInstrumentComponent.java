@@ -9,6 +9,4 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("DETECTOR")
-public class DetectorInstrumentComponent extends InstrumentComponent {
-
-}
+public class DetectorInstrumentComponent extends InstrumentComponent {}

@@ -14,13 +14,11 @@ import java.util.List;
 @Repository
 public interface AssayRepository extends JpaRepository<Assay, Long> {
 
-    List<Assay> findAllByProjectId(Long projectId);
+  List<Assay> findAllByProjectId(Long projectId);
 
-    Page<Assay> findAllByProjectId(Long projectId, Pageable pageable);
+  Page<Assay> findAllByProjectId(Long projectId, Pageable pageable);
 
-    Long countByProjectId(Long projectId);
+  Long countByProjectId(Long projectId);
 
-    Assay findByAccession(String accession);
-
-
+  Assay findByAccession(String accession);
 }

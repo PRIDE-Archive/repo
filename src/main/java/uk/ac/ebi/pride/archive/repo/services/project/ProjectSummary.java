@@ -21,420 +21,417 @@ import java.util.*;
  */
 public class ProjectSummary implements ProjectProvider {
 
-    private String accession;
-    private String doi;
-    private String title;
-    private String projectDescription;
-    private String sampleProcessingProtocol;
-    private String dataProcessingProtocol;
-    private String otherOmicsLink;
-    private UserSummary submitter;
-    private final Collection<UserSummary> users;
-    private String keywords;
-    private int numAssays;
-    private String reanalysis;
-    private final Collection<CvParamSummary> experimentTypes;
-    private SubmissionType submissionType;
-    private Date submissionDate;
-    private Date publicationDate;
-    private Date updateDate;
-    private final Collection<ReferenceSummary> references;
-    private final Collection<ProjectTagSummary> projectTags;
-    private final Collection<ContactSummary> labHeads;
-    private final Collection<CvParamSummary> ptms;
-    private final Collection<CvParamSummary> samples;
-    private final Collection<CvParamSummary> instruments;
-    private final Collection<CvParamSummary> software;
-    private final Collection<CvParamSummary> quantificationMethods;
-    private boolean publicProject;
-    private Long id;
-    private boolean changed;
-    private final Collection<ParamSummary> params;
-    private final Collection<CvParamSummary> species;
-    private final Collection<CvParamSummary> tissues;
-    private final Collection<CvParamSummary> cellTypes;
-    private final Collection<CvParamSummary> diseases;
-    private final Collection<CvParamSummary> goTerms;
-    private Boolean highlighted;
-    private final Collection<ProjectTagSummary> parentProjectTags;
-    private final Collection<ProjectTagSummary> internalTags;
+  private final Collection<UserSummary> users;
+  private final Collection<CvParamSummary> experimentTypes;
+  private final Collection<ReferenceSummary> references;
+  private final Collection<ProjectTagSummary> projectTags;
+  private final Collection<ContactSummary> labHeads;
+  private final Collection<CvParamSummary> ptms;
+  private final Collection<CvParamSummary> samples;
+  private final Collection<CvParamSummary> instruments;
+  private final Collection<CvParamSummary> software;
+  private final Collection<CvParamSummary> quantificationMethods;
+  private final Collection<ParamSummary> params;
+  private final Collection<CvParamSummary> species;
+  private final Collection<CvParamSummary> tissues;
+  private final Collection<CvParamSummary> cellTypes;
+  private final Collection<CvParamSummary> diseases;
+  private final Collection<CvParamSummary> goTerms;
+  private final Collection<ProjectTagSummary> parentProjectTags;
+  private final Collection<ProjectTagSummary> internalTags;
+  private String accession;
+  private String doi;
+  private String title;
+  private String projectDescription;
+  private String sampleProcessingProtocol;
+  private String dataProcessingProtocol;
+  private String otherOmicsLink;
+  private UserSummary submitter;
+  private String keywords;
+  private int numAssays;
+  private String reanalysis;
+  private SubmissionType submissionType;
+  private Date submissionDate;
+  private Date publicationDate;
+  private Date updateDate;
+  private boolean publicProject;
+  private Long id;
+  private boolean changed;
+  private Boolean highlighted;
 
+  public ProjectSummary() {
+    this.users = new ArrayList<>();
+    this.experimentTypes = new ArrayList<>();
+    this.references = new ArrayList<>();
+    this.projectTags = new ArrayList<>();
+    this.labHeads = new ArrayList<>();
+    this.ptms = new ArrayList<>();
+    this.samples = new ArrayList<>();
+    this.instruments = new ArrayList<>();
+    this.software = new ArrayList<>();
+    this.quantificationMethods = new ArrayList<>();
+    this.publicProject = false;
+    this.changed = false;
+    this.params = new ArrayList<>();
+    this.species = new ArrayList<>();
+    this.tissues = new ArrayList<>();
+    this.cellTypes = new ArrayList<>();
+    this.diseases = new ArrayList<>();
+    this.goTerms = new ArrayList<>();
+    this.internalTags = new ArrayList<>();
+    this.parentProjectTags = new ArrayList<>();
+    this.highlighted = null;
+  }
 
-    public ProjectSummary() {
-        this.users = new ArrayList<>();
-        this.experimentTypes = new ArrayList<>();
-        this.references = new ArrayList<>();
-        this.projectTags = new ArrayList<>();
-        this.labHeads = new ArrayList<>();
-        this.ptms = new ArrayList<>();
-        this.samples = new ArrayList<>();
-        this.instruments = new ArrayList<>();
-        this.software = new ArrayList<>();
-        this.quantificationMethods = new ArrayList<>();
-        this.publicProject = false;
-        this.changed = false;
-        this.params = new ArrayList<>();
-        this.species = new ArrayList<>();
-        this.tissues = new ArrayList<>();
-        this.cellTypes = new ArrayList<>();
-        this.diseases = new ArrayList<>();
-        this.goTerms = new ArrayList<>();
-        this.internalTags = new ArrayList<>();
-        this.parentProjectTags = new ArrayList<>();
-        this.highlighted = null;
-    }
+  public String getAccession() {
+    return accession;
+  }
 
-    public String getAccession() {
-        return accession;
-    }
+  public void setAccession(String accession) {
+    this.accession = accession;
+  }
 
-    public void setAccession(String accession) {
-        this.accession = accession;
-    }
+  public String getDoi() {
+    return doi;
+  }
 
-    public String getDoi() {
-        return doi;
-    }
+  public void setDoi(String doi) {
+    this.doi = doi;
+  }
 
-    public void setDoi(String doi) {
-        this.doi = doi;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getProjectDescription() {
+    return projectDescription;
+  }
 
-    public String getProjectDescription() {
-        return projectDescription;
-    }
+  public void setProjectDescription(String projectDescription) {
+    this.projectDescription = projectDescription;
+  }
 
-    public void setProjectDescription(String projectDescription) {
-        this.projectDescription = projectDescription;
-    }
+  public String getSampleProcessingProtocol() {
+    return sampleProcessingProtocol;
+  }
 
+  public void setSampleProcessingProtocol(String sampleProcessingProtocol) {
+    this.sampleProcessingProtocol = sampleProcessingProtocol;
+  }
 
-    public String getSampleProcessingProtocol() {
-        return sampleProcessingProtocol;
-    }
+  public String getDataProcessingProtocol() {
+    return dataProcessingProtocol;
+  }
 
-    public void setSampleProcessingProtocol(String sampleProcessingProtocol) {
-        this.sampleProcessingProtocol = sampleProcessingProtocol;
-    }
+  public void setDataProcessingProtocol(String dataProcessingProtocol) {
+    this.dataProcessingProtocol = dataProcessingProtocol;
+  }
 
-    public String getDataProcessingProtocol() {
-        return dataProcessingProtocol;
-    }
+  public String getOtherOmicsLink() {
+    return otherOmicsLink;
+  }
 
-    public void setDataProcessingProtocol(String dataProcessingProtocol) {
-        this.dataProcessingProtocol = dataProcessingProtocol;
-    }
+  public void setOtherOmicsLink(String otherOmicsLink) {
+    this.otherOmicsLink = otherOmicsLink;
+  }
 
-    public String getOtherOmicsLink() {
-        return otherOmicsLink;
-    }
+  public UserSummary getSubmitter() {
+    return submitter;
+  }
 
-    public void setOtherOmicsLink(String otherOmicsLink) {
-        this.otherOmicsLink = otherOmicsLink;
-    }
+  public void setSubmitter(UserSummary sub) {
+    this.submitter = sub;
+  }
 
-    public UserSummary getSubmitter() {
-        return submitter;
-    }
+  public Collection<UserSummary> getUsers() {
+    return users;
+  }
 
-    public void setSubmitter(UserSummary sub) {
-        this.submitter = sub;
-    }
+  public void setUsers(Collection<UserSummary> users) {
+    CollectionUtils.replaceValuesInCollection(users, this.users);
+  }
 
-    public Collection<UserSummary> getUsers() {
-        return users;
-    }
+  public String getKeywords() {
+    return keywords;
+  }
 
-    public void setUsers(Collection<UserSummary> users) {
-        CollectionUtils.replaceValuesInCollection(users, this.users);
-    }
+  public void setKeywords(String keywords) {
+    this.keywords = keywords;
+  }
 
-    public String getKeywords() {
-        return keywords;
-    }
+  public int getNumAssays() {
+    return numAssays;
+  }
 
-    public void setKeywords(String keywords) {
-        this.keywords = keywords;
-    }
+  public void setNumAssays(int numAssays) {
+    this.numAssays = numAssays;
+  }
 
-    public int getNumAssays() {
-        return numAssays;
-    }
+  public String getReanalysis() {
+    return reanalysis;
+  }
 
-    public void setNumAssays(int numAssays) {
-        this.numAssays = numAssays;
-    }
+  public void setReanalysis(String reanalysis) {
+    this.reanalysis = reanalysis;
+  }
 
-    public String getReanalysis() {
-        return reanalysis;
-    }
+  public Collection<CvParamSummary> getExperimentTypes() {
+    return experimentTypes;
+  }
 
-    public void setReanalysis(String reanalysis) {
-        this.reanalysis = reanalysis;
-    }
+  public void setExperimentTypes(Collection<CvParamSummary> experimentTypes) {
+    CollectionUtils.replaceValuesInCollection(experimentTypes, this.experimentTypes);
+  }
 
-    public Collection<CvParamSummary> getExperimentTypes() {
-        return experimentTypes;
-    }
+  public SubmissionType getSubmissionType() {
+    return submissionType;
+  }
 
-    public void setExperimentTypes(Collection<CvParamSummary> experimentTypes) {
-        CollectionUtils.replaceValuesInCollection(experimentTypes, this.experimentTypes);
-    }
+  public void setSubmissionType(SubmissionType submissionType) {
+    this.submissionType = submissionType;
+  }
 
-    public SubmissionType getSubmissionType() {
-        return submissionType;
-    }
+  public Date getSubmissionDate() {
+    return submissionDate;
+  }
 
-    public void setSubmissionType(SubmissionType submissionType) {
-        this.submissionType = submissionType;
-    }
+  public void setSubmissionDate(Date submissionDate) {
+    this.submissionDate = submissionDate;
+  }
 
-    public Date getSubmissionDate() {
-        return submissionDate;
-    }
+  public Date getPublicationDate() {
+    return publicationDate;
+  }
 
-    public void setSubmissionDate(Date submissionDate) {
-        this.submissionDate = submissionDate;
-    }
+  public void setPublicationDate(Date publicationDate) {
+    this.publicationDate = publicationDate;
+  }
 
-    public Date getPublicationDate() {
-        return publicationDate;
-    }
+  public Date getUpdateDate() {
+    return updateDate;
+  }
 
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
-    }
+  public void setUpdateDate(Date updateDate) {
+    this.updateDate = updateDate;
+  }
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+  public Collection<ReferenceSummary> getReferences() {
+    return references;
+  }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+  public void setReferences(Collection<ReferenceSummary> references) {
+    CollectionUtils.replaceValuesInCollection(references, this.references);
+  }
 
-    public Collection<ReferenceSummary> getReferences() {
-        return references;
-    }
+  public Collection<CvParamSummary> getPtms() {
+    return ptms;
+  }
 
-    public void setReferences(Collection<ReferenceSummary> references) {
-        CollectionUtils.replaceValuesInCollection(references, this.references);
-    }
+  public void setPtms(Collection<CvParamSummary> ptms) {
+    CollectionUtils.replaceValuesInCollection(ptms, this.ptms);
+  }
 
-    public Collection<CvParamSummary> getPtms() {
-        return ptms;
-    }
+  public Collection<CvParamSummary> getSamples() {
+    return samples;
+  }
 
-    public void setPtms(Collection<CvParamSummary> ptms) {
-        CollectionUtils.replaceValuesInCollection(ptms, this.ptms);
-    }
+  public void setSamples(Collection<CvParamSummary> samples) {
+    CollectionUtils.replaceValuesInCollection(samples, this.samples);
+    this.species.clear();
+    this.tissues.clear();
+    this.diseases.clear();
+    this.cellTypes.clear();
+    this.goTerms.clear();
+  }
 
-    public Collection<CvParamSummary> getSamples() {
-        return samples;
-    }
+  public Collection<CvParamSummary> getInstruments() {
+    return instruments;
+  }
 
-    public void setSamples(Collection<CvParamSummary> samples) {
-        CollectionUtils.replaceValuesInCollection(samples, this.samples);
-        this.species.clear();
-        this.tissues.clear();
-        this.diseases.clear();
-        this.cellTypes.clear();
-        this.goTerms.clear();
-    }
+  public void setInstruments(Collection<CvParamSummary> instruments) {
+    CollectionUtils.replaceValuesInCollection(instruments, this.instruments);
+  }
 
-    public Collection<CvParamSummary> getInstruments() {
-        return instruments;
-    }
+  public Collection<CvParamSummary> getSoftware() {
+    return software;
+  }
 
-    public void setInstruments(Collection<CvParamSummary> instruments) {
-        CollectionUtils.replaceValuesInCollection(instruments, this.instruments);
-    }
+  public void setSoftware(Collection<CvParamSummary> software) {
+    CollectionUtils.replaceValuesInCollection(software, this.software);
+  }
 
-    public Collection<CvParamSummary> getSoftware() {
-        return software;
-    }
+  public Collection<CvParamSummary> getQuantificationMethods() {
+    return quantificationMethods;
+  }
 
-    public void setSoftware(Collection<CvParamSummary> software) {
-        CollectionUtils.replaceValuesInCollection(software, this.software);
-    }
+  public void setQuantificationMethods(Collection<CvParamSummary> quantificationMethods) {
+    CollectionUtils.replaceValuesInCollection(quantificationMethods, this.quantificationMethods);
+  }
 
-    public Collection<CvParamSummary> getQuantificationMethods() {
-        return quantificationMethods;
-    }
+  @Override
+  public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
+    // TODO May be need to return null?
+    return new HashMap<>();
+  }
 
-    @Override
-    public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
-        //TODO May be need to return null?
-        return new HashMap<>();
-    }
+  @Override
+  public Collection<PeptideSequenceProvider> getPeptideSequences() {
+    return new LinkedList<>();
+  }
 
-    @Override
-    public Collection<PeptideSequenceProvider> getPeptideSequences() {
-        return new LinkedList<>();
-    }
+  public boolean isPublicProject() {
+    return publicProject;
+  }
 
-    public void setQuantificationMethods(Collection<CvParamSummary> quantificationMethods) {
-        CollectionUtils.replaceValuesInCollection(quantificationMethods, this.quantificationMethods);
-    }
+  public void setPublicProject(boolean publicProject) {
+    this.publicProject = publicProject;
+  }
 
-    public boolean isPublicProject() {
-        return publicProject;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setPublicProject(boolean publicProject) {
-        this.publicProject = publicProject;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public boolean isChanged() {
+    return changed;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setChanged(boolean changed) {
+    this.changed = changed;
+  }
 
-    public boolean isChanged() {
-        return changed;
-    }
+  public Collection<ParamSummary> getParams() {
+    return params;
+  }
 
-    public void setChanged(boolean changed) {
-        this.changed = changed;
-    }
+  public void setParams(Collection<ParamSummary> params) {
+    CollectionUtils.replaceValuesInCollection(params, this.params);
+  }
 
-    public Collection<ParamSummary> getParams() {
-        return params;
-    }
-
-    public void setParams(Collection<ParamSummary> params) {
-        CollectionUtils.replaceValuesInCollection(params, this.params);
-    }
-
-    public Collection<CvParamSummary> getSpecies() {
-        if (species.isEmpty()) {
-            for (CvParamSummary sample : samples) {
-                String cvLabel = sample.getCvLabel();
-                if (Ontology.NEWT.getName().equalsIgnoreCase(cvLabel)) {
-                    this.species.add(sample);
-                }
-            }
+  public Collection<CvParamSummary> getSpecies() {
+    if (species.isEmpty()) {
+      for (CvParamSummary sample : samples) {
+        String cvLabel = sample.getCvLabel();
+        if (Ontology.NEWT.getName().equalsIgnoreCase(cvLabel)) {
+          this.species.add(sample);
         }
-
-        return species;
+      }
     }
 
-    public Collection<CvParamSummary> getTissues() {
-        if (tissues.isEmpty()) {
-            for (CvParamSummary sample : samples) {
-                String cvLabel = sample.getCvLabel();
-                if (Ontology.BRENDA.getName().equalsIgnoreCase(cvLabel)) {
-                    this.tissues.add(sample);
-                }
-            }
+    return species;
+  }
+
+  public Collection<CvParamSummary> getTissues() {
+    if (tissues.isEmpty()) {
+      for (CvParamSummary sample : samples) {
+        String cvLabel = sample.getCvLabel();
+        if (Ontology.BRENDA.getName().equalsIgnoreCase(cvLabel)) {
+          this.tissues.add(sample);
         }
-        return tissues;
+      }
     }
+    return tissues;
+  }
 
-    public Collection<CvParamSummary> getCellTypes() {
-        if (cellTypes.isEmpty()) {
-            for (CvParamSummary sample : samples) {
-                String cvLabel = sample.getCvLabel();
-                if (Ontology.CL.getName().equalsIgnoreCase(cvLabel)) {
-                    this.cellTypes.add(sample);
-                }
-            }
+  public Collection<CvParamSummary> getCellTypes() {
+    if (cellTypes.isEmpty()) {
+      for (CvParamSummary sample : samples) {
+        String cvLabel = sample.getCvLabel();
+        if (Ontology.CL.getName().equalsIgnoreCase(cvLabel)) {
+          this.cellTypes.add(sample);
         }
-        return cellTypes;
+      }
     }
+    return cellTypes;
+  }
 
-    public Collection<CvParamSummary> getDiseases() {
-        if (diseases.isEmpty()) {
-            for (CvParamSummary sample : samples) {
-                String cvLabel = sample.getCvLabel();
-                if (Ontology.DISEASE.getName().equalsIgnoreCase(cvLabel)) {
-                    this.diseases.add(sample);
-                }
-            }
+  public Collection<CvParamSummary> getDiseases() {
+    if (diseases.isEmpty()) {
+      for (CvParamSummary sample : samples) {
+        String cvLabel = sample.getCvLabel();
+        if (Ontology.DISEASE.getName().equalsIgnoreCase(cvLabel)) {
+          this.diseases.add(sample);
         }
-        return diseases;
+      }
     }
+    return diseases;
+  }
 
-    public Collection<CvParamSummary> getGoTerms() {
-        if (goTerms.isEmpty()) {
-            for (CvParamSummary sample : samples) {
-                String cvLabel = sample.getCvLabel();
-                if (Ontology.GO.getName().equalsIgnoreCase(cvLabel)) {
-                    this.goTerms.add(sample);
-                }
-            }
+  public Collection<CvParamSummary> getGoTerms() {
+    if (goTerms.isEmpty()) {
+      for (CvParamSummary sample : samples) {
+        String cvLabel = sample.getCvLabel();
+        if (Ontology.GO.getName().equalsIgnoreCase(cvLabel)) {
+          this.goTerms.add(sample);
         }
-        return goTerms;
+      }
     }
+    return goTerms;
+  }
 
-    public Collection<ProjectTagSummary> getProjectTags() {
-        return projectTags;
-    }
+  public Collection<ProjectTagSummary> getProjectTags() {
+    return projectTags;
+  }
 
-    public void setProjectTags(Collection<ProjectTagSummary> projectTags) {
-        CollectionUtils.replaceValuesInCollection(projectTags, this.projectTags);
-        this.highlighted = null;
-        this.parentProjectTags.clear();
-        this.internalTags.clear();
-    }
+  public void setProjectTags(Collection<ProjectTagSummary> projectTags) {
+    CollectionUtils.replaceValuesInCollection(projectTags, this.projectTags);
+    this.highlighted = null;
+    this.parentProjectTags.clear();
+    this.internalTags.clear();
+  }
 
-    public Collection<ProjectTagSummary> getParentProjectTags() {
-        if (parentProjectTags.isEmpty()) {
-            for (ProjectTagSummary projectTagSummary : projectTags) {
-                String tagName = projectTagSummary.getTag();
-                ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
-                if(ProjectTagType.PARENT_PROJECT.equals(projectTag.getType())){
-                    parentProjectTags.add(projectTagSummary);
-                }
-            }
+  public Collection<ProjectTagSummary> getParentProjectTags() {
+    if (parentProjectTags.isEmpty()) {
+      for (ProjectTagSummary projectTagSummary : projectTags) {
+        String tagName = projectTagSummary.getTag();
+        ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
+        if (ProjectTagType.PARENT_PROJECT.equals(projectTag.getType())) {
+          parentProjectTags.add(projectTagSummary);
         }
-        return parentProjectTags;
+      }
     }
+    return parentProjectTags;
+  }
 
-    public Collection<ProjectTagSummary> getInternalTags() {
-        if (internalTags.isEmpty()) {
-            for (ProjectTagSummary projectTagSummary : projectTags) {
-                String tagName = projectTagSummary.getTag();
-                ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
-                if(ProjectTagType.PRIDE_INTERNAL.equals(projectTag.getType())){
-                    internalTags.add(projectTagSummary);
-                }
-            }
+  public Collection<ProjectTagSummary> getInternalTags() {
+    if (internalTags.isEmpty()) {
+      for (ProjectTagSummary projectTagSummary : projectTags) {
+        String tagName = projectTagSummary.getTag();
+        ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
+        if (ProjectTagType.PRIDE_INTERNAL.equals(projectTag.getType())) {
+          internalTags.add(projectTagSummary);
         }
-        return internalTags;
+      }
     }
+    return internalTags;
+  }
 
-    public Boolean getHighlighted() {
-        if (highlighted == null) {
-            for (ProjectTagSummary projectTagSummary : projectTags) {
-                String tagName = projectTagSummary.getTag();
-                ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
-                if (ProjectTagType.PRIDE_HIGHLIGHTED.equals(projectTag.getType())) {
-                    this.highlighted = true;
-                }
-            }
+  public Boolean getHighlighted() {
+    if (highlighted == null) {
+      for (ProjectTagSummary projectTagSummary : projectTags) {
+        String tagName = projectTagSummary.getTag();
+        ProjectTag projectTag = ProjectTag.getProjectTagByName(tagName);
+        if (ProjectTagType.PRIDE_HIGHLIGHTED.equals(projectTag.getType())) {
+          this.highlighted = true;
         }
-
-        return highlighted;
+      }
     }
 
-    public Collection<ContactSummary> getLabHeads() {
-        return labHeads;
-    }
+    return highlighted;
+  }
 
-    public void setLabHeads(Collection<ContactSummary> labHeads) {
-        CollectionUtils.replaceValuesInCollection(labHeads, this.labHeads);
-    }
+  public Collection<ContactSummary> getLabHeads() {
+    return labHeads;
+  }
 
+  public void setLabHeads(Collection<ContactSummary> labHeads) {
+    CollectionUtils.replaceValuesInCollection(labHeads, this.labHeads);
+  }
 }

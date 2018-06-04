@@ -11,92 +11,88 @@ import javax.validation.constraints.NotNull;
  * @version $Id$
  */
 @Entity
-@Table( name = "lab_head" )
-@SequenceGenerator(name="LabHeadSequence", sequenceName="labHeadSequence", allocationSize=100)
+@Table(name = "lab_head")
+@SequenceGenerator(name = "LabHeadSequence", sequenceName = "labHeadSequence", allocationSize = 100)
 public class LabHead implements ContactProvider {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LabHeadSequence")
-    @Column( name = "lab_head_pk" )
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LabHeadSequence")
+  @Column(name = "lab_head_pk")
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="project_fk", nullable = false)
-    private Project project;
+  @ManyToOne
+  @JoinColumn(name = "project_fk", nullable = false)
+  private Project project;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Title title;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  private Title title;
 
-    @NotNull
-    @Column( name="first_name" )
-    private String firstName;
+  @NotNull
+  @Column(name = "first_name")
+  private String firstName;
 
-    @NotNull
-    @Column( name="last_name" )
-    private String lastName;
+  @NotNull
+  @Column(name = "last_name")
+  private String lastName;
 
-    @NotNull
-    private String affiliation;
+  @NotNull private String affiliation;
 
-    @NotNull
-    private String email;
+  @NotNull private String email;
 
+  public Long getId() {
+    return id;
+  }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Project getProject() {
+    return project;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setProject(Project project) {
+    this.project = project;
+  }
 
-    public Project getProject() {
-        return project;
-    }
+  public Title getTitle() {
+    return title;
+  }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
+  public void setTitle(Title title) {
+    this.title = title;
+  }
 
-    public Title getTitle() {
-        return title;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public void setTitle(Title title) {
-        this.title = title;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getLastName() {
+    return lastName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  public String getAffiliation() {
+    return affiliation;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setAffiliation(String affiliation) {
+    this.affiliation = affiliation;
+  }
 
-    public String getAffiliation() {
-        return affiliation;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 }

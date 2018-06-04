@@ -8,25 +8,25 @@ import uk.ac.ebi.pride.archive.dataprovider.project.ProjectTagProvider;
  */
 public class ProjectTagSummary implements ProjectTagProvider {
 
-    private String tag;
+  private String tag;
 
-    private Long id;
+  private Long id;
 
-    @Override
-    public String getTag() {
-        return tag;
-    }
+  @Override
+  public String getTag() {
+    return tag;
+  }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+  @Override
+  public Long getId() {
+    return id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

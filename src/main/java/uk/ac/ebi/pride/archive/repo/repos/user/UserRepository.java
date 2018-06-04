@@ -14,12 +14,11 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findByEmail(String email);
+  User findByEmail(String email);
 
-    @Query("select u from User u, IN(u.projects) p where p.id = ?1")
-    List<User> findAllByProjectId(Long projectId);
+  @Query("select u from User u, IN(u.projects) p where p.id = ?1")
+  List<User> findAllByProjectId(Long projectId);
 
-    @Query("select u.projects from User u where u.id = ?1")
-    List<Project> findAllProjectsById(Long userId);
-
+  @Query("select u.projects from User u where u.id = ?1")
+  List<Project> findAllProjectsById(Long userId);
 }

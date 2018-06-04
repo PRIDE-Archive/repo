@@ -9,23 +9,22 @@ import java.util.List;
  * @version $Id$
  */
 public final class CollectionUtils {
-    private CollectionUtils() {
+  private CollectionUtils() {}
+
+  public static <T> List<T> createListFromList(Collection<T> collection) {
+    List<T> newList = new ArrayList<>();
+
+    if (collection != null) {
+      newList.addAll(collection);
     }
 
-    public static <T> List<T> createListFromList(Collection<T> collection) {
-        List<T> newList = new ArrayList<>();
+    return newList;
+  }
 
-        if (collection != null) {
-            newList.addAll(collection);
-        }
-
-        return newList;
+  public static <T> void replaceValuesInCollection(Collection<T> from, Collection<T> to) {
+    to.clear();
+    if (from != null) {
+      to.addAll(from);
     }
-
-    public static <T> void replaceValuesInCollection(Collection<T> from, Collection<T> to) {
-        to.clear();
-        if (from != null) {
-            to.addAll(from);
-        }
-    }
+  }
 }

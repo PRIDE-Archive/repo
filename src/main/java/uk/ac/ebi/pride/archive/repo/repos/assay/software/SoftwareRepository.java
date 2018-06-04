@@ -12,6 +12,5 @@ import java.util.List;
 @Repository
 public interface SoftwareRepository extends CrudRepository<Software, Long> {
 
-    List<Software> findAllByAssayId(Long assayId);
-
+  List<Software> findAllByAssayId(Long assayId);
 }

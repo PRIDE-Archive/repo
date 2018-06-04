@@ -9,13 +9,14 @@ import java.util.Collection;
  */
 public interface FileService {
 
-    FileSummary findById(Long fileId) throws FileAccessException;
+  FileSummary findById(Long fileId) throws FileAccessException;
 
-    Collection<FileSummary> findAllByProjectAccession(String projectAccession) throws FileAccessException;
+  Collection<FileSummary> findAllByProjectAccession(String projectAccession)
+      throws FileAccessException;
 
-    Collection<FileSummary> findAllByAssayAccession(String assayAccession) throws FileAccessException;
+  Collection<FileSummary> findAllByAssayAccession(String assayAccession) throws FileAccessException;
 
-    Collection<FileSummary> findAllByProjectId(Long projectId) throws FileAccessException;
+  Collection<FileSummary> findAllByProjectId(Long projectId) throws FileAccessException;
 
-    Collection<FileSummary> findAllByAssayId(Long assayId) throws FileAccessException;
+  Collection<FileSummary> findAllByAssayId(Long assayId) throws FileAccessException;
 }

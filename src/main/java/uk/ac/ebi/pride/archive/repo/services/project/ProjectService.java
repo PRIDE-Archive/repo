@@ -8,9 +8,9 @@ import java.util.Collection;
  */
 public interface ProjectService {
 
-    ProjectSummary findById(Long projectId) throws ProjectAccessException;
+  ProjectSummary findById(Long projectId) throws ProjectAccessException;
 
-    ProjectSummary findByAccession(String accession) throws ProjectAccessException;
+  ProjectSummary findByAccession(String accession) throws ProjectAccessException;
 
-    Collection<ProjectSummary> findAllBySubmitterId(Long submitterId) throws ProjectAccessException;
+  Collection<ProjectSummary> findAllBySubmitterId(Long submitterId) throws ProjectAccessException;
 }

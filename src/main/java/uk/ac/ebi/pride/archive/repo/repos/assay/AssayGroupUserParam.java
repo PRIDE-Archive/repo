@@ -9,5 +9,4 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("ASSAY")
-public class AssayGroupUserParam extends AssayUserParam{
-}
+public class AssayGroupUserParam extends AssayUserParam {}

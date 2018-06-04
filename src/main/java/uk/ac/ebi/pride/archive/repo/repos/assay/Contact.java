@@ -11,116 +11,116 @@ import javax.validation.constraints.NotNull;
  * @version $Id$
  */
 @Entity
-@Table( name="contact" )
-@SequenceGenerator(name="ContactSequence", sequenceName="contactSequence", allocationSize=100)
+@Table(name = "contact")
+@SequenceGenerator(name = "ContactSequence", sequenceName = "contactSequence", allocationSize = 100)
 public class Contact implements ContactProvider {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ContactSequence")
-    @Column( name="contact_pk" )
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ContactSequence")
+  @Column(name = "contact_pk")
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="assay_fk")
-    private Assay assay;
+  @ManyToOne
+  @JoinColumn(name = "assay_fk")
+  private Assay assay;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Title title;
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  private Title title;
 
-    @NotNull
-    @Column( name="first_name" )
-    private String firstName;
+  @NotNull
+  @Column(name = "first_name")
+  private String firstName;
 
-    @NotNull
-    @Column( name="last_name" )
-    private String lastName;
+  @NotNull
+  @Column(name = "last_name")
+  private String lastName;
 
-    @NotNull
-    private String affiliation;
+  @NotNull private String affiliation;
 
-    @NotNull
-    private String email;
+  @NotNull private String email;
 
+  public Long getId() {
+    return id;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Title getTitle() {
+    return this.title;
+  }
 
+  public void setTitle(Title title) {
+    this.title = title;
+  }
 
-    public Title getTitle() {
-        return this.title;
-    }
+  public String getFirstName() {
+    return this.firstName;
+  }
 
-    public void setTitle(Title title) {
-        this.title = title;
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getFirstName() {
-        return this.firstName;
-    }
+  public String getLastName() {
+    return this.lastName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-    public String getLastName() {
-        return this.lastName;
-    }
+  public String getAffiliation() {
+    return this.affiliation;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+  public void setAffiliation(String affiliation) {
+    this.affiliation = affiliation;
+  }
 
-    public String getAffiliation() {
-        return this.affiliation;
-    }
+  public String getEmail() {
+    return this.email;
+  }
 
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getEmail() {
-        return this.email;
-    }
+  public Assay getAssay() {
+    return assay;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setAssay(Assay assay) {
+    this.assay = assay;
+  }
 
-    public Assay getAssay() {
-        return assay;
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Contact)) return false;
 
-    public void setAssay(Assay assay) {
-        this.assay = assay;
-    }
+    Contact contact = (Contact) o;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Contact)) return false;
+    if (affiliation != null
+        ? !affiliation.equals(contact.affiliation)
+        : contact.affiliation != null) return false;
+    if (email != null ? !email.equals(contact.email) : contact.email != null) return false;
+    if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null)
+      return false;
+    if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null)
+      return false;
+    return title == contact.title;
+  }
 
-        Contact contact = (Contact) o;
-
-        if (affiliation != null ? !affiliation.equals(contact.affiliation) : contact.affiliation != null) return false;
-        if (email != null ? !email.equals(contact.email) : contact.email != null) return false;
-        if (firstName != null ? !firstName.equals(contact.firstName) : contact.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(contact.lastName) : contact.lastName != null) return false;
-        return title == contact.title;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = title != null ? title.hashCode() : 0;
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
+    result = 31 * result + (email != null ? email.hashCode() : 0);
+    return result;
+  }
 }

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CvParamRepository extends CrudRepository<CvParam, Long> {
 
-    CvParam findByAccession(String accession);
+  CvParam findByAccession(String accession);
 }

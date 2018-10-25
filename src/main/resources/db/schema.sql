@@ -633,7 +633,8 @@ CREATE TABLE pride_users
   country VARCHAR2 (100),
   orcid VARCHAR2 (50) ,
   accepted_terms NUMBER(1),
-  accepted_terms_date DATE
+  accepted_terms_date DATE,
+  USER_AAP_REF VARCHAR2(100)
 )
 ;
 

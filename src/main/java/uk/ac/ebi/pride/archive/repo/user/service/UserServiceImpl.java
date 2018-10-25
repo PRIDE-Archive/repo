@@ -59,10 +59,17 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  @Transactional(readOnly = false)
+  public UserSummary registerWithAAP(UserSummary userSummary) throws UserModificationException {
+    return signUp(userSummary);
+  }
+
   private User mapToPersistableUser(UserSummary userSummary) {
     User prideUser = new User();
     prideUser.setEmail(userSummary.getEmail());
     prideUser.setPassword(userSummary.getPassword());
+    prideUser.setUserRef(userSummary.getUserRef());
     prideUser.setTitle(userSummary.getTitle());
     prideUser.setFirstName(userSummary.getFirstName());
     prideUser.setLastName(userSummary.getLastName());

@@ -21,6 +21,15 @@ public interface UserService {
     UserSummary signUp(UserSummary user) throws UserModificationException;
 
     /**
+     * Sign up a new user
+     *
+     * @param user user details, this should contain all the required details
+     * @return the return object is a {@code UserSummary} containing user reference from AAP if
+     * creation of user was successfull
+     */
+    UserSummary registerWithAAP(UserSummary user) throws UserModificationException;
+
+    /**
      * Reset the password of a user by using the email address
      *
      * @param email user's email

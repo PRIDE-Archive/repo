@@ -44,6 +44,9 @@ public class User implements UserProvider {
 
   @NotNull private String affiliation;
 
+  @Column(name = "USER_AAP_REF")
+  private String userRef;
+
   @NotNull
   @Column(unique = true)
   private String email;
@@ -121,6 +124,10 @@ public class User implements UserProvider {
   public void setAffiliation(String affiliation) {
     this.affiliation = affiliation;
   }
+
+  public String getUserRef() { return userRef;  }
+
+  public void setUserRef(String userRef) { this.userRef = userRef; }
 
   public String getEmail() {
     return email;
@@ -220,6 +227,8 @@ public class User implements UserProvider {
 
     if (affiliation != null ? !affiliation.equals(user.affiliation) : user.affiliation != null)
       return false;
+    if (userRef != null ? !userRef.equals(user.userRef) : user.userRef != null)
+      return false;
     if (email != null ? !email.equals(user.email) : user.email != null) return false;
     if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
       return false;
@@ -243,6 +252,7 @@ public class User implements UserProvider {
     result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
+    result = 31 * result + (userRef != null ? userRef.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (country != null ? country.hashCode() : 0);
     result = 31 * result + (orcid != null ? orcid.hashCode() : 0);

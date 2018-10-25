@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.pride.archive.repo.project.ProjectRepository;
+import uk.ac.ebi.pride.archive.repo.user.UserAAP;
 import uk.ac.ebi.pride.archive.repo.user.UserRepository;
 import uk.ac.ebi.pride.archive.repo.user.service.url.UserWebServiceUrl;
 import uk.ac.ebi.pride.web.util.template.SecureRestTemplateFactory;
@@ -36,8 +37,32 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
   @Override
   public UserSummary signUp(UserSummary userSummary) throws UserModificationException {
     try {
+      userSummary = registerWithAAP(userSummary);
       return restTemplate.postForObject(
           userWebServiceUrl.getSignUpUrl(), userSummary, UserSummary.class);
+    } catch (Exception e) {
+      String email = userSummary.getEmail();
+      String msg = "Failed to query web service to create a new user: " + email;
+      logger.error(msg, e);
+      throw new UserModificationException(msg, e, email);
+    }
+  }
+
+  @Override
+  public UserSummary registerWithAAP(UserSummary userSummary) throws UserModificationException {
+    try {
+      UserAAP userAAP = new UserAAP();
+      userAAP.setEmail(userSummary.getEmail());
+      userAAP.setUsername(userSummary.getEmail());//email is the username for pride hence using same for AAP
+      userAAP.setPassword(userSummary.getPassword());
+      userAAP.setName(userSummary.getFirstName()+" "+userSummary.getLastName());
+      userAAP.setOrganization(userSummary.getAffiliation().substring(0, userSummary.getAffiliation().length()<=255?userSummary.getAffiliation().length():255));//AAP limits org size to 255bytes
+
+      String userRef = restTemplate.postForObject(
+              userWebServiceUrl.getAapRegisterUrl(), userAAP, String.class);
+
+      userSummary.setUserRef(userRef);
+      return userSummary;
     } catch (Exception e) {
       String email = userSummary.getEmail();
       String msg = "Failed to query web service to create a new user: " + email;

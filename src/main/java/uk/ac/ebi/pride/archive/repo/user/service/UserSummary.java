@@ -26,7 +26,6 @@ public class UserSummary implements UserProvider {
   private String orcid;
   private Boolean acceptedTermsOfUse;
   private Date acceptedTermsOfUseAt;
-  private String userRef;
 
   public UserSummary() {}
 
@@ -45,7 +44,6 @@ public class UserSummary implements UserProvider {
     this.setOrcid(user.getOrcid());
     this.setAcceptedTermsOfUse(user.getAcceptedTermsOfUse());
     this.setAcceptedTermsOfUseAt(user.getAcceptedTermsOfUseAt());
-    this.setUserRef(user.getUserRef());
   }
 
   public Long getId() {
@@ -144,16 +142,6 @@ public class UserSummary implements UserProvider {
     this.orcid = orcid;
   }
 
-  public String getUserRef() {
-    return userRef;
-  }
-
-  public void setUserRef(String userRef) {
-    this.userRef = userRef;
-  }
-
-
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -172,7 +160,6 @@ public class UserSummary implements UserProvider {
     if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
     if (country != null ? !country.equals(that.country) : that.country != null) return false;
     if (orcid != null ? !orcid.equals(that.orcid) : that.orcid != null) return false;
-    if (userRef != null ? !userRef.equals(that.userRef) : that.userRef != null) return false;
     if (acceptedTermsOfUseAt != null
         ? !acceptedTermsOfUseAt.equals(that.acceptedTermsOfUseAt)
         : that.acceptedTermsOfUseAt != null) return false;
@@ -194,7 +181,6 @@ public class UserSummary implements UserProvider {
     result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
     result = 31 * result + (country != null ? country.hashCode() : 0);
     result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
-    result = 31 * result + (userRef != null ? userRef.hashCode() : 0);
     result = 31 * result + (acceptedTermsOfUse != null ? acceptedTermsOfUse.hashCode() : 0);
     result = 31 * result + (acceptedTermsOfUseAt != null ? acceptedTermsOfUseAt.hashCode() : 0);
     return result;

@@ -128,7 +128,6 @@ public final class ObjectMapper {
     result.setCreateAt(user.getCreateAt());
     result.setUpdateAt(user.getUpdateAt());
     result.setCountry(user.getCountry());
-    result.setUserRef(user.getUserRef());
     result.setOrcid(user.getOrcid());
     result.setAcceptedTermsOfUse(
         user.getAcceptedTermsOfUse() != null && (user.getAcceptedTermsOfUse() == 1));
@@ -202,7 +201,6 @@ public final class ObjectMapper {
     result.setUpdateAt(userSummary.getUpdateAt());
     result.setCountry(userSummary.getCountry());
     result.setOrcid(userSummary.getOrcid());
-    result.setUserRef(userSummary.getUserRef());
     result.setAcceptedTermsOfUse(
         userSummary.getAcceptedTermsOfUse() != null
             ? (userSummary.getAcceptedTermsOfUse() ? 1 : 0)

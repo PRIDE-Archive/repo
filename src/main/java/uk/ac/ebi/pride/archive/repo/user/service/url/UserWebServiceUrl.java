@@ -11,16 +11,14 @@ public class UserWebServiceUrl {
     private String signUpUrl;
     private String updateUrl;
     private String passwordResetUrl;
-    private String aapRegisterUrl;
 
     public UserWebServiceUrl() {
     }
 
-    public UserWebServiceUrl(String signUpUrl, String updateUrl, String passwordResetUrl, String aapRegisterUrl) {
+    public UserWebServiceUrl(String signUpUrl, String updateUrl, String passwordResetUrl) {
         this.signUpUrl = signUpUrl;
         this.updateUrl = updateUrl;
         this.passwordResetUrl = passwordResetUrl;
-        this.aapRegisterUrl = aapRegisterUrl;
     }
 
     public String getSignUpUrl() {
@@ -45,13 +43,5 @@ public class UserWebServiceUrl {
 
     public void setPasswordResetUrl(String passwordResetUrl) {
         this.passwordResetUrl = passwordResetUrl;
-    }
-
-    public String getAapRegisterUrl() {
-        return aapRegisterUrl;
-    }
-
-    public void setAapRegisterUrl(String aapRegisterUrl) {
-        this.aapRegisterUrl = aapRegisterUrl;
     }
 }

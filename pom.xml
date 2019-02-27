@@ -167,17 +167,6 @@
 
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>nexus-ebi-release-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
-        </repository>
-        <repository>
-            <id>nexus-ebi-snapshot-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
-        </repository>
-    </repositories>
-
     <scm>
         <connection>scm:git:https://github.com/PRIDE-Archive/repo.git</connection>
         <developerConnection>scm:git:https://github.com/PRIDE-Archive/repo.git</developerConnection>

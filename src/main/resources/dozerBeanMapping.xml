@@ -36,7 +36,7 @@
 
     <!-- user mapping-->
     <mapping>
-        <class-a>uk.ac.ebi.pride.archive.repo.user.User</class-a>
+        <class-a>uk.ac.ebi.pride.archive.repo.repos.user.User</class-a>
         <class-b>uk.ac.ebi.pride.archive.repo.services.user.UserSummary</class-b>
     </mapping>
 

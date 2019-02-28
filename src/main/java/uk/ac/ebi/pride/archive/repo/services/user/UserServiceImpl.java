@@ -53,16 +53,25 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  @Transactional(readOnly = false)
+  public UserSummary registerWithAAP(UserSummary userSummary) throws UserModificationException {
+    return signUp(userSummary);
+  }
+
   private User mapToPersistableUser(UserSummary userSummary) {
     User prideUser = new User();
     prideUser.setEmail(userSummary.getEmail());
     prideUser.setPassword(userSummary.getPassword());
+    prideUser.setUserRef(userSummary.getUserRef());
     prideUser.setTitle(userSummary.getTitle());
     prideUser.setFirstName(userSummary.getFirstName());
     prideUser.setLastName(userSummary.getLastName());
     prideUser.setAffiliation(userSummary.getAffiliation());
     prideUser.setCountry(userSummary.getCountry());
     prideUser.setOrcid(userSummary.getOrcid());
+    prideUser.setAcceptedTermsOfUse(userSummary.getAcceptedTermsOfUse() ? 1 : 0);
+    prideUser.setAcceptedTermsOfUseAt(userSummary.getAcceptedTermsOfUseAt());
     Set<UserAuthority> authorities = new HashSet<>();
     authorities.add(UserAuthority.SUBMITTER); // can only create submitter
     prideUser.setUserAuthorities(authorities);
@@ -73,6 +82,9 @@ public class UserServiceImpl implements UserService {
     Date currentDate = Calendar.getInstance().getTime();
     user.setCreateAt(currentDate);
     user.setUpdateAt(currentDate);
+    if (user.getAcceptedTermsOfUse() != null && user.getAcceptedTermsOfUse() == 1) {
+      user.setAcceptedTermsOfUseAt(currentDate);
+    }
   }
 
   @Override
@@ -159,7 +171,7 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional(readOnly = false)
   public void update(UserSummary originalUser, UserSummary updatedUser)
-      throws UserModificationException {
+          throws UserModificationException {
     Assert.notNull(originalUser, "User to update cannot be null");
     Assert.notNull(updatedUser, "User to update cannot be null");
     try {
@@ -199,18 +211,24 @@ public class UserServiceImpl implements UserService {
     if (user.getOrcid() != null) {
       prideUser.setOrcid(user.getOrcid());
     }
+    if (user.getAcceptedTermsOfUse() != null) {
+      prideUser.setAcceptedTermsOfUse(user.getAcceptedTermsOfUse());
+    }
   }
 
-  private void changeUpdateDate(UserSummary user) {
+  private void changeUpdateDate(UserSummary userSummary) {
     Date currentDate = Calendar.getInstance().getTime();
-    user.setUpdateAt(currentDate);
+    userSummary.setUpdateAt(currentDate);
+    if (userSummary.getAcceptedTermsOfUse() != null && userSummary.getAcceptedTermsOfUse()) {
+      userSummary.setAcceptedTermsOfUseAt(currentDate);
+    }
   }
 
   @Override
   public List<ProjectSummary> findAllProjectsById(Long userId) throws UserAccessException {
     List<ProjectSummary> projectSummaries = new ArrayList<>();
     List<Project> ownedProjects =
-        projectRepository.findAllBySubmitterId(userId); // find the projects owned by the user
+            projectRepository.findAllBySubmitterId(userId); // find the projects owned by the user
     for (Project ownedProject : ownedProjects) {
       projectSummaries.add(ObjectMapper.mapProjectToProjectSummary(ownedProject));
     }

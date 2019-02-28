@@ -21,4 +21,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
   @Query("select u.projects from User u where u.id = ?1")
   List<Project> findAllProjectsById(Long userId);
+
+  //AAP changes
+  @Query("select u from User u where u.userRef = ?1")
+  User findByUserRef(String userRef);
 }

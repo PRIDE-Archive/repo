@@ -44,6 +44,9 @@ public class User implements UserProvider {
 
   @NotNull private String affiliation;
 
+  @Column(name = "USER_AAP_REF")
+  private String userRef;
+
   @NotNull
   @Column(unique = true)
   private String email;
@@ -62,9 +65,15 @@ public class User implements UserProvider {
   @Column(name = "orcid")
   private String orcid;
 
+  @Column(name = "accepted_terms")
+  private Integer acceptedTermsOfUse;
+
+  @Column(name = "accepted_terms_date")
+  private Date acceptedTermsOfUseAt;
+
   @OneToMany(
-    cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-    mappedBy = "user"
+          cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+          mappedBy = "user"
   )
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Authority> authorities;
@@ -120,6 +129,10 @@ public class User implements UserProvider {
     this.affiliation = affiliation;
   }
 
+  public String getUserRef() { return userRef;  }
+
+  public void setUserRef(String userRef) { this.userRef = userRef; }
+
   public String getEmail() {
     return email;
   }
@@ -160,6 +173,22 @@ public class User implements UserProvider {
     this.orcid = orcid;
   }
 
+  public Integer getAcceptedTermsOfUse() {
+    return acceptedTermsOfUse;
+  }
+
+  public void setAcceptedTermsOfUse(Integer acceptedTermsOfUse) {
+    this.acceptedTermsOfUse = acceptedTermsOfUse;
+  }
+
+  public Date getAcceptedTermsOfUseAt() {
+    return acceptedTermsOfUseAt;
+  }
+
+  public void setAcceptedTermsOfUseAt(Date acceptedTermsOfUseAt) {
+    this.acceptedTermsOfUseAt = acceptedTermsOfUseAt;
+  }
+
   @Override
   public Set<UserAuthority> getUserAuthorities() {
     Set<UserAuthority> userAuthorities = new HashSet<>();
@@ -198,6 +227,8 @@ public class User implements UserProvider {
 
     if (affiliation != null ? !affiliation.equals(user.affiliation) : user.affiliation != null)
       return false;
+    if (userRef != null ? !userRef.equals(user.userRef) : user.userRef != null)
+      return false;
     if (email != null ? !email.equals(user.email) : user.email != null) return false;
     if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
       return false;
@@ -205,7 +236,13 @@ public class User implements UserProvider {
     if (password != null ? !password.equals(user.password) : user.password != null) return false;
     if (title != user.title) return false;
     if (country != null ? !country.equals(user.country) : user.country != null) return false;
-    return orcid != null ? orcid.equals(user.orcid) : user.orcid == null;
+    if (orcid != null ? !orcid.equals(user.orcid) : user.orcid != null) return false;
+    if (acceptedTermsOfUseAt != null
+            ? !acceptedTermsOfUseAt.equals(user.acceptedTermsOfUseAt)
+            : user.acceptedTermsOfUseAt != null) return false;
+    return acceptedTermsOfUse != null
+            ? acceptedTermsOfUse.equals(user.acceptedTermsOfUse)
+            : user.acceptedTermsOfUse == null;
   }
 
   @Override
@@ -215,9 +252,12 @@ public class User implements UserProvider {
     result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
     result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
     result = 31 * result + (affiliation != null ? affiliation.hashCode() : 0);
+    result = 31 * result + (userRef != null ? userRef.hashCode() : 0);
     result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (country != null ? country.hashCode() : 0);
     result = 31 * result + (orcid != null ? orcid.hashCode() : 0);
+    result = 31 * result + (acceptedTermsOfUse != null ? acceptedTermsOfUse : 0);
+    result = 31 * result + (acceptedTermsOfUseAt != null ? acceptedTermsOfUseAt.hashCode() : 0);
     return result;
   }
 }

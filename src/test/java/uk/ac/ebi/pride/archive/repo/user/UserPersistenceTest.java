@@ -65,6 +65,11 @@ public class UserPersistenceTest {
     user.setUpdateAt(updateDate);
     user.setCountry(USER_1_COUNTRY);
     user.setOrcid(USER_1_ORCID);
+
+    user.setUserRef(null);
+    user.setAcceptedTermsOfUse(1);
+    user.setAcceptedTermsOfUseAt(updateDate);
+
     Set<UserAuthority> auths = new HashSet<>();
     auths.add(AUTH_1_AUTHORITY);
     user.setUserAuthorities(auths);

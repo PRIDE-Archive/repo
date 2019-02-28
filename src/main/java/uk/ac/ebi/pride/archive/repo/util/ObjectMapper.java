@@ -29,6 +29,7 @@ import uk.ac.ebi.pride.archive.repo.services.user.UserSummary;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -64,7 +65,7 @@ public final class ObjectMapper {
     projectSummary.setNumAssays(project.getNumAssays());
     projectSummary.setReanalysis(project.getReanalysis());
     projectSummary.setExperimentTypes(
-        mapProjectCvParamsToCvParamSummaries(project.getExperimentTypes()));
+            mapProjectCvParamsToCvParamSummaries(project.getExperimentTypes()));
     projectSummary.setSubmissionType(project.getSubmissionType());
     projectSummary.setSubmissionDate(project.getSubmissionDate());
     projectSummary.setPublicationDate(project.getPublicationDate());
@@ -76,7 +77,7 @@ public final class ObjectMapper {
     projectSummary.setInstruments(mapProjectCvParamsToCvParamSummaries(project.getInstruments()));
     projectSummary.setSoftware(mapProjectCvParamsToCvParamSummaries(project.getSoftware()));
     projectSummary.setQuantificationMethods(
-        mapProjectCvParamsToCvParamSummaries(project.getQuantificationMethods()));
+            mapProjectCvParamsToCvParamSummaries(project.getQuantificationMethods()));
     projectSummary.setPublicProject(project.isPublicProject());
     projectSummary.setId(project.getId());
     projectSummary.setChanged(project.isChanged());
@@ -90,8 +91,8 @@ public final class ObjectMapper {
   }
 
   private static Collection<ProjectTagSummary> mapProjectTagsToProjectTagSummaries(
-      Collection<ProjectTag> projectTags) {
-    ArrayList<ProjectTagSummary> projectTagSummaries = new ArrayList<>();
+          Collection<ProjectTag> projectTags) {
+    ArrayList<ProjectTagSummary> projectTagSummaries = new ArrayList<ProjectTagSummary>();
 
     if (projectTags != null) {
       for (ProjectTag projectTag : projectTags) {
@@ -103,7 +104,7 @@ public final class ObjectMapper {
   }
 
   public static Collection<UserSummary> mapUsersToUserSummaries(Collection<User> users) {
-    ArrayList<UserSummary> userSummaries = new ArrayList<>();
+    ArrayList<UserSummary> userSummaries = new ArrayList<UserSummary>();
 
     if (users != null) {
       for (User user : users) {
@@ -115,7 +116,24 @@ public final class ObjectMapper {
   }
 
   public static UserSummary mapUserToUserSummary(User user) {
-    return user == null ? null : mapper.map(user, UserSummary.class);
+    UserSummary result = new UserSummary();
+    result.setId(user.getId());
+    result.setEmail(user.getEmail());
+    result.setPassword(user.getPassword());
+    result.setTitle(user.getTitle());
+    result.setFirstName(user.getFirstName());
+    result.setLastName(user.getLastName());
+    result.setAffiliation(user.getAffiliation());
+    result.setUserAuthorities(new HashSet<>(user.getUserAuthorities()));
+    result.setCreateAt(user.getCreateAt());
+    result.setUpdateAt(user.getUpdateAt());
+    result.setCountry(user.getCountry());
+    result.setUserRef(user.getUserRef());
+    result.setOrcid(user.getOrcid());
+    result.setAcceptedTermsOfUse(
+            user.getAcceptedTermsOfUse() != null && (user.getAcceptedTermsOfUse() == 1));
+    result.setAcceptedTermsOfUseAt(user.getAcceptedTermsOfUseAt());
+    return result;
   }
 
   public static AssaySummary mapAssayToAssaySummary(Assay assay) {
@@ -146,7 +164,7 @@ public final class ObjectMapper {
     assaySummary.setSoftwares(mapSoftwaresToSoftwareSummaries(softwares));
     assaySummary.setPtms(mapCvParamProvidersToCvParamSummaries(assay.getPtms()));
     assaySummary.setQuantificationMethods(
-        mapAssayCvParamsToCvParamSummaries(assay.getQuantificationMethods()));
+            mapAssayCvParamsToCvParamSummaries(assay.getQuantificationMethods()));
     assaySummary.setContacts(mapContactsToContactSummaries(assay.getContacts()));
     assaySummary.setParams(mapParamProvidersToParamSummaries(assay.getParams()));
 
@@ -154,8 +172,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<FileSummary> mapProjectFileToFileSummaries(
-      List<ProjectFile> projectFiles) {
-    Collection<FileSummary> fileSummaries = new ArrayList<>();
+          List<ProjectFile> projectFiles) {
+    Collection<FileSummary> fileSummaries = new ArrayList<FileSummary>();
 
     if (projectFiles != null) {
       for (ProjectFile projectFile : projectFiles) {
@@ -170,13 +188,32 @@ public final class ObjectMapper {
     return mapper.map(projectFile, FileSummary.class);
   }
 
-  public static User mapUserSummaryToUser(UserSummary user) {
-    return mapper.map(user, User.class);
+  public static User mapUserSummaryToUser(UserSummary userSummary) {
+    User result = new User();
+    result.setId(userSummary.getId());
+    result.setEmail(userSummary.getEmail());
+    result.setPassword(userSummary.getPassword());
+    result.setTitle(userSummary.getTitle());
+    result.setFirstName(userSummary.getFirstName());
+    result.setLastName(userSummary.getLastName());
+    result.setAffiliation(userSummary.getAffiliation());
+    result.setUserAuthorities(new HashSet<>(userSummary.getUserAuthorities()));
+    result.setCreateAt(userSummary.getCreateAt());
+    result.setUpdateAt(userSummary.getUpdateAt());
+    result.setCountry(userSummary.getCountry());
+    result.setOrcid(userSummary.getOrcid());
+    result.setUserRef(userSummary.getUserRef());
+    result.setAcceptedTermsOfUse(
+            userSummary.getAcceptedTermsOfUse() != null
+                    ? (userSummary.getAcceptedTermsOfUse() ? 1 : 0)
+                    : 0);
+    result.setAcceptedTermsOfUseAt(userSummary.getAcceptedTermsOfUseAt());
+    return result;
   }
 
   public static Collection<SoftwareSummary> mapSoftwaresToSoftwareSummaries(
-      Collection<Software> softwares) {
-    final ArrayList<SoftwareSummary> softwareSummaries = new ArrayList<>();
+          Collection<Software> softwares) {
+    final ArrayList<SoftwareSummary> softwareSummaries = new ArrayList<SoftwareSummary>();
 
     if (softwares != null) {
       for (Software software : softwares) {
@@ -201,8 +238,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<InstrumentSummary> mapInstrumentsToInstrumentSummaries(
-      Collection<Instrument> instruments) {
-    final ArrayList<InstrumentSummary> instrumentSummaries = new ArrayList<>();
+          Collection<Instrument> instruments) {
+    final ArrayList<InstrumentSummary> instrumentSummaries = new ArrayList<InstrumentSummary>();
 
     if (instruments != null) {
       for (Instrument instrument : instruments) {
@@ -221,24 +258,25 @@ public final class ObjectMapper {
     model.setValue(instrument.getValue());
     instrumentSummary.setModel(model);
     instrumentSummary.setSources(
-        mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getSources()));
+            mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getSources()));
     instrumentSummary.setAnalyzers(
-        mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getAnalyzers()));
+            mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getAnalyzers()));
     instrumentSummary.setDetectors(
-        mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getDetectors()));
+            mapInstrumentComponentsToInstrumentComponentSummaries(instrument.getDetectors()));
 
     return instrumentSummary;
   }
 
   public static Collection<InstrumentComponentSummary>
-      mapInstrumentComponentsToInstrumentComponentSummaries(
+  mapInstrumentComponentsToInstrumentComponentSummaries(
           Collection<? extends InstrumentComponent> instrumentComponents) {
-    final ArrayList<InstrumentComponentSummary> instrumentComponentSummaries = new ArrayList<>();
+    final ArrayList<InstrumentComponentSummary> instrumentComponentSummaries =
+            new ArrayList<InstrumentComponentSummary>();
 
     if (instrumentComponents != null) {
       for (InstrumentComponent instrumentComponent : instrumentComponents) {
         instrumentComponentSummaries.add(
-            mapInstrumentComponentToInstrumentComponentSummary(instrumentComponent));
+                mapInstrumentComponentToInstrumentComponentSummary(instrumentComponent));
       }
     }
 
@@ -246,20 +284,20 @@ public final class ObjectMapper {
   }
 
   public static InstrumentComponentSummary mapInstrumentComponentToInstrumentComponentSummary(
-      InstrumentComponent instrumentComponent) {
+          InstrumentComponent instrumentComponent) {
     final InstrumentComponentSummary instrumentComponentSummary = new InstrumentComponentSummary();
 
     instrumentComponentSummary.setId(instrumentComponent.getId());
     instrumentComponentSummary.setOrder(instrumentComponent.getOrder());
     instrumentComponentSummary.setParams(
-        mapParamProvidersToParamSummaries(instrumentComponent.getParams()));
+            mapParamProvidersToParamSummaries(instrumentComponent.getParams()));
 
     return instrumentComponentSummary;
   }
 
   public static Collection<ReferenceSummary> mapReferencesToReferenceSummaries(
-      Collection<Reference> references) {
-    ArrayList<ReferenceSummary> referenceSummaries = new ArrayList<>();
+          Collection<Reference> references) {
+    ArrayList<ReferenceSummary> referenceSummaries = new ArrayList<ReferenceSummary>();
 
     if (references != null) {
       for (Reference reference : references) {
@@ -275,8 +313,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<ContactSummary> mapLabHeadsToContactSummaries(
-      Collection<LabHead> labHeads) {
-    ArrayList<ContactSummary> contactSummaries = new ArrayList<>();
+          Collection<LabHead> labHeads) {
+    ArrayList<ContactSummary> contactSummaries = new ArrayList<ContactSummary>();
 
     if (labHeads != null) {
       for (LabHead labHead : labHeads) {
@@ -292,8 +330,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<CvParamSummary> mapProjectCvParamsToCvParamSummaries(
-      Collection<? extends ProjectCvParam> projectCvParams) {
-    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
+          Collection<? extends ProjectCvParam> projectCvParams) {
+    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
 
     if (projectCvParams != null) {
       for (ProjectCvParam projectCvParam : projectCvParams) {
@@ -305,8 +343,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<ContactSummary> mapContactsToContactSummaries(
-      Collection<Contact> contacts) {
-    final ArrayList<ContactSummary> contactSummaries = new ArrayList<>();
+          Collection<Contact> contacts) {
+    final ArrayList<ContactSummary> contactSummaries = new ArrayList<ContactSummary>();
 
     if (contacts != null) {
       for (Contact contact : contacts) {
@@ -326,8 +364,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<CvParamSummary> mapAssayCvParamsToCvParamSummaries(
-      Collection<? extends AssayCvParam> assayCvParams) {
-    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
+          Collection<? extends AssayCvParam> assayCvParams) {
+    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
 
     if (assayCvParams != null) {
       for (AssayCvParam assayCvParam : assayCvParams) {
@@ -343,8 +381,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<CvParamSummary> mapProjectPTMsToCvParamSummaries(
-      Collection<ProjectPTM> projectPTMs) {
-    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
+          Collection<ProjectPTM> projectPTMs) {
+    ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
 
     if (projectPTMs != null) {
       for (ProjectPTM projectPTM : projectPTMs) {
@@ -360,8 +398,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<CvParamSummary> mapCvParamProvidersToCvParamSummaries(
-      Collection<? extends CvParamProvider> cvParamProviders) {
-    final ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<>();
+          Collection<? extends CvParamProvider> cvParamProviders) {
+    final ArrayList<CvParamSummary> cvParamSummaries = new ArrayList<CvParamSummary>();
 
     if (cvParamProviders != null) {
       for (CvParamProvider cvParamProvider : cvParamProviders) {
@@ -377,8 +415,8 @@ public final class ObjectMapper {
   }
 
   public static Collection<ParamSummary> mapParamProvidersToParamSummaries(
-      Collection<? extends ParamProvider> params) {
-    ArrayList<ParamSummary> paramSummaries = new ArrayList<>();
+          Collection<? extends ParamProvider> params) {
+    ArrayList<ParamSummary> paramSummaries = new ArrayList<ParamSummary>();
 
     if (params != null) {
       for (ParamProvider param : params) {

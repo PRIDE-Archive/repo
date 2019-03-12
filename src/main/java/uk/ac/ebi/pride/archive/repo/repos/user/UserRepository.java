@@ -25,4 +25,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
   //AAP changes
   @Query("select u from User u where u.userRef = ?1")
   User findByUserRef(String userRef);
+
+  //Fetch users not in AAP
+  @Query("select u from User u where u.userRef is null")
+  List<User> findFilteredLocalUsers();
 }

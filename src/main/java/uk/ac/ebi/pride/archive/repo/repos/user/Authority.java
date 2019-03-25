@@ -1,6 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.user;
 
-import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
+import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ public class Authority {
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  private UserAuthority authority;
+  private RoleConstants authority;
 
   public Long getId() {
     return id;
@@ -48,11 +48,11 @@ public class Authority {
     this.user = user;
   }
 
-  public UserAuthority getAuthority() {
+  public RoleConstants getAuthority() {
     return authority;
   }
 
-  public void setAuthority(UserAuthority authority) {
+  public void setAuthority(RoleConstants authority) {
     this.authority = authority;
   }
 

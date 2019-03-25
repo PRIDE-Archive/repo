@@ -2,14 +2,16 @@ package uk.ac.ebi.pride.archive.repo.repos.assay.software;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import uk.ac.ebi.pride.archive.dataprovider.assay.software.SoftwareProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.software.SoftwareProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.repo.repos.assay.Assay;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Jose A. Dianes
@@ -74,12 +76,22 @@ public class Software implements SoftwareProvider {
     this.name = name;
   }
 
-  public String getCustomization() {
-    return this.customization;
+  public List<String> getCustomization() {
+    ArrayList<String> customizedList = new ArrayList<String>();
+    customizedList.add(customization);
+    return customizedList;
   }
 
-  public void setCustomization(String customization) {
+  /*public void setCustomization(List<String> customization) {
     this.customization = customization;
+  }*/
+
+  public void setCustomization(String customizationString) {
+    /*if(customization==null){
+      customization = new ArrayList<String>();
+    }
+    customization.add(customizationString);*/
+    this.customization=customizationString;
   }
 
   public String getVersion() {
@@ -153,5 +165,10 @@ public class Software implements SoftwareProvider {
     result = 31 * result + (softwareCvParams != null ? softwareCvParams.hashCode() : 0);
     result = 31 * result + (softwareUserParams != null ? softwareUserParams.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public Collection<? extends String> getAdditionalAttributesStrings() {
+    return null;
   }
 }

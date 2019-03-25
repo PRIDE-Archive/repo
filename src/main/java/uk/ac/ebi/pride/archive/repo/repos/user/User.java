@@ -2,9 +2,9 @@ package uk.ac.ebi.pride.archive.repo.repos.user;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
-import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
-import uk.ac.ebi.pride.archive.dataprovider.person.UserProvider;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
+import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
+import uk.ac.ebi.pride.archive.dataprovider.user.UserProvider;
 import uk.ac.ebi.pride.archive.repo.repos.project.Project;
 
 import javax.persistence.*;
@@ -32,7 +32,8 @@ public class User implements UserProvider {
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  private Title title;
+  @Column(name = "title")
+  private TitleConstants title;
 
   @NotNull
   @Column(name = "first_name")
@@ -97,11 +98,16 @@ public class User implements UserProvider {
     this.password = PasswordUtilities.encode(password);
   }
 
-  public Title getTitle() {
+  public TitleConstants getTitle() {
     return title;
   }
 
-  public void setTitle(Title title) {
+  @Override
+  public String getName() {
+    return firstName+" "+lastName;
+  }
+
+  public void setTitle(TitleConstants title) {
     this.title = title;
   }
 
@@ -190,8 +196,8 @@ public class User implements UserProvider {
   }
 
   @Override
-  public Set<UserAuthority> getUserAuthorities() {
-    Set<UserAuthority> userAuthorities = new HashSet<>();
+  public Set<RoleConstants> getUserAuthorities() {
+    Set<RoleConstants> userAuthorities = new HashSet<>();
     if (authorities != null) {
       for (Authority authority : authorities) {
         userAuthorities.add(authority.getAuthority());
@@ -200,9 +206,9 @@ public class User implements UserProvider {
     return userAuthorities;
   }
 
-  public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
+  public void setUserAuthorities(Set<RoleConstants> userAuthorities) {
     this.authorities = new HashSet<>();
-    for (UserAuthority userAuthority : userAuthorities) {
+    for (RoleConstants userAuthority : userAuthorities) {
       Authority authority = new Authority();
       authority.setAuthority(userAuthority);
       authority.setUser(this);

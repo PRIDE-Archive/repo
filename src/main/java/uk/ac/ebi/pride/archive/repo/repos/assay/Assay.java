@@ -3,6 +3,9 @@ package uk.ac.ebi.pride.archive.repo.repos.assay;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import uk.ac.ebi.pride.archive.dataprovider.assay.AssayProvider;
+import uk.ac.ebi.pride.archive.dataprovider.assay.AssayType;
+import uk.ac.ebi.pride.archive.dataprovider.common.ITuple;
+import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.repo.repos.assay.instrument.Instrument;
 import uk.ac.ebi.pride.archive.repo.repos.assay.software.Software;
@@ -340,5 +343,20 @@ public class Assay implements AssayProvider {
     result = 31 * result + (softwares != null ? softwares.hashCode() : 0);
     result = 31 * result + (instruments != null ? instruments.hashCode() : 0);
     return result;
+  }
+
+  @Override
+  public Collection<? extends ITuple<? extends CvParamProvider, ? extends CvParamProvider>> getSampleProperties() {
+    return null;
+  }
+
+  @Override
+  public AssayType getAssayType() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends CvParamProvider> getAdditionalProperties() {
+    return null;
   }
 }

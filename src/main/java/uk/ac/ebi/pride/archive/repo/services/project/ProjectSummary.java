@@ -1,9 +1,9 @@
 package uk.ac.ebi.pride.archive.repo.services.project;
 
-import uk.ac.ebi.pride.archive.dataprovider.identification.PeptideSequenceProvider;
-import uk.ac.ebi.pride.archive.dataprovider.identification.ProteinIdentificationProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.peptide.PeptideSequenceProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.protein.ProteinIdentificationProvider;
 import uk.ac.ebi.pride.archive.dataprovider.project.ProjectProvider;
-import uk.ac.ebi.pride.archive.dataprovider.project.SubmissionType;
+import uk.ac.ebi.pride.archive.dataprovider.utils.SubmissionTypeConstants;
 import uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary;
 import uk.ac.ebi.pride.archive.repo.services.param.ParamSummary;
 import uk.ac.ebi.pride.archive.repo.services.user.ContactSummary;
@@ -50,7 +50,7 @@ public class ProjectSummary implements ProjectProvider {
   private String keywords;
   private int numAssays;
   private String reanalysis;
-  private SubmissionType submissionType;
+  private SubmissionTypeConstants submissionType;
   private Date submissionDate;
   private Date publicationDate;
   private Date updateDate;
@@ -91,8 +91,8 @@ public class ProjectSummary implements ProjectProvider {
     this.accession = accession;
   }
 
-  public String getDoi() {
-    return doi;
+  public Optional<String> getDoi() {
+    return Optional.of(doi);
   }
 
   public void setDoi(String doi) {
@@ -101,6 +101,21 @@ public class ProjectSummary implements ProjectProvider {
 
   public String getTitle() {
     return title;
+  }
+
+  @Override
+  public String getDescription() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getSubmitters() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getHeadLab() {
+    return null;
   }
 
   public void setTitle(String title) {
@@ -131,8 +146,14 @@ public class ProjectSummary implements ProjectProvider {
     this.dataProcessingProtocol = dataProcessingProtocol;
   }
 
-  public String getOtherOmicsLink() {
-    return otherOmicsLink;
+  public Set<String> getOtherOmicsLink() {
+    if(otherOmicsLink!=null){
+      Set<String> omnicsSet = new HashSet<String>();
+      omnicsSet.add(otherOmicsLink);
+      return omnicsSet;
+    }else{
+      return null;
+    }
   }
 
   public void setOtherOmicsLink(String otherOmicsLink) {
@@ -155,8 +176,14 @@ public class ProjectSummary implements ProjectProvider {
     CollectionUtils.replaceValuesInCollection(users, this.users);
   }
 
-  public String getKeywords() {
-    return keywords;
+  public Set<String> getKeywords() {
+    if(keywords!=null){
+      Set<String> keywordsSet = new HashSet<String>();
+      keywordsSet.add(keywords);
+      return keywordsSet;
+    }else{
+      return null;
+    }
   }
 
   public void setKeywords(String keywords) {
@@ -187,11 +214,11 @@ public class ProjectSummary implements ProjectProvider {
     CollectionUtils.replaceValuesInCollection(experimentTypes, this.experimentTypes);
   }
 
-  public SubmissionType getSubmissionType() {
-    return submissionType;
+  public String getSubmissionType() {
+    return submissionType.toString();
   }
 
-  public void setSubmissionType(SubmissionType submissionType) {
+  public void setSubmissionType(SubmissionTypeConstants submissionType) {
     this.submissionType = submissionType;
   }
 
@@ -229,6 +256,11 @@ public class ProjectSummary implements ProjectProvider {
 
   public Collection<CvParamSummary> getPtms() {
     return ptms;
+  }
+
+  @Override
+  public Collection<? extends String> getSoftwares() {
+    return null;
   }
 
   public void setPtms(Collection<CvParamSummary> ptms) {
@@ -272,19 +304,39 @@ public class ProjectSummary implements ProjectProvider {
     CollectionUtils.replaceValuesInCollection(quantificationMethods, this.quantificationMethods);
   }
 
-  @Override
+  //@Override
   public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
     // TODO May be need to return null?
     return new HashMap<>();
   }
 
-  @Override
+  //@Override
   public Collection<PeptideSequenceProvider> getPeptideSequences() {
     return new LinkedList<>();
   }
 
   public boolean isPublicProject() {
     return publicProject;
+  }
+
+  @Override
+  public Collection<? extends String> getExperimentalFactors() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getCountries() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getAllAffiliations() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getSampleAttributes() {
+    return null;
   }
 
   public void setPublicProject(boolean publicProject) {
@@ -433,5 +485,10 @@ public class ProjectSummary implements ProjectProvider {
 
   public void setLabHeads(Collection<ContactSummary> labHeads) {
     CollectionUtils.replaceValuesInCollection(labHeads, this.labHeads);
+  }
+
+  @Override
+  public Collection<? extends String> getAdditionalAttributesStrings() {
+    return null;
   }
 }

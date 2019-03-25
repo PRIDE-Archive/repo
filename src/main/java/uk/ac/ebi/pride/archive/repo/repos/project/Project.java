@@ -3,19 +3,17 @@ package uk.ac.ebi.pride.archive.repo.repos.project;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import uk.ac.ebi.pride.archive.dataprovider.identification.PeptideSequenceProvider;
-import uk.ac.ebi.pride.archive.dataprovider.identification.ProteinIdentificationProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.peptide.PeptideSequenceProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.protein.ProteinIdentificationProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.project.ProjectProvider;
-import uk.ac.ebi.pride.archive.dataprovider.project.SubmissionType;
+import uk.ac.ebi.pride.archive.dataprovider.utils.SubmissionTypeConstants;
 import uk.ac.ebi.pride.archive.repo.repos.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Jose A. Dianes
@@ -70,7 +68,7 @@ public class Project implements ProjectProvider {
   @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "submission_type")
-  private SubmissionType submissionType;
+  private SubmissionTypeConstants submissionType;
 
   @NotNull
   @Column(name = "submission_date")
@@ -167,8 +165,8 @@ public class Project implements ProjectProvider {
     this.accession = accession;
   }
 
-  public String getDoi() {
-    return doi;
+  public Optional<String> getDoi() {
+    return Optional.of(doi);
   }
 
   public void setDoi(String doi) {
@@ -177,6 +175,21 @@ public class Project implements ProjectProvider {
 
   public String getTitle() {
     return title;
+  }
+
+  @Override
+  public String getDescription() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getSubmitters() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getHeadLab() {
+    return null;
   }
 
   public void setTitle(String title) {
@@ -191,8 +204,12 @@ public class Project implements ProjectProvider {
     this.projectDescription = projectDescription;
   }
 
-  public String getKeywords() {
-    return keywords;
+  public Set<String> getKeywords() {
+    if(keywords!=null){
+      return Arrays.stream(keywords.split(",")).collect(Collectors.toSet());
+    }else{
+      return new HashSet<String>();
+    }
   }
 
   public void setKeywords(String keywords) {
@@ -223,11 +240,11 @@ public class Project implements ProjectProvider {
     this.experimentTypes = experimentTypes;
   }
 
-  public SubmissionType getSubmissionType() {
-    return submissionType;
+  public String getSubmissionType() {
+    return submissionType.toString();
   }
 
-  public void setSubmissionType(SubmissionType submissionType) {
+  public void setSubmissionType(SubmissionTypeConstants submissionType) {
     this.submissionType = submissionType;
   }
 
@@ -265,6 +282,11 @@ public class Project implements ProjectProvider {
 
   public Collection<ProjectPTM> getPtms() {
     return ptms;
+  }
+
+  @Override
+  public Collection<? extends String> getSoftwares() {
+    return null;
   }
 
   public void setPtms(Collection<ProjectPTM> projectPTMs) {
@@ -328,8 +350,15 @@ public class Project implements ProjectProvider {
     this.dataProcessingProtocol = dataProcessingProtocol;
   }
 
-  public String getOtherOmicsLink() {
-    return this.otherOmicsLink;
+  public Set<String> getOtherOmicsLink() {
+
+    if(otherOmicsLink!=null){
+      Set<String> omnicsSet = new HashSet<String>();
+      omnicsSet.add(otherOmicsLink);
+      return omnicsSet;
+    }else{
+      return null;
+    }
   }
 
   public void setOtherOmicsLink(String otherOmicsLink) {
@@ -355,6 +384,26 @@ public class Project implements ProjectProvider {
 
   public boolean isPublicProject() {
     return this.publicProject;
+  }
+
+  @Override
+  public Collection<? extends String> getExperimentalFactors() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getCountries() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getAllAffiliations() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getSampleAttributes() {
+    return null;
   }
 
   public void setPublicProject(boolean publicProject) {
@@ -408,13 +457,18 @@ public class Project implements ProjectProvider {
     return accession.hashCode();
   }
 
-  @Override
+  //@Override
   public Map<String, Collection<ProteinIdentificationProvider>> getProteinIdentifications() {
     return null;
   }
 
-  @Override
+  //@Override
   public Collection<? extends PeptideSequenceProvider> getPeptideSequences() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends String> getAdditionalAttributesStrings() {
     return null;
   }
 }

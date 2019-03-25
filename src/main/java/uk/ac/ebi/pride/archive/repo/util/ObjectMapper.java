@@ -4,6 +4,8 @@ import org.dozer.DozerBeanMapperSingletonWrapper;
 import org.dozer.Mapper;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
+import uk.ac.ebi.pride.archive.dataprovider.utils.SubmissionTypeConstants;
+import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
 import uk.ac.ebi.pride.archive.repo.repos.assay.Assay;
 import uk.ac.ebi.pride.archive.repo.repos.assay.AssayCvParam;
 import uk.ac.ebi.pride.archive.repo.repos.assay.AssaySampleCvParam;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Rui Wang
@@ -54,20 +57,34 @@ public final class ObjectMapper {
     ProjectSummary projectSummary = new ProjectSummary();
 
     projectSummary.setAccession(project.getAccession());
-    projectSummary.setDoi(project.getDoi());
+
+
+    if(project.getDoi().isPresent())
+      projectSummary.setDoi(project.getDoi().get());
+    else
+      projectSummary.setDoi(null);
+
+
     projectSummary.setTitle(project.getTitle());
     projectSummary.setProjectDescription(project.getProjectDescription());
     projectSummary.setSampleProcessingProtocol(project.getSampleProcessingProtocol());
     projectSummary.setDataProcessingProtocol(project.getDataProcessingProtocol());
-    projectSummary.setOtherOmicsLink(project.getOtherOmicsLink());
+
+    if(project.getOtherOmicsLink()!=null)
+      projectSummary.setOtherOmicsLink(project.getOtherOmicsLink().stream().collect(Collectors.joining(" ")));
+    else
+      projectSummary.setOtherOmicsLink(null);
+
     projectSummary.setSubmitter(mapUserToUserSummary(project.getSubmitter()));
     projectSummary.setUsers(mapUsersToUserSummaries(project.getUsers()));
-    projectSummary.setKeywords(project.getKeywords());
+
+    projectSummary.setKeywords(project.getKeywords()==null?null:project.getKeywords().stream().collect(Collectors.joining(" ")));
+
     projectSummary.setNumAssays(project.getNumAssays());
     projectSummary.setReanalysis(project.getReanalysis());
     projectSummary.setExperimentTypes(
             mapProjectCvParamsToCvParamSummaries(project.getExperimentTypes()));
-    projectSummary.setSubmissionType(project.getSubmissionType());
+    projectSummary.setSubmissionType( SubmissionTypeConstants.fromString(project.getSubmissionType()));
     projectSummary.setSubmissionDate(project.getSubmissionDate());
     projectSummary.setPublicationDate(project.getPublicationDate());
     projectSummary.setUpdateDate(project.getUpdateDate());
@@ -208,7 +225,7 @@ public final class ObjectMapper {
     result.setFirstName(userSummary.getFirstName());
     result.setLastName(userSummary.getLastName());
     result.setAffiliation(userSummary.getAffiliation());
-    result.setUserAuthorities(new HashSet<>(userSummary.getUserAuthorities()));
+    result.setUserAuthorities(userSummary.getUserAuthorities());
     result.setCreateAt(userSummary.getCreateAt());
     result.setUpdateAt(userSummary.getUpdateAt());
     result.setCountry(userSummary.getCountry());

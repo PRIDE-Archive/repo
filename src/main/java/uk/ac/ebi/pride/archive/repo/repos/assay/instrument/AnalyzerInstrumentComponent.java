@@ -2,6 +2,7 @@ package uk.ac.ebi.pride.archive.repo.repos.assay.instrument;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.util.Collection;
 
 /**
  * @author Jose A. Dianes
@@ -9,4 +10,9 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("ANALYZER")
-public class AnalyzerInstrumentComponent extends InstrumentComponent {}
+public class AnalyzerInstrumentComponent extends InstrumentComponent {
+    @Override
+    public Collection<? extends String> getAdditionalAttributesStrings() {
+        return null;
+    }
+}

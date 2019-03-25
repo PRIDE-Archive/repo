@@ -1,8 +1,8 @@
 package uk.ac.ebi.pride.archive.repo.services.user;
 
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
-import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
-import uk.ac.ebi.pride.archive.dataprovider.person.UserProvider;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
+import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
+import uk.ac.ebi.pride.archive.dataprovider.user.UserProvider;
 import uk.ac.ebi.pride.archive.repo.util.CollectionUtils;
 
 import java.util.Date;
@@ -15,11 +15,11 @@ import java.util.Set;
  */
 public class UserSummary implements UserProvider {
 
-  private final Set<UserAuthority> userAuthorities = new HashSet<>();
+  private final Set<RoleConstants> userAuthorities = new HashSet<>();
   private Long id;
   private String email;
   private String password;
-  private Title title;
+  private TitleConstants title;
   private String firstName;
   private String lastName;
   private String affiliation;
@@ -75,11 +75,16 @@ public class UserSummary implements UserProvider {
     this.password = password;
   }
 
-  public Title getTitle() {
+  public TitleConstants getTitle() {
     return title;
   }
 
-  public void setTitle(Title title) {
+  @Override
+  public String getName() {
+    return null;
+  }
+
+  public void setTitle(TitleConstants title) {
     this.title = title;
   }
 
@@ -107,11 +112,11 @@ public class UserSummary implements UserProvider {
     this.affiliation = affiliation;
   }
 
-  public Set<UserAuthority> getUserAuthorities() {
+  public Set<RoleConstants> getUserAuthorities() {
     return userAuthorities;
   }
 
-  public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
+  public void setUserAuthorities(Set<RoleConstants> userAuthorities) {
     CollectionUtils.replaceValuesInCollection(userAuthorities, this.userAuthorities);
   }
 

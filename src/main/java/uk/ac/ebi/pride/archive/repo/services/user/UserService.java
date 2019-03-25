@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.services.user;
 
+import uk.ac.ebi.pride.archive.repo.repos.user.User;
 import uk.ac.ebi.pride.archive.repo.services.project.ProjectSummary;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface UserService {
    * @param user user details, this should contain all the required details
    * @return the return object is a {@code UserSummary} containing only user id, and createAt date
    */
-  UserSummary signUp(UserSummary user) throws UserModificationException;
+  User signUp(UserSummary user) throws UserModificationException;
 
   /**
    * Sign up a new user
@@ -26,7 +27,7 @@ public interface UserService {
    * @return the return object is a {@code UserSummary} containing user reference from AAP if
    * creation of user was successfull
    */
-  UserSummary registerWithAAP(UserSummary user) throws UserModificationException;
+  User registerWithAAP(UserSummary user) throws UserModificationException;
 
   /**
    * Reset the password of a user by using the email address

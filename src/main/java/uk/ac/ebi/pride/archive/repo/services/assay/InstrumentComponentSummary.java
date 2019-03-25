@@ -44,4 +44,9 @@ public class InstrumentComponentSummary implements InstrumentComponentProvider {
   public void setParams(Collection<ParamSummary> params) {
     CollectionUtils.replaceValuesInCollection(params, this.params);
   }
+
+  @Override
+  public Collection<? extends String> getAdditionalAttributesStrings() {
+    return null;
+  }
 }

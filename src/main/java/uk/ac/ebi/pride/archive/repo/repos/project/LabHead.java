@@ -1,7 +1,7 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
-import uk.ac.ebi.pride.archive.dataprovider.person.ContactProvider;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
+import uk.ac.ebi.pride.archive.dataprovider.user.ContactProvider;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,7 +26,7 @@ public class LabHead implements ContactProvider {
 
   @NotNull
   @Enumerated(EnumType.STRING)
-  private Title title;
+  private TitleConstants title;
 
   @NotNull
   @Column(name = "first_name")
@@ -56,11 +56,16 @@ public class LabHead implements ContactProvider {
     this.project = project;
   }
 
-  public Title getTitle() {
+  public TitleConstants getTitle() {
     return title;
   }
 
-  public void setTitle(Title title) {
+  @Override
+  public String getName() {
+    return null;
+  }
+
+  public void setTitle(TitleConstants title) {
     this.title = title;
   }
 
@@ -90,6 +95,16 @@ public class LabHead implements ContactProvider {
 
   public String getEmail() {
     return email;
+  }
+
+  @Override
+  public String getCountry() {
+    return null;
+  }
+
+  @Override
+  public String getOrcid() {
+    return null;
   }
 
   public void setEmail(String email) {

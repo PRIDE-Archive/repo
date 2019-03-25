@@ -28,17 +28,17 @@
 
     <dependencies>
         <!-- PRIDE Archive data provider API -->
-        <dependency>
+        <!--<dependency>
             <groupId>uk.ac.ebi.pride.archive</groupId>
             <artifactId>archive-data-provider-api</artifactId>
             <version>${archive.data.provider.api.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- PRIDE provider API -->
-        <!--<dependency>
+        <dependency>
             <groupId>uk.ac.ebi.pride.archive</groupId>
             <artifactId>data-provider-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>-->
+        </dependency>
 
         <!-- PRIDE web utilities -->
         <dependency>
@@ -52,6 +52,12 @@
             <groupId>uk.ac.ebi.pride.archive</groupId>
             <artifactId>archive-utils</artifactId>
             <version>${archive.utils.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>uk.ac.ebi.pride.archive</groupId>
+                    <artifactId>archive-data-provider-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

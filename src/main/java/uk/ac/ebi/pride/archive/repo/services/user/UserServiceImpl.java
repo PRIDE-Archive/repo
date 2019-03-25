@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import uk.ac.ebi.pride.archive.dataprovider.person.UserAuthority;
+import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
 import uk.ac.ebi.pride.archive.repo.repos.project.Project;
 import uk.ac.ebi.pride.archive.repo.repos.project.ProjectRepository;
 import uk.ac.ebi.pride.archive.repo.repos.user.PasswordUtilities;
@@ -38,13 +38,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional(readOnly = false)
-  public UserSummary signUp(UserSummary userSummary) throws UserModificationException {
+  public User signUp(UserSummary userSummary) throws UserModificationException {
     Assert.notNull(userSummary, "New user cannot be empty");
     try {
       User user = mapToPersistableUser(userSummary);
       setCreationAndUpdateDate(user);
       userRepository.save(user);
-      return userSummary;
+      return user;
     } catch (Exception ex) {
       String email = userSummary.getEmail();
       String msg = "Failed to create a new user: " + email;
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional(readOnly = false)
-  public UserSummary registerWithAAP(UserSummary userSummary) throws UserModificationException {
+  public User registerWithAAP(UserSummary userSummary) throws UserModificationException {
     return signUp(userSummary);
   }
 
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
     prideUser.setOrcid(userSummary.getOrcid());
     prideUser.setAcceptedTermsOfUse(userSummary.getAcceptedTermsOfUse() ? 1 : 0);
     prideUser.setAcceptedTermsOfUseAt(userSummary.getAcceptedTermsOfUseAt());
-    Set<UserAuthority> authorities = new HashSet<>();
-    authorities.add(UserAuthority.SUBMITTER); // can only create submitter
+    Set<RoleConstants> authorities = new HashSet<>();
+    authorities.add(RoleConstants.SUBMITTER); // can only create submitter
     prideUser.setUserAuthorities(authorities);
     return prideUser;
   }

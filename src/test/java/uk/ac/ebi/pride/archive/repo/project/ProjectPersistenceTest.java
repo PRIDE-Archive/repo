@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
-import uk.ac.ebi.pride.archive.dataprovider.project.SubmissionType;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
+import uk.ac.ebi.pride.archive.dataprovider.utils.SubmissionTypeConstants;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.repos.param.CvParam;
 import uk.ac.ebi.pride.archive.repo.repos.param.CvParamRepository;
@@ -87,7 +87,7 @@ public class ProjectPersistenceTest {
   private static final long ANOTHER_USER_ID = 123456;
   private static final String ANOTHER_USER_PASSWORD = "password";
   private static final String ANOTHER_USER_EMAIL = "chiquito@test.ebi.ac.uk";
-  private static final Title ANOTHER_USER_TITLE = Title.Dr;
+  private static final TitleConstants ANOTHER_USER_TITLE = TitleConstants.Dr;
   private static final String ANOTHER_USER_FIRST_NAME = "Lucas";
   private static final String ANOTHER_USER_LAST_NAME = "Grijander";
   private static final String ANOTHER_USER_AFFILIATION = "EMBL-EBI";
@@ -105,7 +105,7 @@ public class ProjectPersistenceTest {
     Project project = new Project();
     project.setPublicProject(true);
     project.setAccession(PROJECT_2_ACCESSION);
-    project.setSubmissionType(SubmissionType.COMPLETE);
+    project.setSubmissionType(SubmissionTypeConstants.COMPLETE);
     project.setSubmissionDate(Calendar.getInstance().getTime());
     project.setDoi("doi");
     project.setTitle("project title");
@@ -158,7 +158,7 @@ public class ProjectPersistenceTest {
     assertThat(project.getKeywords(), is(PROJECT_1_KEYWORDS));
     assertThat(project.getNumAssays(), is(PROJECT_1_NUM_ASSAYS));
     assertThat(project.getReanalysis(), is(PROJECT_1_REANALYSIS));
-    assertThat(project.getSubmissionType(), is(SubmissionType.COMPLETE));
+    assertThat(project.getSubmissionType(), is(SubmissionTypeConstants.COMPLETE));
 
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     assertThat(df.format(project.getSubmissionDate()), is("2010-05-22"));
@@ -178,7 +178,7 @@ public class ProjectPersistenceTest {
     project.setPublicProject(true);
     project.setKeywords("keyword");
     project.setAccession(PROJECT_2_ACCESSION);
-    project.setSubmissionType(SubmissionType.COMPLETE);
+    project.setSubmissionType(SubmissionTypeConstants.COMPLETE);
     project.setSubmissionDate(Calendar.getInstance().getTime());
     project.setDoi("doi");
     project.setTitle("project title");

@@ -34,6 +34,7 @@ public class UserSummaryValidator implements Validator {
   public static final String AFFILIATION_ERROR_MESSAGE = "Affiliation cannot be empty";
   public static final String COUNTRY_ERROR_MESSAGE = "Country cannot be empty";
   public static final String ORCID_ERROR_MESSAGE = "Invalid ORCID";
+  public static final String ACCEPTED_TERMS_ERROR_MESSAGE = "Terms of use must be accepted to proceed";
 
   public static final Pattern EMAIL_REGEX_PATTERN =
       Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
@@ -88,6 +89,13 @@ public class UserSummaryValidator implements Validator {
   public void validatePassword(Object target, Errors errors) {
     ValidationUtils.rejectIfEmptyOrWhitespace(
         errors, "password", "required", PASSWORD_ERROR_MESSAGE);
+  }
+
+  public void validateAcceptedTerms(Object target, Errors errors) {
+    Object acceptedTermsOfUse = errors.getFieldValue("acceptedTermsOfUse");
+    if(acceptedTermsOfUse == null || !acceptedTermsOfUse.toString().equalsIgnoreCase("true")){
+      errors.rejectValue("acceptedTermsOfUse","required", ACCEPTED_TERMS_ERROR_MESSAGE);
+    }
   }
 
   /** Validate email if it is not null */

@@ -1,11 +1,12 @@
 package uk.ac.ebi.pride.archive.repo.services.assay;
 
-import uk.ac.ebi.pride.archive.dataprovider.assay.software.SoftwareProvider;
+import uk.ac.ebi.pride.archive.dataprovider.data.software.SoftwareProvider;
 import uk.ac.ebi.pride.archive.repo.services.param.ParamSummary;
 import uk.ac.ebi.pride.archive.repo.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Rui Wang
@@ -15,7 +16,7 @@ public class SoftwareSummary implements SoftwareProvider {
 
   private int order;
   private String name;
-  private String customization;
+  private List<String> customization;
   private String version;
   private Long id;
   private Collection<ParamSummary> params;
@@ -40,11 +41,11 @@ public class SoftwareSummary implements SoftwareProvider {
     this.name = name;
   }
 
-  public String getCustomization() {
+  public List<String> getCustomization() {
     return customization;
   }
 
-  public void setCustomization(String customization) {
+  public void setCustomization(List<String> customization) {
     this.customization = customization;
   }
 
@@ -70,5 +71,10 @@ public class SoftwareSummary implements SoftwareProvider {
 
   public void setParams(Collection<ParamSummary> params) {
     CollectionUtils.replaceValuesInCollection(params, this.params);
+  }
+
+  @Override
+  public Collection<? extends String> getAdditionalAttributesStrings() {
+    return null;
   }
 }

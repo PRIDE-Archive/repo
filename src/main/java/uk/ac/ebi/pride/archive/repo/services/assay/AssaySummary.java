@@ -1,6 +1,9 @@
 package uk.ac.ebi.pride.archive.repo.services.assay;
 
 import uk.ac.ebi.pride.archive.dataprovider.assay.AssayProvider;
+import uk.ac.ebi.pride.archive.dataprovider.assay.AssayType;
+import uk.ac.ebi.pride.archive.dataprovider.common.ITuple;
+import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.repo.services.param.CvParamSummary;
 import uk.ac.ebi.pride.archive.repo.services.param.ParamSummary;
 import uk.ac.ebi.pride.archive.repo.services.user.ContactSummary;
@@ -282,5 +285,20 @@ public class AssaySummary implements AssayProvider {
       }
     }
     return goTerms;
+  }
+
+  @Override
+  public Collection<? extends ITuple<? extends CvParamProvider, ? extends CvParamProvider>> getSampleProperties() {
+    return null;
+  }
+
+  @Override
+  public AssayType getAssayType() {
+    return null;
+  }
+
+  @Override
+  public Collection<? extends CvParamProvider> getAdditionalProperties() {
+    return null;
   }
 }

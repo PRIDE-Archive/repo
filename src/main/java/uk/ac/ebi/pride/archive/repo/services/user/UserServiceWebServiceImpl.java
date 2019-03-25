@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.pride.archive.repo.repos.project.ProjectRepository;
+import uk.ac.ebi.pride.archive.repo.repos.user.User;
 import uk.ac.ebi.pride.archive.repo.repos.user.UserRepository;
 import uk.ac.ebi.pride.archive.repo.repos.user.UserAAP;
 import uk.ac.ebi.pride.archive.repo.services.user.url.UserWebServiceUrl;
+import uk.ac.ebi.pride.archive.repo.util.ObjectMapper;
 import uk.ac.ebi.pride.web.util.template.SecureRestTemplateFactory;
 
 /**
@@ -17,7 +19,7 @@ import uk.ac.ebi.pride.web.util.template.SecureRestTemplateFactory;
  * @version $Id$
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceWebServiceImpl extends UserServiceImpl {
   private static final Logger logger = LoggerFactory.getLogger(UserServiceWebServiceImpl.class);
 
@@ -35,21 +37,23 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
   }
 
   @Override
-  public UserSummary signUp(UserSummary userSummary) throws UserModificationException {
+  public User signUp(UserSummary userSummary) throws UserModificationException {
     try {
-      userSummary = registerWithAAP(userSummary);
-      return restTemplate.postForObject(
-          userWebServiceUrl.getSignUpUrl(), userSummary, UserSummary.class);
-    } catch (Exception e) {
+      User user = registerWithAAP(userSummary);
+      super.signUp(userSummary);
+      return user;
+    }catch(UserModificationException ue){
+      throw ue;
+    }catch (Exception e) {
       String email = userSummary.getEmail();
-      String msg = "Failed to query web service to create a new user: " + email;
+      String msg = "Failed to create a new user in PRIDE DB: " + email;
       logger.error(msg, e);
       throw new UserModificationException(msg, e, email);
     }
   }
 
   @Override
-  public UserSummary registerWithAAP(UserSummary userSummary) throws UserModificationException {
+  public User registerWithAAP(UserSummary userSummary) throws UserModificationException {
     try {
       UserAAP userAAP = new UserAAP();
       userAAP.setEmail(userSummary.getEmail());
@@ -61,11 +65,12 @@ public class UserServiceWebServiceImpl extends UserServiceImpl {
       String userRef = restTemplate.postForObject(
               userWebServiceUrl.getAapRegisterUrl(), userAAP, String.class);
 
+
       userSummary.setUserRef(userRef);
-      return userSummary;
+      return ObjectMapper.mapUserSummaryToUser(userSummary);
     } catch (Exception e) {
       String email = userSummary.getEmail();
-      String msg = "Failed to query web service to create a new user: " + email;
+      String msg = "Failed to query web service to create a new user in AAP: " + email;
       logger.error(msg, e);
       throw new UserModificationException(msg, e, email);
     }

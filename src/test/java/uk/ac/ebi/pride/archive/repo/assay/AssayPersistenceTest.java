@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
 import uk.ac.ebi.pride.archive.repo.config.ArchiveOracleConfig;
 import uk.ac.ebi.pride.archive.repo.repos.assay.*;
 import uk.ac.ebi.pride.archive.repo.repos.assay.instrument.*;
@@ -304,7 +304,7 @@ public class AssayPersistenceTest {
     contact.setEmail(CONTACT_1_EMAIL);
     contact.setFirstName(CONTACT_1_FIRST_NAME);
     contact.setLastName(CONTACT_1_LAST_NAME);
-    contact.setTitle(Title.Mr);
+    contact.setTitle(TitleConstants.Mr);
     LinkedList<Contact> contacts = new LinkedList<>();
     contacts.add(contact);
     assay.setContacts(contacts);
@@ -517,7 +517,7 @@ public class AssayPersistenceTest {
     assertThat(contact.getEmail(), is(CONTACT_1_EMAIL));
     assertThat(contact.getFirstName(), is(CONTACT_1_FIRST_NAME));
     assertThat(contact.getLastName(), is(CONTACT_1_LAST_NAME));
-    assertThat(contact.getTitle(), is(Title.Mr));
+    assertThat(contact.getTitle(), is(TitleConstants.Mr));
   }
 
   private void checkOtherParams(Assay assay) {
@@ -643,7 +643,7 @@ public class AssayPersistenceTest {
     assertThat(contact.getEmail(), is(CONTACT_1_EMAIL));
     assertThat(contact.getFirstName(), is(CONTACT_1_FIRST_NAME));
     assertThat(contact.getLastName(), is(CONTACT_1_LAST_NAME));
-    assertThat(contact.getTitle(), is(Title.Mr));
+    assertThat(contact.getTitle(), is(TitleConstants.Mr));
   }
 
   private void checkParams(Assay assay) {

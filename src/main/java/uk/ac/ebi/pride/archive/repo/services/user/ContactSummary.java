@@ -1,7 +1,7 @@
 package uk.ac.ebi.pride.archive.repo.services.user;
 
-import uk.ac.ebi.pride.archive.dataprovider.person.ContactProvider;
-import uk.ac.ebi.pride.archive.dataprovider.person.Title;
+import uk.ac.ebi.pride.archive.dataprovider.user.ContactProvider;
+import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
 
 /**
  * @author Rui Wang
@@ -9,7 +9,7 @@ import uk.ac.ebi.pride.archive.dataprovider.person.Title;
  */
 public class ContactSummary implements ContactProvider {
 
-  private Title title;
+  private TitleConstants title;
   private String firstName;
   private String lastName;
   private String affiliation;
@@ -17,14 +17,14 @@ public class ContactSummary implements ContactProvider {
   private Long id;
 
   public ContactSummary() {
-    this.title = Title.UNKNOWN;
+    this.title = TitleConstants.UNKNOWN;
   }
 
-  public Title getTitle() {
+  public TitleConstants getTitle() {
     return title;
   }
 
-  public void setTitle(Title title) {
+  public void setTitle(TitleConstants title) {
     this.title = title;
   }
 
@@ -67,4 +67,20 @@ public class ContactSummary implements ContactProvider {
   public void setId(Long id) {
     this.id = id;
   }
+
+  @Override
+  public String getName() {
+    return firstName+" "+lastName;
+  }
+
+  @Override
+  public String getCountry() {
+    return null;
+  }
+
+  @Override
+  public String getOrcid() {
+    return null;
+  }
+
 }

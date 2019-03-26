@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jose A. Dianes
@@ -25,4 +26,7 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
   @Query("select p.accession from Project p where p.changed = 1")
   List<String> findAllAccessionsChanged();
+
+  @Query(value="select to_char(trunc(submission_date,'MM'),'MON-YY') MONTH ,count(*) from Project group by trunc(submission_date,'MM') order by trunc(submission_date,'MM') DESC",nativeQuery = true)
+  List<List<String>> findMonthlySubmissions();
 }

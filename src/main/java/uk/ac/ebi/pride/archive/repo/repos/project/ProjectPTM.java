@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import uk.ac.ebi.pride.archive.dataprovider.param.CvParamProvider;
 import uk.ac.ebi.pride.archive.repo.repos.param.CvParam;
 
@@ -24,10 +25,12 @@ public class ProjectPTM implements CvParamProvider {
   @Column(name = "project_ptm_pk")
   private Long id;
 
+  @JsonBackReference
   @NotNull
   @ManyToOne
   @JoinColumn(name = "project_fk", nullable = false)
   private Project project;
+
 
   @NotNull
   @ManyToOne(cascade = {CascadeType.MERGE})

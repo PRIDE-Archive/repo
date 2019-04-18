@@ -21,6 +21,9 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
   @Query("select p from Project p where p.submitter.id = ?1")
   List<Project> findAllBySubmitterId(Long submitterId);
 
+  @Query("select p from Project p where p.submitter.id = ?1 and p.publicProject = ?2")
+  List<Project> findFilteredBySubmitterIdAndIsPublic(Long submitterId, Boolean isPublic);
+
   @Query("select p.accession from Project p order by p.submissionDate")
   List<String> findAllAccessions();
 

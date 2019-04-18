@@ -1,5 +1,8 @@
 package uk.ac.ebi.pride.archive.repo.repos.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
@@ -28,7 +31,9 @@ public class User implements UserProvider {
   @Column(name = "user_pk")
   private Long id;
 
-  @NotNull private String password;
+  @JsonIgnore
+  @NotNull
+  private String password;
 
   @NotNull
   @Enumerated(EnumType.STRING)
@@ -79,6 +84,7 @@ public class User implements UserProvider {
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Authority> authorities;
 
+  @JsonBackReference
   @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "users")
   private Collection<Project> projects;
 

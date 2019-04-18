@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,11 +31,13 @@ public class Project implements ProjectProvider {
   @Column(name = "project_pk")
   private Long id;
 
+  @JsonManagedReference
   @NotNull
   @ManyToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "submitter_fk")
   private User submitter;
 
+  @JsonManagedReference
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(
     name = "project_users",
@@ -88,22 +91,27 @@ public class Project implements ProjectProvider {
   @Column(name = "other_omics_link")
   private String otherOmicsLink;
 
+  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<ProjectPTM> ptms;
 
+  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<Reference> references;
 
+  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<ProjectTag> projectTags;
 
+  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
   @LazyCollection(LazyCollectionOption.FALSE)
   private Collection<LabHead> labHeads;
 
+  @JsonManagedReference
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "project_fk", insertable = false, updatable = false)
   @LazyCollection(LazyCollectionOption.FALSE)

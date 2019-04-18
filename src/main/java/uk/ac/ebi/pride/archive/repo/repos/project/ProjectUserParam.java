@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import uk.ac.ebi.pride.archive.dataprovider.param.ParamProvider;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public abstract class ProjectUserParam implements ParamProvider {
   @Column(name = "param_pk")
   private Long id;
 
+  @JsonBackReference
   @NotNull
   @ManyToOne
   @JoinColumn(name = "project_fk", nullable = false)

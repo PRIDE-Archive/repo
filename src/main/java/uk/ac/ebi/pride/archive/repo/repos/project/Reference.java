@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import uk.ac.ebi.pride.archive.dataprovider.reference.ReferenceProvider;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Reference implements ReferenceProvider {
 
   private String doi;
 
+  @JsonBackReference
   @NotNull
   @ManyToOne
   @JoinColumn(name = "project_fk", nullable = false)

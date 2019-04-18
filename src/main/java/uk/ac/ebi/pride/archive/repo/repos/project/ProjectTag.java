@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import uk.ac.ebi.pride.archive.dataprovider.project.ProjectTagProvider;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class ProjectTag implements ProjectTagProvider {
 
   @NotNull private String tag;
 
+  @JsonBackReference
   @NotNull
   @ManyToOne
   @JoinColumn(name = "project_fk", nullable = false)

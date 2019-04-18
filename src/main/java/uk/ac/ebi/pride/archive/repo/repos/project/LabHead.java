@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import uk.ac.ebi.pride.archive.dataprovider.user.ContactProvider;
 import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
 
@@ -20,6 +21,7 @@ public class LabHead implements ContactProvider {
   @Column(name = "lab_head_pk")
   private Long id;
 
+  @JsonBackReference
   @ManyToOne
   @JoinColumn(name = "project_fk", nullable = false)
   private Project project;

@@ -1,5 +1,7 @@
 package uk.ac.ebi.pride.archive.repo.repos.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.LazyCollection;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @FilterDef(name = "paramType")
 @Table(name = "project")
 @SequenceGenerator(name = "ProjectSequence", sequenceName = "projectSequence", allocationSize = 100)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Project implements ProjectProvider {
 
   @Id
@@ -48,6 +51,7 @@ public class Project implements ProjectProvider {
 
   @NotNull private String accession;
 
+  @JsonIgnore
   private String doi;
 
   @NotNull private String title;

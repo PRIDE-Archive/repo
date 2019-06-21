@@ -287,7 +287,6 @@ public class AssaySummary implements AssayProvider {
     return goTerms;
   }
 
-  @Override
   public Collection<? extends ITuple<? extends CvParamProvider, ? extends CvParamProvider>> getSampleProperties() {
     return null;
   }

@@ -345,7 +345,7 @@ public class Assay implements AssayProvider {
     return result;
   }
 
-  @Override
+
   public Collection<? extends ITuple<? extends CvParamProvider, ? extends CvParamProvider>> getSampleProperties() {
     return null;
   }

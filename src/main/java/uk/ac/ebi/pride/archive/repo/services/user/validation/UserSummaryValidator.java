@@ -27,6 +27,7 @@ public class UserSummaryValidator implements Validator {
 
   public static final String EMAIL_ERROR_MESSAGE = "Valid email address is required";
   public static final String EMAIL_ALREADY_EXIST_ERROR_MESSAGE = "Email address already in use";
+  public static final String EMAIL_DOESNT_EXIST_ERROR_MESSAGE = "Email address not found";
   public static final String PASSWORD_ERROR_MESSAGE = "Password cannot be empty";
   public static final String USER_TITLE_ERROR_MESSAGE = "Title cannot be empty";
   public static final String FIRST_NAME_ERROR_MESSAGE = "First name cannot be empty";
@@ -62,6 +63,10 @@ public class UserSummaryValidator implements Validator {
 
   public void validateEmail(Object target, Errors errors) {
     rejectAlreadyExistEmail(errors, EMAIL_ALREADY_EXIST_ERROR_MESSAGE);
+  }
+
+  public void  validateEmailExists(Object target, Errors errors) {
+    rejectNoneExistingEmail(errors, EMAIL_DOESNT_EXIST_ERROR_MESSAGE);
   }
 
   public void validateContactDetails(Object target, Errors errors) {

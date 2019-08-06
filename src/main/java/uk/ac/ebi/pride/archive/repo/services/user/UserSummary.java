@@ -1,5 +1,6 @@
 package uk.ac.ebi.pride.archive.repo.services.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import uk.ac.ebi.pride.archive.dataprovider.utils.TitleConstants;
 import uk.ac.ebi.pride.archive.dataprovider.utils.RoleConstants;
 import uk.ac.ebi.pride.archive.dataprovider.user.UserProvider;
@@ -18,7 +19,10 @@ public class UserSummary implements UserProvider {
   private final Set<RoleConstants> userAuthorities = new HashSet<>();
   private Long id;
   private String email;
+
+  @JsonIgnore
   private String password;
+
   private TitleConstants title;
   private String firstName;
   private String lastName;

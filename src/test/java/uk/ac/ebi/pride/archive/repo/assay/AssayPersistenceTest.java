@@ -696,7 +696,7 @@ public class AssayPersistenceTest {
 
   private void checkIsSoftware1InDb(Software software) {
     assertThat(software.getId(), is(SOFTWARE_1_ID));
-    assertThat(software.getCustomization(), is(SOFTWARE_1_CUSTOMIZATION));
+    assertThat(software.getCustomization(), is(Collections.singletonList((SOFTWARE_1_CUSTOMIZATION))));
     assertThat(software.getName(), is(SOFTWARE_1_NAME));
     assertThat(software.getVersion(), is(SOFTWARE_1_VERSION));
 
@@ -711,7 +711,7 @@ public class AssayPersistenceTest {
   }
 
   private void checkIsAnotherSoftwareInDb(Software software) {
-    assertThat(software.getCustomization(), is(ANOTHER_SOFTWARE_CUSTOMIZATION));
+    assertThat(software.getCustomization(), is(Collections.singletonList(ANOTHER_SOFTWARE_CUSTOMIZATION)));
     assertThat(software.getName(), is(ANOTHER_SOFTWARE_NAME));
     assertThat(software.getVersion(), is(ANOTHER_SOFTWARE_VERSION));
 

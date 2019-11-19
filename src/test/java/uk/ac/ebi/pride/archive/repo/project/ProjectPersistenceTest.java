@@ -20,6 +20,7 @@ import uk.ac.ebi.pride.archive.repo.repos.user.UserRepository;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -150,15 +151,16 @@ public class ProjectPersistenceTest {
 
   private void checkIsProjectInDb(Project project) throws Exception {
     assertThat(project.getAccession(), is(PROJECT_1_ACCESSION));
-    assertThat(project.getDoi(), is(PROJECT_1_DOI));
+    assertThat(project.getDoi(), is(Optional.of(PROJECT_1_DOI)));
     assertThat(project.getTitle(), is(PROJECT_1_TITLE));
     assertThat(project.getProjectDescription(), is(PROJECT_1_DESCRIPTION));
     assertThat(project.getDataProcessingProtocol(), is(PROJECT_1_DATA_PROCESSING_PROTOCOL));
     assertThat(project.getSampleProcessingProtocol(), is(PROJECT_1_SAMPLE_PROCESSING_PROTOCOL));
-    assertThat(project.getKeywords(), is(PROJECT_1_KEYWORDS));
+    assertThat(String.join(",", project.getKeywords()),
+            is(PROJECT_1_KEYWORDS));
     assertThat(project.getNumAssays(), is(PROJECT_1_NUM_ASSAYS));
     assertThat(project.getReanalysis(), is(PROJECT_1_REANALYSIS));
-    assertThat(project.getSubmissionType(), is(SubmissionTypeConstants.COMPLETE));
+    assertThat(project.getSubmissionType(), is(SubmissionTypeConstants.COMPLETE.getName()));
 
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     assertThat(df.format(project.getSubmissionDate()), is("2010-05-22"));

@@ -178,7 +178,9 @@ public class Project implements ProjectProvider {
   }
 
   public Optional<String> getDoi() {
-    return Optional.of(doi);
+    if(doi != null)
+      return Optional.of(doi);
+    return Optional.empty();
   }
 
   public void setDoi(String doi) {
